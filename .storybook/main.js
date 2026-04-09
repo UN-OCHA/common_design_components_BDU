@@ -8,6 +8,7 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
   ],
+  staticDirs: ['../public'],
   framework: {
     name: '@storybook/html-vite',
     options: {},
