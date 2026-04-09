@@ -1,0 +1,210 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Colours" />
+
+export const Swatch = ({ color, name, hex, aa }) => (
+  <div style={{
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '120px',
+    marginBottom: '1rem',
+  }}>
+    <div style={{
+      width: '100px',
+      height: '60px',
+      backgroundColor: hex,
+      borderRadius: '6px',
+      border: hex === '#FFFFFF' ? '1px solid #E6E6E6' : 'none',
+    }} />
+    <strong style={{ fontSize: '13px', marginTop: '6px' }}>{name}</strong>
+    <code style={{ fontSize: '11px', color: '#737373' }}>{hex}</code>
+    {aa && <span style={{ fontSize: '10px', color: '#27833A', marginTop: '2px' }}>AA text</span>}
+  </div>
+);
+
+export const Ramp = ({ colors }) => (
+  <div style={{ display: 'flex', gap: '2px', marginBottom: '1.5rem' }}>
+    {colors.map(({ hex, label }) => (
+      <div key={hex} style={{
+        flex: 1,
+        height: '60px',
+        backgroundColor: hex,
+        borderRadius: '4px',
+        display: 'flex',
+        alignItems: 'flex-end',
+        padding: '4px',
+      }}>
+        <span style={{
+          fontSize: '9px',
+          color: hex.startsWith('#E') || hex.startsWith('#F') || hex.startsWith('#C') || hex.startsWith('#D') || hex === '#BFBFBF' ? '#262626' : '#FFFFFF',
+          fontFamily: 'monospace',
+        }}>{hex}</span>
+      </div>
+    ))}
+  </div>
+);
+
+# Colours
+
+OCHA adopted the **UN Blue** (Pantone 2925) as its primary colour. The full palette is the updated United Nations colour palette.
+
+> **A six-value ramp inspired by the UN blue will be sufficient for most design and infographic needs when combined with grey and black. Resist the temptation to add more colours.**
+>
+> — OCHA Branding Guidelines
+
+---
+
+## Primary brand colours
+
+<div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+  <Swatch name="UN Blue" hex="#009EDB" />
+  <Swatch name="Black" hex="#000000" />
+  <Swatch name="White" hex="#FFFFFF" />
+</div>
+
+The primary colour should be used predominantly in all OCHA visuals. Blue represents peace and evokes the clear, boundless sky shared by every person in every country.
+
+### Accessible text variants
+
+When using blue as text on a white background, the primary `#009EDB` does not meet WCAG AA contrast requirements. Use these darker variants instead:
+
+<div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+  <Swatch name="Blue AA" hex="#0077B8" aa />
+  <Swatch name="Blue AAA" hex="#005392" aa />
+</div>
+
+| Context | Use this colour | Token |
+|---|---|---|
+| Large fills, hero backgrounds, brand moments | `#009EDB` | `--brand-primary` |
+| **Text, links, buttons on white** | **`#0077B8`** | **`--brand-primary--text`** |
+| Critical text requiring maximum contrast | `#005392` | `--brand-primary--text-strong` |
+
+---
+
+## UN Blue ramp
+
+<Ramp colors={[
+  { hex: '#002E6E' },
+  { hex: '#004987' },
+  { hex: '#0074B7' },
+  { hex: '#009EDB' },
+  { hex: '#64BDEA' },
+  { hex: '#C5DFEF' },
+  { hex: '#E3EDF6' },
+]} />
+
+| Step | Hex | Token | Use |
+|---|---|---|---|
+| 1 (darkest) | `#002E6E` | `--cd-blue--darkest` | Data viz darkest value |
+| 2 | `#004987` | `--cd-blue--dark` / `--brand-primary--dark` | Hover, active states |
+| 3 | `#0074B7` | `--cd-blue--darker` | Mid-dark |
+| 4 **Primary** | `#009EDB` | `--cd-ocha-blue` / `--brand-primary` | Brand primary |
+| 5 | `#64BDEA` | `--cd-blue--bright` / `--brand-primary--light` | Light fills |
+| 6 | `#C5DFEF` | `--cd-blue--brighter` / `--brand-primary--lighter` | Surface tints |
+| 7 (lightest) | `#E3EDF6` | `--cd-blue--lightest` / `--brand-primary--lightest` | Subtle backgrounds |
+
+---
+
+## Accent colours
+
+Use as supplementary colours to complement your design. Most OCHA products can be achieved using only the primary blue combined with grey and black.
+
+<div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+  <Swatch name="Green" hex="#72BF44" />
+  <Swatch name="Yellow" hex="#FFC800" />
+  <Swatch name="Orange" hex="#F58220" />
+  <Swatch name="Red" hex="#ED1847" />
+  <Swatch name="Purple" hex="#A05FB4" />
+  <Swatch name="Grey" hex="#AEA29A" />
+  <Swatch name="Neutral Grey" hex="#999999" />
+</div>
+
+### Accessible text variants for accents
+
+<div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+  <Swatch name="Green AA" hex="#27833A" aa />
+  <Swatch name="Orange AA" hex="#CF3F0B" aa />
+  <Swatch name="Red AA" hex="#EB0045" aa />
+  <Swatch name="Red AAA" hex="#AB1D37" aa />
+  <Swatch name="Purple AA" hex="#9A58AF" aa />
+  <Swatch name="Purple AAA" hex="#733D96" aa />
+  <Swatch name="Grey AA" hex="#7C7067" aa />
+</div>
+
+---
+
+## Colour ramps
+
+Each accent colour has a 7-step ramp for use in maps, charts, and data visualisations.
+
+### Red ramp
+<Ramp colors={[
+  { hex: '#520000' }, { hex: '#780B20' }, { hex: '#A71F36' }, { hex: '#ED1847' },
+  { hex: '#F3859B' }, { hex: '#F9C0C5' }, { hex: '#F7DFDF' },
+]} />
+
+### Green ramp
+<Ramp colors={[
+  { hex: '#003425' }, { hex: '#004D35' }, { hex: '#006747' }, { hex: '#338C46' },
+  { hex: '#72BF44' }, { hex: '#CEE3A0' }, { hex: '#E6EFD0' },
+]} />
+
+### Orange ramp
+<Ramp colors={[
+  { hex: '#70200C' }, { hex: '#90371C' }, { hex: '#C15025' }, { hex: '#F58220' },
+  { hex: '#F9A870' }, { hex: '#FEDCBD' }, { hex: '#FFEAD5' },
+]} />
+
+### Yellow ramp
+<Ramp colors={[
+  { hex: '#815017' }, { hex: '#B16D03' }, { hex: '#CF9220' }, { hex: '#FFC800' },
+  { hex: '#FFDE2F' }, { hex: '#F8E66B' }, { hex: '#FAF0BB' },
+]} />
+
+### Purple ramp
+<Ramp colors={[
+  { hex: '#3E125B' }, { hex: '#5B2C86' }, { hex: '#763F98' }, { hex: '#A05FB4' },
+  { hex: '#BD8CBF' }, { hex: '#D5B4D6' }, { hex: '#E4D7E8' },
+]} />
+
+### Slate Grey ramp (warm)
+<Ramp colors={[
+  { hex: '#1B1B1A' }, { hex: '#493F38' }, { hex: '#6E6259' }, { hex: '#AEA29A' },
+  { hex: '#C5BFBA' }, { hex: '#DDDAD7' }, { hex: '#EDEAE6' },
+]} />
+
+### Neutral Grey ramp
+<Ramp colors={[
+  { hex: '#262626' }, { hex: '#4D4D4D' }, { hex: '#737373' }, { hex: '#999999' },
+  { hex: '#BFBFBF' }, { hex: '#E6E6E6' }, { hex: '#F2F2F2' },
+]} />
+
+---
+
+## Semantic colour tokens
+
+Components use these `--brand-*` tokens, not raw hex values. This ensures accessibility and enables retheming.
+
+| Token | Hex | Use |
+|---|---|---|
+| `--brand-primary` | `#009EDB` | Fills, backgrounds, brand moments |
+| `--brand-primary--text` | `#0077B8` | Text on white (AA-safe) |
+| `--brand-primary--text-strong` | `#005392` | Critical text (AAA-safe) |
+| `--brand-primary--dark` | `#004987` | Hover / active states |
+| `--brand-primary--light` | `#64BDEA` | Light fills |
+| `--brand-highlight` | `#ED1847` | Accent / CTA |
+| `--brand-highlight--text` | `#EB0045` | Accent text (AA-safe) |
+| `--brand-success` | `#27833A` | Success states |
+| `--brand-warning` | `#CF3F0B` | Warning states |
+| `--brand-error` | `#EB0045` | Error states |
+| `--brand-info` | `#0077B8` | Info states |
+| `--brand-grey` | `#F2F2F2` | Neutral surfaces |
+| `--brand-grey--text` | `#737373` | Muted text |
+| `--brand-default-text-color` | `#4D4D4D` | Body text |
+
+---
+
+## Source
+
+All colour values from [brand.unocha.org](https://brand.unocha.org/document/281801#/colours/colours) (updated UN palette adopted by OCHA, last modified Sep 2025).

@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Welcome" />
+
+# OCHA Design System
+
+The design system for the United Nations Office for the Coordination of Humanitarian Affairs. Based on the [Common Design](https://github.com/UN-OCHA/common_design), updated to the current [UN/OCHA visual identity](https://brand.unocha.org).
+
+---
+
+## Principles
+
+### Universal adaptability
+
+Adapt to any need, any time. The system is built for everyone, making it simple to tweak and use as their own. Whether adjusting for a specific mission or integrating into various operations, the design flexes to fit — no exceptions.
+
+### Impact driven
+
+Practicality first. Action and impact over everything. Focus on fast, clear solutions tailored to urgent contexts. Cut through complexity to deliver what's needed. The product works well where it matters most, not just fitting a design ideal.
+
+### Inclusive
+
+Leave no one behind. Balance comprehensive toolkits for building detailed solutions with simple, accessible inspiration for easier applications. Empower a wide audience to contribute effectively, universally beneficial without specifying the context of use.
+
+---
+
+## How to use this design system
+
+### For designers and communications staff
+
+Browse the **Foundations** section to see colours, typography, spacing, and logo rules. Each component page shows what it looks like, when to use it, and accessibility notes — all in plain language.
+
+### For developers
+
+Each component page includes ready-to-copy HTML and CSS. The entire token system is in one file: `tokens/brand.css`. Drop it into your project and every `--brand-*` variable is available.
+
+```html
+<link rel="stylesheet" href="path/to/brand.css">
+
+<button class="cd-button">
+  <span class="cd-button__text">Submit</span>
+</button>
+```
+
+### For AI-assisted development (Copilot / Claude / ChatGPT)
+
+Download the **OCHA Design System Rules** file from the [Building with AI](#) section and add it to your project:
+- **GitHub Copilot:** save as `.github/copilot-instructions.md`
+- **Claude Code:** save as `CLAUDE.md`
+- **ChatGPT:** paste into Custom Instructions
+
+The AI will then use OCHA components and brand colours instead of generic output.
+
+---
+
+## What's in this system
+
+| Section | What you'll find |
+|---|---|
+| **Foundations** | Colours (palette, ramps, accessible variants), Typography (families, scale), Spacing, Iconography, Logo rules |
+| **Components** | 46 `cd-*` UI components — buttons, alerts, cards, forms, tables, navigation, and more |
+| **Patterns** | Common page layouts — dashboard shell, report page, data viz container |
+| **Building with AI** | A copy-paste prompt file that makes Copilot/Claude respect the design system |
+
+---
+
+## Accessibility
+
+All components meet **WCAG 2.1 AA** as a minimum:
+- Every brand colour has a dedicated accessible text variant (AA and AAA where available)
+- Keyboard navigation and focus indicators on all interactive elements
+- Screen reader support via semantic HTML and ARIA attributes
+- RTL (right-to-left) support for Arabic and other RTL languages
+
+---
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)**
+- Team: [ochavisual@un.org](mailto:ochavisual@un.org)
+- Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))
+- Source code: [github.com/UN-OCHA/ocha-common-design-system-BDU](https://github.com/UN-OCHA/ocha-common-design-system-BDU)
+- Brand portal: [brand.unocha.org](https://brand.unocha.org)
