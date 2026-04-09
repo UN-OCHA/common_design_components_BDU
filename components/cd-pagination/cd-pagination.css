@@ -1,0 +1,46 @@
+/**
+ * CD Pagination
+ * Source: common_design/libraries/cd-pagination/cd-pagination.css
+ *
+ * Changes from CD:
+ *   - Uses --brand-* semantic tokens
+ */
+
+.cd-pager__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  clear: both;
+  padding: 0.5rem;
+  text-align: center;
+  list-style: none;
+}
+
+.cd-pager__item {
+  display: flex;
+  align-self: baseline;
+  margin: 0 0.25rem 0.25rem 0;
+}
+
+.cd-pager__item a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border: 1px solid var(--brand-grey);
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.cd-pager__item a:hover,
+.cd-pager__item a:focus {
+  color: white;
+  border-color: var(--brand-primary--dark);
+  background-color: var(--brand-primary--dark);
+}
+
+.cd-pager__item.is-active a {
+  color: white;
+  border-color: var(--brand-primary);
+  background-color: var(--brand-primary);
+  font-weight: 700;
+}

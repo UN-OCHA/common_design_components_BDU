@@ -1,0 +1,78 @@
+/**
+ * CD Tabs
+ * Source: common_design/libraries/cd-tabs/cd-tabs.css
+ *
+ * Full-width buttons on mobile, wrappable row of auto-width buttons
+ * once space allows. Works with all reading directions.
+ *
+ * Changes from CD:
+ *   - Uses --brand-* semantic tokens
+ */
+
+:root {
+  --cd-tabs-border-width: 2px;
+}
+
+/**
+ * Mobile tabs (default)
+ */
+.cd-tabs {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 1rem 0 2rem;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--cd-tabs-border-width) solid var(--brand-grey);
+}
+
+.cd-tabs > li {
+  display: block;
+  flex: 0 0 100%;
+  align-self: flex-end;
+  margin: 0;
+  margin-bottom: calc(var(--cd-tabs-border-width) * -1);
+}
+
+.cd-tabs > li > a {
+  display: block;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--brand-primary--dark);
+  border: 0 none;
+  border-bottom: var(--cd-tabs-border-width) solid var(--brand-grey);
+  border-radius: 0;
+  background: none;
+  font-weight: 700;
+}
+
+.cd-tabs > li > a.is-active,
+.cd-tabs > li > a:hover {
+  color: var(--brand-primary);
+  background-color: var(--brand-grey);
+}
+
+.cd-tabs > li > a:focus {
+  color: var(--cd-white);
+  outline: 3px solid var(--brand-highlight);
+  background: var(--brand-primary--dark);
+}
+
+/**
+ * Standard tabs — wrappable row at wider viewports
+ */
+@media (min-width: 576px) {
+  .cd-tabs {
+    gap: 0.5rem;
+  }
+  .cd-tabs > li {
+    flex-basis: auto;
+    margin-bottom: 0;
+  }
+  .cd-tabs > li > a {
+    padding: 0.25rem 1rem;
+    border-bottom: 0;
+  }
+}

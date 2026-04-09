@@ -1,0 +1,119 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Logo" />
+
+# OCHA Logo
+
+The OCHA logo is our visual signature and the cornerstone of a unified visual identity. It is a **wordmark** incorporating the UN globe-and-wreath emblem and the word "OCHA".
+
+---
+
+## Versions
+
+The logo comes in **4 versions** in blue and white. The horizontal logo is recommended for most information products.
+
+| Version | When to use |
+|---|---|
+| **Horizontal** (default) | Spaces with limited height or when horizontal alignment complements the layout. Ideal for narrow, wide spaces. |
+| **Vertical** | When vertical space is limited or a compact, centred alignment is more effective. Layouts with more height than width. |
+| **Spelled-out horizontal** | When the organisation may not be immediately recognised by its acronym. Ensure logo size is sufficient for text readability. |
+| **Spelled-out vertical** | Same as above, for vertical contexts. Only works at medium and large sizes. |
+
+---
+
+## Languages
+
+The OCHA logo is available in all six UN official languages: **Arabic, Chinese, English, French, Russian, and Spanish**.
+
+> **Always** use the official acronym **OCHA** as is, without translation. Only translate the spelled-out text where applicable.
+
+---
+
+## Minimum sizes
+
+To guarantee legibility in print and digital media, respect these minimums:
+
+| Version | Print | Digital |
+|---|---|---|
+| **Horizontal** | 20 mm | **57 px** |
+| **Vertical** | 10 mm | **28 px** |
+
+```css
+/* CSS tokens */
+--cd-logo-min-width-horizontal: 57px;
+--cd-logo-min-width-vertical: 28px;
+--brand-logo-mobile-width: 57px;    /* enforces minimum */
+--brand-logo-desktop-width: 186px;
+```
+
+---
+
+## Clear space
+
+A minimum amount of clear space must surround the logo, with no other visual element or type infringing.
+
+**Clear space = half the diameter of the UN globe emblem** on all sides.
+
+```css
+--cd-logo-clear-space-ratio: 0.5; /* 0.5 x globe diameter */
+```
+
+---
+
+## Background rules
+
+| Background | Logo version |
+|---|---|
+| White or light neutral (light grey, light brown, etc.) | **Blue (positive)** logo |
+| Dark (solid colour or simple dark image) | **White (negative)** logo |
+
+Always ensure enough contrast between the logo and its background.
+
+---
+
+## Do's and Don'ts
+
+### One OCHA
+
+The logo represents the entire organisation as well as individual offices. **Do not** add office names to the logo. Add them to the product's header or footer in an area separate from the logo.
+
+> No "OCHA Afghanistan". No "OCHA Regional Office for Asia-Pacific".
+
+### Never alter the logo
+
+The OCHA logo must **not** be:
+- Altered, distorted, or modified in any way
+- Recoloured outside of the official blue/white pair
+- Outlined, shadowed, or given graphic treatments
+- Translated in the acronym (only the spelled-out tagline may translate)
+- Placed on a busy image or background with low contrast
+- Resized disproportionately (always maintain aspect ratio)
+
+---
+
+## Pairing with other logos
+
+When pairing with logos of other entities:
+1. First match the **orientation** (horizontal or vertical)
+2. Then match the **size of the UN emblem** (or equivalent emblem on the other logo)
+3. If that makes one logo too large or small, match the **size of the type** instead
+
+For further assistance, contact the Design and Multimedia Unit: [ochavisual@un.org](mailto:ochavisual@un.org)
+
+---
+
+## Legal — UN Emblem restriction
+
+Use and display of the United Nations Emblem and OCHA logo is **highly restricted and essentially limited to the organisation's activities**.
+
+- **UN System Entities** (offices, departments, funds, programmes) do not need written authorisation for official use
+- **Entities outside the UN System** need permission via the Office of Legal Affairs (gld@un.org)
+- **Suppliers** may not use the UN name/emblem to advertise a contractual relationship
+
+Reference: UN General Assembly resolution 92(1) 1946.
+
+---
+
+## Source
+
+Logo guidelines from [brand.unocha.org](https://brand.unocha.org/document/281801#/ocha-logo/ocha-logo) (last modified Feb 2026).

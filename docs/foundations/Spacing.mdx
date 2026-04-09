@@ -1,0 +1,131 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Spacing" />
+
+export const SpaceBlock = ({ size, label, px }) => (
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
+    <code style={{ width: '260px', fontSize: '12px', color: '#737373' }}>{label}</code>
+    <div style={{
+      width: px + 'px',
+      height: '24px',
+      backgroundColor: '#009EDB',
+      borderRadius: '3px',
+      opacity: 0.7,
+    }} />
+    <span style={{ marginLeft: '8px', fontSize: '12px', color: '#4D4D4D' }}>{size} ({px}px)</span>
+  </div>
+);
+
+# Spacing
+
+The spacing system uses `rem` units relative to a 16px root. Container padding adapts to viewport width via breakpoints.
+
+---
+
+## Container padding
+
+The content area has responsive horizontal padding that grows with the viewport:
+
+<SpaceBlock label="--cd-container-padding (mobile)" size="0.75rem" px={12} />
+<SpaceBlock label="--cd-container-padding-tablet (≥768px)" size="1.5rem" px={24} />
+<SpaceBlock label="--cd-container-padding-xlarge (≥1200px)" size="2.5rem" px={40} />
+
+---
+
+## Content widths
+
+<SpaceBlock label="--cd-max-content-width" size="820px" px={820} />
+<SpaceBlock label="--cd-max-width" size="1220px" px={300} />
+<SpaceBlock label="--cd-max-body-width" size="1400px" px={340} />
+
+| Token | Value | Use |
+|---|---|---|
+| `--cd-max-content-width` | `820px` | Article / prose content column |
+| `--cd-max-width` | `1220px` | Main layout container |
+| `--cd-max-body-width` | `1400px` | Absolute page maximum |
+
+---
+
+## Vertical rhythm
+
+<SpaceBlock label="--cd-flow-space" size="1rem" px={16} />
+<SpaceBlock label="--cd-bumper-space" size="1rem" px={16} />
+
+The `cd-flow` utility class adds `margin-top: var(--cd-flow-space)` to all direct children except the first, creating consistent vertical spacing between stacked elements.
+
+```html
+<div class="cd-flow">
+  <p>First paragraph — no top margin.</p>
+  <p>Second paragraph — 1rem top margin.</p>
+  <p>Third paragraph — 1rem top margin.</p>
+</div>
+```
+
+---
+
+## Breakpoints
+
+| Token | Value | Name |
+|---|---|---|
+| `--cd-bp--sm` | `576px` | Small (landscape phones) |
+| `--cd-bp--md` | `768px` | Medium (tablets) |
+| `--cd-bp--lg` | `1024px` | Large (small laptops) |
+| `--cd-bp--xl` | `1200px` | Extra large (desktops) |
+| `--cd-bp--xxl` | `1400px` | Extra extra large (wide screens) |
+
+CSS custom properties cannot be used directly inside `@media` queries. Use the pixel values directly:
+
+```css
+/* Mobile-first: start with base styles, add complexity upward */
+.my-component {
+  padding: var(--cd-container-padding);
+}
+
+@media (min-width: 768px) {
+  .my-component {
+    padding: var(--cd-container-padding-tablet);
+  }
+}
+
+@media (min-width: 1200px) {
+  .my-component {
+    padding: var(--cd-container-padding-xlarge);
+  }
+}
+```
+
+---
+
+## Header heights
+
+| Token | Value |
+|---|---|
+| `--cd-global-header-height` | `35px` (UN global bar) |
+| `--cd-site-header-height` | `60px` (OCHA site header) |
+
+---
+
+## Z-index scale
+
+A fixed stacking order prevents z-index wars:
+
+| Token | Value | Layer |
+|---|---|---|
+| `--cd-z-hidden` | `-1` | Hidden / behind content |
+| `--cd-z-default` | `1` | Normal flow |
+| `--cd-z-sidebar-underlay` | `100` | Sidebar overlay backdrop |
+| `--cd-z-sidebar` | `110` | Sidebar panel |
+| `--cd-z-main-menu` | `199` | Main navigation menu |
+| `--cd-z-search` | `200` | Search overlay |
+| `--cd-z-dropdown` | `201` | Dropdown menus |
+| `--cd-z-skip-link` | `1000` | Accessibility skip link (always on top) |
+
+---
+
+## Accessibility
+
+| Token | Value | Use |
+|---|---|---|
+| `--cd-outline-size` | `3px` | Focus ring width for keyboard navigation |
+
+All interactive components use `outline: var(--cd-outline-size) solid var(--brand-primary--light)` on `:focus` to provide a visible, high-contrast focus indicator.

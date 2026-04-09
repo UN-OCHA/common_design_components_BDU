@@ -1,0 +1,90 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Building with AI" />
+
+# Building with AI
+
+OCHA staff increasingly use AI assistants (GitHub Copilot, Claude, ChatGPT) to build dashboards, websites, and tools. Without guidance, these tools produce generic output that doesn't follow the OCHA brand.
+
+The **OCHA Design System Rules** file solves this. Drop it into your project and your AI assistant will use OCHA components and brand colours instead of inventing its own.
+
+---
+
+## How to use
+
+### 1. Download the rules file
+
+The file lives in the repo root: [`OCHA_DESIGN_SYSTEM_RULES.md`](https://github.com/UN-OCHA/ocha-common-design-system-BDU/blob/main/OCHA_DESIGN_SYSTEM_RULES.md)
+
+### 2. Add it to your project
+
+| AI tool | Where to put the file | File name |
+|---|---|---|
+| **GitHub Copilot** (VS Code) | Project root → `.github/` folder | `copilot-instructions.md` |
+| **Claude Code** | Project root | `CLAUDE.md` |
+| **ChatGPT** | Paste contents into **Settings → Custom Instructions** | — |
+| **Cursor / Windsurf** | Project root | `.cursorrules` or `CLAUDE.md` |
+| **Any other AI** | Paste into the system prompt or context | — |
+
+### 3. Test it
+
+Open your AI tool in a blank project with the rules file and ask:
+
+> "Build me an OCHA dashboard card showing humanitarian response statistics."
+
+The output should use:
+- `cd-card` markup with BEM class names
+- OCHA Blue `#009EDB` for brand fills
+- Accessible text variant `#0077B8` for links/text on white
+- Roboto font family
+- Proper semantic HTML and ARIA attributes
+
+If it uses generic Bootstrap or Tailwind classes instead, the rules file isn't being loaded — check the file location.
+
+---
+
+## What the rules file contains
+
+A concise, machine-readable summary of the entire design system:
+
+- **Brand colours** — all hex values with token names and usage context
+- **Typography** — font families, type scale, banned fonts
+- **Component patterns** — HTML snippets for buttons, alerts, cards, tables
+- **Layout rules** — max widths, padding, breakpoints
+- **Accessibility requirements** — WCAG AA, keyboard nav, RTL, focus indicators
+- **Logo rules** — minimum sizes, clear space, background rules
+- **Explicit "do not" list** — common mistakes the AI should avoid
+
+---
+
+## Keeping it up to date
+
+The rules file is maintained alongside the design system in the same repo. When tokens or components change, the rules file is updated in the same commit.
+
+Always use the latest version from the repo rather than a copy you saved months ago:
+
+[Download latest OCHA_DESIGN_SYSTEM_RULES.md](https://github.com/UN-OCHA/ocha-common-design-system-BDU/blob/main/OCHA_DESIGN_SYSTEM_RULES.md)
+
+---
+
+## For advanced users: connecting Claude Code directly
+
+If you use Claude Code, you can add the design system repo as a reference in your project's `CLAUDE.md`:
+
+```markdown
+## Design System Reference
+
+Follow the OCHA Design System — Common Design.
+Full rules: https://github.com/UN-OCHA/ocha-common-design-system-BDU/blob/main/OCHA_DESIGN_SYSTEM_RULES.md
+Live reference: https://un-ocha.github.io/ocha-common-design-system-BDU/
+```
+
+Claude will fetch and follow the rules automatically.
+
+---
+
+## Questions or feedback
+
+Contact the OCHA Brand and Design Unit (BDU):
+- Team: [ochavisual@un.org](mailto:ochavisual@un.org)
+- Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

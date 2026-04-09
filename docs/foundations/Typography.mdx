@@ -1,0 +1,165 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Typography" />
+
+export const TypeSample = ({ family, weight, size, label, text }) => (
+  <div style={{ marginBottom: '1.5rem' }}>
+    <div style={{ fontSize: '11px', color: '#737373', marginBottom: '4px', fontFamily: 'monospace' }}>
+      {label} — {size} · {weight}
+    </div>
+    <div style={{ fontFamily: family, fontWeight: weight, fontSize: size, lineHeight: 1.3 }}>
+      {text || 'Civilians are not a target.'}
+    </div>
+  </div>
+);
+
+export const FontCard = ({ name, family, role, note }) => (
+  <div style={{
+    border: '1px solid #E6E6E6',
+    borderRadius: '8px',
+    padding: '1.25rem',
+    marginBottom: '1rem',
+    maxWidth: '360px',
+    display: 'inline-block',
+    verticalAlign: 'top',
+    marginRight: '1rem',
+  }}>
+    <div style={{ fontFamily: family, fontSize: '28px', fontWeight: 400, marginBottom: '0.5rem' }}>
+      Aa Bb Cc 123
+    </div>
+    <strong>{name}</strong>
+    <div style={{ fontSize: '13px', color: '#737373' }}>{role}</div>
+    {note && <div style={{ fontSize: '11px', color: '#EB0045', marginTop: '4px' }}>{note}</div>}
+  </div>
+);
+
+# Typography
+
+Typography plays an important role in infographics and communications products. OCHA uses open-source Google Fonts for compatibility and to avoid licensing issues.
+
+> **Roboto** and **Crimson Pro** are OCHA corporate fonts (for Latin alphabets).
+
+---
+
+## Primary typeface: Roboto
+
+Roboto is the primary font family, providing various weights each with regular and italic versions. It comes in four sub-families:
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+  <FontCard name="Roboto" family="Roboto, sans-serif" role="Primary — body text, UI, general use" />
+  <FontCard name="Roboto Slab" family="Roboto Slab, serif" role="Headings" />
+  <FontCard name="Roboto Condensed" family="Roboto Condensed, sans-serif" role="Infographics (save space)" />
+  <FontCard name="Roboto Mono" family="Roboto Mono, monospace" role="Small text, quote cards, photo credits" />
+</div>
+
+> **Do not** use Roboto Slab, Roboto Condensed, or Roboto Mono as body text.
+
+---
+
+## Secondary typeface: Crimson Pro
+
+<FontCard name="Crimson Pro" family="Crimson Pro, Georgia, serif" role="Print long-form body text" note="Use Crimson Pro, NOT Crimson Text" />
+
+Crimson Pro is an open-source serif font used to complement Roboto, especially in print production and long body text for readability.
+
+---
+
+## Common users — no install needed
+
+**Arial** is the font of choice for general use, as it ships with all major operating systems. Use Arial for any collaborative product needing frequent updates by multiple people (Word documents, spreadsheets, shared reports).
+
+> **Do not** use the Arial Narrow font family.
+
+---
+
+## Type scale
+
+The system uses a 9-step scale. All values are in `rem` relative to a 16px root.
+
+<TypeSample family="Roboto, sans-serif" weight="700" size="46px" label="--cd-font-size--2xlarge" text="Display heading" />
+<TypeSample family="Roboto, sans-serif" weight="700" size="38px" label="--cd-font-size--2xmedium" text="Page title (H1)" />
+<TypeSample family="Roboto, sans-serif" weight="700" size="30px" label="--cd-font-size--2xbase" text="Section heading (H2)" />
+<TypeSample family="Roboto, sans-serif" weight="700" size="26px" label="--cd-font-size--large" text="Sub-heading (H3)" />
+<TypeSample family="Roboto, sans-serif" weight="500" size="22px" label="--cd-font-size--medium" text="Sub-heading (H4)" />
+<TypeSample family="Roboto, sans-serif" weight="400" size="18px" label="--cd-font-size--base" text="Body text at desktop width. This is the standard paragraph size for content areas wider than 1024px." />
+<TypeSample family="Roboto, sans-serif" weight="400" size="16px" label="--cd-font-size--ref" text="Reference / default root size" />
+<TypeSample family="Roboto, sans-serif" weight="400" size="14px" label="--cd-font-size--small" text="Small body text, captions, metadata" />
+<TypeSample family="Roboto, sans-serif" weight="400" size="12px" label="--cd-font-size--tiny" text="Tiny text — labels, footnotes" />
+
+| Token | rem | px | Typical use |
+|---|---|---|---|
+| `--cd-font-size--2xlarge` | 2.875 | 46 | Display / hero |
+| `--cd-font-size--2xmedium` | 2.375 | 38 | H1 |
+| `--cd-font-size--2xbase` | 1.875 | 30 | H2 |
+| `--cd-font-size--large` | 1.625 | 26 | H3 |
+| `--cd-font-size--medium` | 1.375 | 22 | H4 |
+| `--cd-font-size--base` | 1.125 | 18 | Body (desktop) |
+| `--cd-font-size--ref` | 1 | 16 | Body (default root) |
+| `--cd-font-size--small` | 0.875 | 14 | Small text |
+| `--cd-font-size--tiny` | 0.75 | 12 | Tiny text |
+
+---
+
+## Social media fonts
+
+For social media assets, use these fonts:
+
+| Font | Use |
+|---|---|
+| **Montserrat** | Titles |
+| **Raleway** | Body text |
+| **Roboto Condensed** | Photo credit |
+
+---
+
+## Multilingual fonts
+
+| Language | Headings | Body text | Social media |
+|---|---|---|---|
+| **Arabic** | Noto Kufi Arabic | Dubai | Almarai |
+| **Chinese** | Noto Sans CJK SC | Noto Sans CJK SC | — |
+| **Russian** | Noto Sans | Noto Sans | — |
+
+---
+
+## Do's and Don'ts
+
+### Do not use these fonts
+
+| Font | Why |
+|---|---|
+| **Arial Narrow** | Not included by default with the OS. Licensed with MS Office. |
+| **Avenir** | Was the primary font before Roboto. Not default, licensed. |
+| **Minion Pro** | Was the secondary font before Crimson Pro. Not default, licensed. |
+| **Crimson Text** | Replaced by Crimson Pro which has more styles available. |
+
+---
+
+## CSS tokens reference
+
+```css
+/* Primary */
+--cd-font--roboto: "Roboto", helvetica, arial, sans-serif;
+--cd-font--roboto-slab: "Roboto Slab", helvetica, arial, sans-serif;
+--cd-font--roboto-condensed: "Roboto Condensed", helvetica, arial, sans-serif;
+--cd-font--roboto-mono: "Roboto Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+/* Secondary */
+--cd-font--crimson-pro: "Crimson Pro", Georgia, "Times New Roman", serif;
+
+/* Multilingual */
+--cd-font--noto-sans: "Noto Sans", sans-serif;
+--cd-font--noto-kufi-arabic: "Noto Kufi Arabic", sans-serif;
+--cd-font--noto-sans-sc: "Noto Sans SC", sans-serif;
+--cd-font--dubai: "Dubai", "Noto Sans Arabic", sans-serif;
+--cd-font--almarai: "Almarai", "Noto Sans Arabic", sans-serif;
+
+/* Fallback */
+--cd-font: helvetica, arial, sans-serif;
+```
+
+---
+
+## Source
+
+Font specifications from [brand.unocha.org](https://brand.unocha.org/document/281801#/fonts/fonts) (last modified Sep 2025).
