@@ -2,11 +2,171 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Welcome" />
 
-# OCHA Design System — Common Design
+<div style={{
+  padding: '64px 0 48px',
+  borderBottom: '1px solid #E5E5E5',
+  marginBottom: '48px',
+}}>
+  <div style={{
+    fontSize: '13px',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    color: '#0077B8',
+    fontWeight: 500,
+    marginBottom: '16px',
+  }}>
+    OCHA Design System
+  </div>
+  <h1 style={{
+    fontSize: '56px',
+    fontWeight: 300,
+    lineHeight: 1.1,
+    letterSpacing: '-0.02em',
+    color: '#161616',
+    margin: '0 0 20px',
+    borderTop: 'none',
+    paddingTop: 0,
+  }}>
+    Common Design
+  </h1>
+  <p style={{
+    fontSize: '20px',
+    lineHeight: 1.5,
+    color: '#525252',
+    maxWidth: '720px',
+    margin: 0,
+  }}>
+    The official design system for the United Nations Office for the Coordination of Humanitarian Affairs. Built on the Common Design (<code style={{background: '#F4F4F4', padding: '2px 6px', fontSize: '0.9em'}}>cd-*</code>) component library, updated to the current UN/OCHA visual identity.
+  </p>
+</div>
 
-The official design system for the United Nations Office for the Coordination of Humanitarian Affairs. Built on the [Common Design](https://github.com/UN-OCHA/common_design) (`cd-*`) component library, updated to the current [UN/OCHA visual identity](https://brand.unocha.org).
+{/* ============================================================
+    QUICK-LINK TILES
+    ============================================================ */}
 
----
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+  gap: '1px',
+  background: '#E5E5E5',
+  border: '1px solid #E5E5E5',
+  marginBottom: '64px',
+}}>
+  <a href="?path=/docs/foundations-colours--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    transition: 'background 0.15s',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Foundations
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      Colours
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      UN Blue palette, accent colours, accessible text variants.
+    </div>
+  </a>
+
+  <a href="?path=/docs/foundations-typography--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Foundations
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      Typography
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      Roboto family, type scale, multilingual fonts.
+    </div>
+  </a>
+
+  <a href="?path=/docs/foundations-spacing--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Foundations
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      Spacing & Layout
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      Container widths, breakpoints, grid rules.
+    </div>
+  </a>
+
+  <a href="?path=/docs/foundations-logo--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Foundations
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      Logo
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      OCHA logo usage, versions, languages, clear space.
+    </div>
+  </a>
+
+  <a href="?path=/docs/components-button--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Components
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      49 components
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      Buttons, alerts, cards, forms, navigation, and more.
+    </div>
+  </a>
+
+  <a href="?path=/docs/building-with-ai--docs" style={{
+    display: 'block',
+    padding: '32px 28px',
+    background: '#FFFFFF',
+    textDecoration: 'none',
+    borderBottom: 'none',
+    minHeight: '140px',
+  }}>
+    <div style={{fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '8px'}}>
+      Guides
+    </div>
+    <div style={{fontSize: '20px', fontWeight: 400, color: '#161616', marginBottom: '8px'}}>
+      Building with AI
+    </div>
+    <div style={{fontSize: '14px', color: '#525252', lineHeight: 1.5}}>
+      Use Copilot, Claude, or ChatGPT with OCHA guidelines.
+    </div>
+  </a>
+</div>
 
 ## Principles
 
@@ -22,17 +182,15 @@ Practicality first. Action and impact over everything. Focus on fast, clear solu
 
 Leave no one behind. Balance comprehensive toolkits for building detailed solutions with simple, accessible inspiration for easier applications. Empower a wide audience to contribute effectively, universally beneficial without specifying the context of use.
 
----
-
 ## How to use this design system
 
 ### For designers and communications staff
 
-Browse the **Foundations** section to see colours, typography, spacing, and logo rules. Each component page shows what it looks like, when to use it, and accessibility notes — all in plain language.
+Browse the **Foundations** section for colours, typography, spacing, and logo rules. Each component page shows what it looks like, when to use it, and accessibility notes — all in plain language.
 
 ### For developers
 
-Each component page includes ready-to-copy HTML and CSS. The entire token system is in one file: `tokens/brand.css`. Drop it into your project and every `--brand-*` variable is available.
+Each component page includes ready-to-copy HTML and CSS. The entire token system lives in one file: `tokens/brand.css`. Drop it into your project and every `--brand-*` variable is available.
 
 ```html
 <link rel="stylesheet" href="path/to/brand.css">
@@ -42,41 +200,29 @@ Each component page includes ready-to-copy HTML and CSS. The entire token system
 </button>
 ```
 
-### For AI-assisted development (Copilot / Claude / ChatGPT)
+### For AI-assisted development
 
-Download the **OCHA Design System Rules** file from the [Building with AI](#) section and add it to your project:
-- **GitHub Copilot:** save as `.github/copilot-instructions.md`
-- **Claude Code:** save as `CLAUDE.md`
-- **ChatGPT:** paste into Custom Instructions
+Download the **OCHA Design System Rules** file from the *Building with AI* page and add it to your project:
+
+- **GitHub Copilot** — save as `.github/copilot-instructions.md`
+- **Claude Code** — save as `CLAUDE.md`
+- **ChatGPT** — paste into Custom Instructions
 
 The AI will then use OCHA components and brand colours instead of generic output.
-
----
-
-## What's in this system
-
-| Section | What you'll find |
-|---|---|
-| **Foundations** | Colours (palette, ramps, accessible variants), Typography (families, scale), Spacing, Iconography, Logo rules |
-| **Components** | 46 `cd-*` UI components — buttons, alerts, cards, forms, tables, navigation, and more |
-| **Patterns** | Common page layouts — dashboard shell, report page, data viz container |
-| **Building with AI** | A copy-paste prompt file that makes Copilot/Claude respect the design system |
-
----
 
 ## Accessibility
 
 All components meet **WCAG 2.1 AA** as a minimum:
+
 - Every brand colour has a dedicated accessible text variant (AA and AAA where available)
 - Keyboard navigation and focus indicators on all interactive elements
 - Screen reader support via semantic HTML and ARIA attributes
 - RTL (right-to-left) support for Arabic and other RTL languages
 
----
-
 ## Maintained by
 
 **OCHA Brand and Design Unit (BDU)**
+
 - Team: [ochavisual@un.org](mailto:ochavisual@un.org)
 - Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))
 - Source code: [github.com/UN-OCHA/ocha-common-design-system-BDU](https://github.com/UN-OCHA/ocha-common-design-system-BDU)

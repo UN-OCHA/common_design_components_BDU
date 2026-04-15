@@ -1,0 +1,60 @@
+<!-- Google Fonts for Storybook manager UI (sidebar, toolbar) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!--
+  OCHA polish — Carbon-inspired sidebar refinement
+  Tightens spacing, softens hierarchy, uses brand colour only as accent
+-->
+<style>
+  /* Brand logo sizing (top of sidebar) */
+  [class*="Sidebar"] img[alt*="OCHA"],
+  [class*="sidebar"] img[alt*="OCHA"] {
+    max-height: 32px;
+    width: auto;
+  }
+
+  /* Sidebar section headers — quieter, uppercase, tracked */
+  button[data-nodetype="root"] > span,
+  [class*="SidebarItem"] [class*="Root"] {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #525252 !important;
+  }
+
+  /* Sidebar item hover — subtle grey, not full brand colour */
+  button[data-selected="false"]:hover {
+    background: #F4F4F4 !important;
+  }
+
+  /* Selected item — thin left accent bar in OCHA blue, not a full blue bg */
+  button[data-selected="true"] {
+    background: #E3EDF6 !important;
+    color: #0077B8 !important;
+    box-shadow: inset 3px 0 0 #009EDB !important;
+  }
+  button[data-selected="true"] svg {
+    color: #0077B8 !important;
+  }
+
+  /* Component names in sidebar — clear hierarchy */
+  button[data-nodetype="component"],
+  button[data-nodetype="document"],
+  button[data-nodetype="story"] {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Main heading/brand area — add breathing room */
+  [class*="Brand"], [class*="brand"] {
+    padding: 20px 16px !important;
+  }
+
+  /* Toolbar — thin bottom border like Carbon */
+  [class*="Bar"][class*="toolbar"] {
+    border-bottom: 1px solid #E5E5E5 !important;
+  }
+</style>
