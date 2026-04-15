@@ -136,6 +136,177 @@ All components use the `cd-` prefix with BEM naming. When building HTML, use the
 </table>
 ```
 
+### Hero
+```html
+<div class="cd-hero">
+  <div class="cd-hero__content">
+    <h1 class="cd-hero__title">Page title</h1>
+    <p class="cd-hero__subtitle">Supporting description.</p>
+  </div>
+</div>
+```
+
+### Page title / Block title
+```html
+<h1 class="cd-page-title">Page title</h1>
+<h2 class="cd-block-title">Section title</h2>
+```
+
+### Teaser
+```html
+<article class="cd-teaser">
+  <h3 class="cd-teaser__title"><a href="#">Teaser title</a></h3>
+  <p class="cd-teaser__body">Short description.</p>
+  <div class="cd-teaser__meta">Meta</div>
+</article>
+```
+
+### Article
+```html
+<article class="cd-article">
+  <h1 class="cd-article__title">Article title</h1>
+  <div class="cd-article__content">
+    <p>Long-form content paragraphs.</p>
+  </div>
+</article>
+```
+
+### Banner
+```html
+<div class="cd-banner">
+  <img class="cd-banner__image" src="banner.jpg" alt="">
+  <div class="cd-banner__overlay">
+    <h2 class="cd-banner__title">Banner heading</h2>
+  </div>
+</div>
+```
+
+### Form
+```html
+<form class="cd-form">
+  <div class="cd-form__item">
+    <label class="cd-form__label" for="name">Name</label>
+    <input class="cd-form__input" id="name" type="text">
+  </div>
+</form>
+```
+
+### Search
+```html
+<form class="cd-search" role="search">
+  <label class="cd-search__label" for="q">Search</label>
+  <input class="cd-search__input" id="q" type="search">
+  <button class="cd-search__submit" type="submit">Search</button>
+</form>
+```
+
+### Tabs
+```html
+<div class="cd-tabs">
+  <ul class="cd-tabs__list" role="tablist">
+    <li class="cd-tabs__item"><a href="#t1" role="tab" aria-selected="true">Tab 1</a></li>
+    <li class="cd-tabs__item"><a href="#t2" role="tab">Tab 2</a></li>
+  </ul>
+</div>
+```
+
+### Pagination
+```html
+<nav class="cd-pagination" aria-label="Pagination">
+  <ul class="cd-pagination__list">
+    <li><a class="cd-pagination__link" href="#" aria-current="page">1</a></li>
+    <li><a class="cd-pagination__link" href="#">2</a></li>
+  </ul>
+</nav>
+```
+
+### Grid
+```html
+<div class="cd-grid">
+  <div class="cd-grid__item">…</div>
+  <div class="cd-grid__item">…</div>
+  <div class="cd-grid__item">…</div>
+</div>
+```
+
+### Byline / Date
+```html
+<p class="cd-byline">By <span class="cd-byline__author">Author</span></p>
+<time class="cd-date" datetime="2026-04-15">15 April 2026</time>
+```
+
+### Caption
+```html
+<figure>
+  <img src="…" alt="…">
+  <figcaption class="cd-caption">Photo credit / caption text.</figcaption>
+</figure>
+```
+
+### Styled list / Bullet list
+```html
+<ul class="cd-styled-list">
+  <li>Item one</li>
+  <li>Item two</li>
+</ul>
+
+<ul class="cd-bullet-list">
+  <li>Highlighted bullet</li>
+  <li>Highlighted bullet</li>
+</ul>
+```
+
+### Link list
+```html
+<ul class="cd-link-list">
+  <li><a href="#">Link one</a></li>
+  <li><a href="#">Link two</a></li>
+</ul>
+```
+
+### Read more
+```html
+<a class="cd-read-more" href="#">Read more <span class="visually-hidden">about X</span></a>
+```
+
+### Table of contents (ToC)
+```html
+<nav class="cd-toc" aria-label="Table of contents">
+  <h2 class="cd-toc__title">On this page</h2>
+  <ul class="cd-toc__list">
+    <li><a href="#section-1">Section 1</a></li>
+  </ul>
+</nav>
+```
+
+### Disclosure (accordion)
+```html
+<details class="cd-disclosure">
+  <summary class="cd-disclosure__summary">Question</summary>
+  <div class="cd-disclosure__content"><p>Answer.</p></div>
+</details>
+```
+
+### Dropdown
+```html
+<div class="cd-dropdown">
+  <button class="cd-dropdown__toggle" aria-expanded="false">Menu</button>
+  <ul class="cd-dropdown__menu" hidden>
+    <li><a href="#">Option 1</a></li>
+  </ul>
+</div>
+```
+
+### Flow (vertical rhythm utility)
+```html
+<!-- Adds consistent spacing between direct children -->
+<div class="cd-flow">
+  <h2>Heading</h2>
+  <p>Paragraph with proper spacing above/below.</p>
+  <p>Next paragraph.</p>
+</div>
+```
+
 ---
 
 ## Layout rules
@@ -193,3 +364,12 @@ Always use **mobile-first** CSS: base styles for mobile, `@media (min-width: ...
 - Do NOT use Arial Narrow, Avenir, Minion Pro, or Crimson Text
 - Do NOT place the logo on busy backgrounds or below minimum size
 - Do NOT add more accent colours beyond the defined palette
+
+---
+
+## Reference
+
+Full component library, live examples, and props:
+**https://un-ocha.github.io/ocha-common-design-system-BDU/**
+
+When in doubt, open the relevant component's page there and match the HTML markup exactly.
