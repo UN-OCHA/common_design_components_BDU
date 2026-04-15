@@ -1,0 +1,40 @@
+/**
+ * CD Author
+ * Source: common_design/libraries/cd-author/cd-author.css
+ *
+ * Byline-style footer with author image + content text.
+ */
+
+.cd-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.cd-author__image {
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.cd-author__image img {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Rounded variant — requires a square image. */
+.cd-author__image--rounded img {
+  border-radius: 50%;
+}
+
+.cd-author__content {
+  color: var(--brand-default-text-color);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.cd-author__content a {
+  color: var(--brand-primary--text);
+}

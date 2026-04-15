@@ -1,0 +1,44 @@
+/**
+ * CD Bleed
+ * Source: common_design/libraries/cd-bleed/cd-bleed.css
+ *
+ * Lets a block escape its container and extend to the full viewport width,
+ * or apply a full-bleed background while keeping content aligned.
+ *
+ * Changes from CD:
+ *   - IE11 overflow hack removed
+ *   - --cd-bleed-scrollbar-width is set by cd-bleed.js at runtime
+ */
+
+:root {
+  /* Set by cd-bleed.js after load — cannot be computed in CSS alone. */
+  /* stylelint-disable-next-line length-zero-no-unit */
+  --cd-bleed-scrollbar-width: 0px;
+}
+
+/* Bleed content + background */
+.cd-bleed {
+  margin-right: calc(50% - 50vw + var(--cd-bleed-scrollbar-width) / 2);
+  margin-left: calc(50% - 50vw + var(--cd-bleed-scrollbar-width) / 2);
+}
+
+/* Bleed background only, keep content within container */
+.cd-bleed--background-only {
+  position: relative;
+  z-index: 1;
+  background-color: var(--brand-primary);
+}
+
+.cd-bleed--background-only::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  margin-right: calc(50% - 50vw + var(--cd-bleed-scrollbar-width) / 2);
+  margin-left: calc(50% - 50vw + var(--cd-bleed-scrollbar-width) / 2);
+  content: "";
+  background-color: inherit;
+}

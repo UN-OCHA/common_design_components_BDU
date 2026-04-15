@@ -1,0 +1,36 @@
+/**
+ * CD Image Grid
+ * Source: common_design/libraries/cd-image-grid/cd-image-grid.css
+ *
+ * Responsive grid of fixed-size image / icon cells.
+ *
+ * Changes from CD:
+ *   - Dropped @supports (display: flex) fallback and IE11 img shrink fix
+ *     (grid is baseline). Kept the CSS Grid rule.
+ */
+
+:root {
+  --cd-image-grid--item-size: 4rem;
+}
+
+.cd-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--cd-image-grid--item-size, 4rem), 1fr));
+  grid-gap: 1rem;
+}
+
+.cd-image-grid > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Padding = 1/16 of grid item size */
+  padding: calc(var(--cd-image-grid--item-size, 4rem) / 16);
+}
+
+.cd-image-grid img,
+.cd-image-grid svg {
+  width: inherit;
+  max-width: var(--cd-image-grid--item-size, 4rem);
+  height: inherit;
+  max-height: var(--cd-image-grid--item-size, 4rem);
+}

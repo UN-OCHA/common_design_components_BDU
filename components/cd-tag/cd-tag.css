@@ -1,0 +1,70 @@
+/**
+ * CD Tag
+ * Source: common_design/libraries/cd-tag/cd-tag.css
+ *
+ * Compact uppercase tag / chip. Uses `em` internally so changing
+ * font-size scales everything. Color comes from --cd-tag--color, so
+ * variant classes only need to set that one custom property.
+ *
+ * Changes from CD:
+ *   - Default colour switched from a legacy blue to --brand-primary
+ *   - Legacy ad-hoc accent colours kept as color-1..6 variants, but
+ *     remapped to the current brand accent palette (--cd-green / --cd-orange /
+ *     --cd-yellow / --cd-purple / --cd-blue--bright / --cd-red) so they
+ *     align with the refreshed system.
+ */
+
+:root {
+  --cd-tag--color: var(--brand-primary);
+}
+
+.cd-tags {
+  /* Container hook — override to gap / wrap children */
+}
+
+.cd-tag {
+  display: inline-block;
+  margin: 0.25rem;
+  padding: 0 0.25em;
+  text-align: center;
+  vertical-align: top;
+  text-transform: uppercase;
+  color: var(--cd-white);
+  background-color: var(--cd-tag--color);
+  font-size: 0.625em;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* Rounded corners */
+.cd-tag--rounded {
+  border-radius: 3px;
+}
+
+/* Linked tags */
+.cd-tag--linked a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.cd-tag--linked a:hover,
+.cd-tag--linked a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Size variants */
+.cd-tag--large { font-size: 1em; }
+.cd-tag--xl { font-size: 1.5em; }
+
+/* Colour variants (remapped to current brand accent palette) */
+.cd-tag--color-1 { --cd-tag--color: var(--cd-green); }
+.cd-tag--color-2 { --cd-tag--color: var(--cd-orange); }
+.cd-tag--color-3 {
+  --cd-tag--color: var(--cd-yellow);
+
+  color: var(--cd-black);
+}
+.cd-tag--color-4 { --cd-tag--color: var(--cd-green--aa); }
+.cd-tag--color-5 { --cd-tag--color: var(--cd-blue--bright); }
+.cd-tag--color-6 { --cd-tag--color: var(--cd-purple); }

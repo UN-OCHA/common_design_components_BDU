@@ -1,0 +1,72 @@
+/**
+ * CD Language Switcher
+ * Source: common_design/common_design_subtheme/libraries/cd-language-switcher/cd-language-switcher.css
+ *
+ * Compact list of languages. Behaves as a dropdown on mobile, expands to
+ * an inline list at >=800px. The dropdown mechanics come from cd-dropdown;
+ * this component only brings styling.
+ */
+
+.cd-language-switcher {
+  --dropdown: true;
+
+  margin: 0;
+  padding: 0;
+}
+
+.cd-language-switcher__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cd-language-switcher__link {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  color: var(--brand-primary--text);
+  font-size: 0.9375rem;
+}
+
+.cd-language-switcher__link:hover,
+.cd-language-switcher__link:focus {
+  text-decoration: underline;
+  color: var(--brand-primary--dark);
+}
+
+.cd-language-switcher__link.is-active {
+  color: var(--brand-default-text-color);
+  font-weight: 700;
+}
+
+/* Small-viewport dropdown styles */
+.cd-language-switcher__dropdown {
+  position: absolute;
+  z-index: var(--cd-z-dropdown);
+  inset-inline-end: 0;
+  padding: 0.5rem 1rem;
+  background: var(--cd-white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 800px) {
+  .cd-language-switcher {
+    --dropdown: false;
+  }
+
+  .cd-language-switcher__dropdown {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cd-language-switcher.cd-dropdown {
+    display: block;
+  }
+}
