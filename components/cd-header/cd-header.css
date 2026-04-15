@@ -1,0 +1,281 @@
+/**
+ * CD Header — composite
+ * Source: common_design/libraries/cd/cd-header/* (cd-header, cd-global-header,
+ * cd-site-header, cd-logo)
+ *
+ * Top-of-page composite with two stacked bars:
+ *   1. Global Header — dark brand-primary strip with user menu / search toggle
+ *   2. Site Header  — white strip with OCHA logo, site title and main menu
+ *
+ * Mobile (<1024px): main menu collapses behind a hamburger toggle and slides
+ * down as a drawer when the toggle is activated.
+ */
+
+.cd-header {
+  box-sizing: border-box;
+  font-family: var(--brand-font);
+  font-size: var(--cd-font-size--tiny);
+  font-weight: 300;
+}
+
+.cd-header *,
+.cd-header *::before,
+.cd-header *::after {
+  box-sizing: inherit;
+}
+
+/* =========================================================================
+ * Global Header — dark blue strip
+ * ========================================================================= */
+.cd-global-header {
+  position: relative;
+  height: var(--cd-global-header-height);
+  color: var(--cd-white);
+  background: var(--brand-primary);
+}
+
+.cd-global-header__inner {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+  padding: 0 var(--cd-container-padding);
+}
+
+.cd-global-header__brand {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: var(--cd-white);
+}
+
+.cd-global-header__brand img {
+  display: block;
+  height: 18px;
+  width: auto;
+}
+
+.cd-global-header__actions {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0;
+}
+
+/* =========================================================================
+ * Site Header — white strip with logo, title, nav
+ * ========================================================================= */
+.cd-site-header {
+  color: var(--brand-default-text-color);
+  border-bottom: 6px solid var(--brand-grey);
+  background: var(--cd-white);
+}
+
+.cd-site-header__inner {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--cd-site-header-height);
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+  padding: 0 var(--cd-container-padding);
+}
+
+.cd-site-header__logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 var(--brand-logo-mobile-width);
+  height: var(--cd-site-header-height);
+  text-decoration: none;
+}
+
+.cd-site-header__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 40px;
+}
+
+@media (min-width: 768px) {
+  .cd-site-header__logo {
+    flex: 0 0 var(--brand-logo-desktop-width);
+  }
+}
+
+.cd-site-header__title {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0 1rem;
+  font-family: var(--brand-font-heading);
+  font-size: var(--cd-font-size--medium);
+  font-weight: 700;
+  color: var(--brand-primary--text-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cd-site-header__actions {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+/* =========================================================================
+ * Header buttons (search toggle, menu toggle)
+ * ========================================================================= */
+.cd-header__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--brand-default-text-color);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cd-header__btn:hover,
+.cd-header__btn:focus {
+  background: var(--brand-grey);
+  outline: none;
+}
+
+.cd-header__btn:focus-visible {
+  outline: var(--cd-outline-size) solid var(--brand-primary--light);
+  outline-offset: calc(0px - var(--cd-outline-size));
+}
+
+.cd-header__btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.cd-header__btn[aria-expanded="true"] {
+  background: var(--brand-grey);
+}
+
+/* Hide hamburger on desktop */
+.cd-header__menu-toggle {
+  display: inline-flex;
+}
+
+@media (min-width: 1024px) {
+  .cd-header__menu-toggle {
+    display: none;
+  }
+}
+
+/* =========================================================================
+ * Search panel — slides under the header when toggled
+ * ========================================================================= */
+.cd-header__search {
+  display: none;
+  padding: 1rem var(--cd-container-padding);
+  background: var(--brand-grey);
+  border-bottom: 1px solid var(--brand-grey--border);
+}
+
+.cd-header__search[data-cd-hidden="false"] {
+  display: block;
+}
+
+.cd-header__search-form {
+  display: flex;
+  gap: 8px;
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+}
+
+.cd-header__search-input {
+  flex: 1 1 auto;
+  padding: 8px 12px;
+  font-family: var(--brand-font);
+  font-size: var(--cd-font-size--ref);
+  border: 1px solid var(--brand-grey--border);
+  background: var(--cd-white);
+  color: var(--brand-default-text-color);
+}
+
+.cd-header__search-submit {
+  padding: 8px 16px;
+  font-family: var(--brand-font);
+  font-size: var(--cd-font-size--small);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cd-white);
+  background: var(--brand-primary);
+  border: 0;
+  cursor: pointer;
+}
+
+.cd-header__search-submit:hover,
+.cd-header__search-submit:focus {
+  background: var(--brand-primary--dark);
+}
+
+/* =========================================================================
+ * Main nav holder — drawer on mobile, inline on desktop
+ * ========================================================================= */
+.cd-header__nav {
+  display: none;
+  background: var(--cd-white);
+}
+
+.cd-header__nav[data-cd-hidden="false"] {
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .cd-header__nav[data-cd-hidden="false"] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: var(--cd-z-main-menu);
+    border-bottom: 6px solid var(--brand-grey);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cd-header__nav,
+  .cd-header__nav[data-cd-hidden="true"] {
+    display: block;
+    flex: 0 0 auto;
+  }
+}
+
+/* =========================================================================
+ * Hamburger icon
+ * ========================================================================= */
+.cd-header__hamburger {
+  position: relative;
+  width: 20px;
+  height: 14px;
+}
+
+.cd-header__hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+}
+
+.cd-header__hamburger span:nth-child(1) { top: 0; }
+.cd-header__hamburger span:nth-child(2) { top: 6px; }
+.cd-header__hamburger span:nth-child(3) { top: 12px; }

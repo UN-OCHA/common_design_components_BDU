@@ -1,0 +1,95 @@
+/**
+ * CD Menu — main navigation
+ * Source: common_design/libraries/cd/cd-header/cd-nav.css (subset)
+ *
+ * Renders the primary menu list as a row of uppercase links on desktop, with a
+ * red highlight underline for active/hover state. On mobile, displays as a
+ * vertical stack inside the cd-header drawer.
+ */
+
+.cd-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cd-menu__item {
+  position: relative;
+  display: block;
+}
+
+.cd-menu__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--cd-site-header-height);
+  padding: 0 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--cd-font-size--small);
+  color: var(--brand-default-text-color);
+  background: transparent;
+  transition: background 0.3s ease;
+  border: 0;
+  cursor: pointer;
+}
+
+.cd-menu__link::before {
+  position: absolute;
+  right: -1px;
+  bottom: -6px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: 6px;
+  content: "";
+  transition: background 0.3s ease;
+  background: transparent;
+}
+
+.cd-menu__link:hover,
+.cd-menu__link:focus {
+  color: var(--brand-default-text-color);
+  background: var(--brand-grey);
+  outline: none;
+}
+
+.cd-menu__link:focus-visible {
+  outline: var(--cd-outline-size) solid var(--brand-primary--light);
+  outline-offset: calc(0px - var(--cd-outline-size));
+}
+
+.cd-menu__link.is-active::before,
+.cd-menu__item--active-trail > .cd-menu__link::before {
+  background: var(--brand-highlight);
+}
+
+/* Mobile: stack items vertically */
+@media (max-width: 1023px) {
+  .cd-menu {
+    display: block;
+  }
+
+  .cd-menu__link {
+    height: 48px;
+    padding: 0 30px;
+  }
+
+  .cd-menu__link::before {
+    bottom: auto;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 6px;
+    height: 100%;
+  }
+}
+
+/* Desktop: row layout */
+@media (min-width: 1024px) {
+  .cd-menu {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+}

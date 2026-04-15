@@ -1,0 +1,104 @@
+/**
+ * CD User Menu
+ * Source: common_design/libraries/cd/cd-header/cd-user-menu.css
+ *
+ * Account/profile dropdown rendered inside the dark `cd-global-header` strip.
+ * Uses the brand primary blue background and white text, with a small dropdown
+ * panel that opens on click.
+ */
+
+.cd-user-menu {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cd-user-menu > li {
+  position: relative;
+}
+
+.cd-user-menu__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--cd-global-header-height);
+  padding: 0 1rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--cd-white);
+  background: var(--brand-primary);
+  border: 0;
+  cursor: pointer;
+  font-size: var(--cd-font-size--tiny);
+  line-height: var(--cd-global-header-height);
+  transition: background 0.3s ease;
+}
+
+.cd-user-menu__btn:hover,
+.cd-user-menu__btn:focus {
+  text-decoration: underline;
+  color: var(--cd-white);
+}
+
+.cd-user-menu__btn:focus-visible {
+  outline: var(--cd-outline-size) solid var(--brand-primary--light);
+  outline-offset: calc(0px - var(--cd-outline-size));
+}
+
+.cd-user-menu__btn-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-inline-end: 8px;
+  fill: var(--cd-white);
+}
+
+.cd-user-menu__btn-arrow {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-inline-start: 6px;
+  fill: var(--cd-white);
+  transition: transform 0.2s ease;
+}
+
+.cd-user-menu__btn[aria-expanded="true"] .cd-user-menu__btn-arrow {
+  transform: rotate(180deg);
+}
+
+.cd-user-menu__dropdown {
+  position: absolute;
+  z-index: var(--cd-z-dropdown);
+  top: 100%;
+  right: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  background: var(--brand-primary);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cd-user-menu__btn[aria-expanded="false"] + .cd-user-menu__dropdown {
+  display: none;
+}
+
+.cd-user-menu__dropdown a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: var(--cd-white);
+  font-size: var(--cd-font-size--tiny);
+  line-height: 1.5;
+}
+
+.cd-user-menu__dropdown a:hover,
+.cd-user-menu__dropdown a:focus-visible {
+  text-decoration: underline;
+}
+
+.cd-user-menu__dropdown a:focus-visible {
+  outline: var(--cd-outline-size) solid var(--brand-primary--light);
+  outline-offset: calc(0px - var(--cd-outline-size));
+}

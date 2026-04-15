@@ -1,0 +1,280 @@
+/**
+ * CD Footer — composite
+ * Source: common_design/libraries/cd/cd-footer/* (cd-footer, cd-footer-menu,
+ * cd-footer-social, cd-footer-mandate, cd-footer-copyright)
+ *
+ * Bottom-of-page composite with three logical zones:
+ *   - Mandate / branding (left)
+ *   - Footer menu of legal links (middle)
+ *   - Social links (right)
+ *   - Copyright row beneath
+ *
+ * Brand primary blue background, white type. Stacks vertically below 1024px.
+ */
+
+.cd-footer {
+  box-sizing: border-box;
+  padding: 3rem 0 0;
+  text-align: center;
+  font-family: var(--brand-font);
+  font-size: var(--cd-font-size--tiny);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--cd-white);
+  background: var(--brand-primary);
+}
+
+.cd-footer *,
+.cd-footer *::before,
+.cd-footer *::after {
+  box-sizing: inherit;
+}
+
+.cd-footer a {
+  text-decoration: none;
+  color: var(--cd-white);
+}
+
+.cd-footer a:hover,
+.cd-footer a:focus-visible {
+  text-decoration: underline;
+  color: var(--cd-white);
+}
+
+.cd-footer a:focus-visible {
+  outline: var(--cd-outline-size) solid var(--brand-primary--light);
+  outline-offset: 4px;
+}
+
+.cd-footer__inner {
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+  padding: 0 var(--cd-container-padding);
+}
+
+.cd-footer__section {
+  width: 100%;
+  margin: 0 auto;
+  padding-block-end: 3rem;
+}
+
+@media (min-width: 768px) {
+  .cd-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cd-footer__section--menu,
+  .cd-footer__section--social,
+  .cd-footer__section--mandate,
+  .cd-footer__section--copyright {
+    flex: 1 0 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cd-footer__section--menu {
+    flex: 1 0 60%;
+    text-align: start;
+  }
+
+  .cd-footer__section--social {
+    flex: 0 1 30%;
+    text-align: end;
+  }
+
+  .cd-footer__section--mandate {
+    flex: 1 0 50%;
+    max-width: 780px;
+    text-align: start;
+  }
+
+  .cd-footer__section--copyright {
+    flex: 0 1 350px;
+    text-align: end;
+  }
+}
+
+/* =========================================================================
+ * Footer menu — list of legal links
+ * ========================================================================= */
+.cd-footer-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.cd-footer-menu__item {
+  display: block;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .cd-footer-menu__item {
+    display: inline-block;
+    margin: 0 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cd-footer-menu__item {
+    margin: 0;
+    margin-inline-end: 32px;
+  }
+}
+
+/* =========================================================================
+ * Mandate
+ * ========================================================================= */
+.cd-mandate {
+  width: 100%;
+  text-align: center;
+}
+
+.cd-mandate__heading {
+  display: block;
+  margin: 0 0 16px;
+  padding: 0 var(--cd-container-padding);
+  font-family: var(--brand-font-heading);
+  font-size: var(--cd-font-size--small);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cd-white);
+  letter-spacing: 0.05em;
+}
+
+.cd-mandate__logo {
+  display: block;
+  width: 149px;
+  height: auto;
+  margin: 0 auto 1rem;
+}
+
+.cd-mandate__text {
+  display: block;
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 0 var(--cd-container-padding);
+}
+
+@media (min-width: 1024px) {
+  .cd-mandate {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: var(--cd-container-padding);
+    text-align: start;
+  }
+
+  .cd-mandate__heading {
+    flex: 1 0 100%;
+    padding: 0;
+    text-align: initial;
+  }
+
+  .cd-mandate__logo {
+    flex: 0 0 calc(149px + var(--cd-container-padding));
+    margin: 0;
+    padding-inline-end: var(--cd-container-padding);
+    border-inline-end: 1px solid var(--brand-grey);
+  }
+
+  .cd-mandate__text {
+    flex: 1 1 0;
+    margin: 0;
+    padding: 0 var(--cd-container-padding-xlarge) 0 0;
+    text-align: initial;
+  }
+}
+
+/* =========================================================================
+ * Social links
+ * ========================================================================= */
+.cd-footer-social__heading {
+  margin: 0 0 1rem;
+  font-family: var(--brand-font-heading);
+  font-size: var(--cd-font-size--small);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cd-white);
+  letter-spacing: 0.05em;
+}
+
+.cd-footer-social__list {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 1024px) {
+  .cd-footer-social__list {
+    justify-content: flex-end;
+  }
+}
+
+.cd-footer-social__item {
+  flex: 0 0 26px;
+}
+
+a.cd-footer-social__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  line-height: 0;
+}
+
+a.cd-footer-social__link svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--cd-white);
+  transition: opacity 0.2s ease;
+}
+
+a.cd-footer-social__link:hover svg,
+a.cd-footer-social__link:focus svg {
+  opacity: 0.7;
+}
+
+/* =========================================================================
+ * Copyright
+ * ========================================================================= */
+.cd-footer-copyright {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .cd-footer-copyright {
+    justify-content: flex-end;
+    margin: 0;
+    margin-top: 34px;
+    text-align: end;
+  }
+}
+
+.cd-footer-copyright__link {
+  line-height: 0;
+}
+
+.cd-footer-copyright__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+}
+
+.cd-footer-copyright__text {
+  margin: 0;
+  font-size: var(--cd-font-size--tiny);
+}
