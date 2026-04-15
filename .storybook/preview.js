@@ -18,7 +18,7 @@ const preview = {
         order: [
           'Welcome',
           'Foundations',
-          ['Colours', 'Typography', 'Spacing', 'Logo'],
+          ['Colours', 'Typography', 'Spacing', 'Logo', 'Data visualization'],
           'Components',
           'Building with AI',
         ],

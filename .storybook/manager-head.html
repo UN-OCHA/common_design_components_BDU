@@ -53,8 +53,19 @@
     padding: 20px 16px !important;
   }
 
-  /* Toolbar — OCHA Blue band with darker bottom edge */
+  /* Brand accents — thin OCHA Blue stripe at top of toolbar + right edge of sidebar.
+     Subtle chrome, not a full brand band. */
   [class*="Bar"][class*="toolbar"] {
-    border-bottom: 1px solid #0077B8 !important;
+    border-top: 2px solid #009EDB !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+  }
+
+  /* Sidebar right edge — matching 2px OCHA Blue rule.
+     Storybook's sidebar is rendered as a <nav> inside the manager layout. */
+  #storybook-explorer-menu,
+  nav.sidebar-container,
+  [class*="sidebar-container"],
+  nav[aria-label*="Storybook"] {
+    border-right: 2px solid #009EDB !important;
   }
 </style>

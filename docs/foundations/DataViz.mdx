@@ -1,0 +1,358 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization" />
+
+export const Principle = ({ num, title, children }) => (
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: '48px 1fr',
+    gap: '20px',
+    padding: '24px 0',
+    borderTop: '1px solid #E5E5E5',
+  }}>
+    <div style={{
+      fontSize: '32px',
+      fontWeight: 300,
+      color: '#009EDB',
+      lineHeight: 1,
+    }}>{num}</div>
+    <div>
+      <h3 style={{ margin: '0 0 8px', fontSize: '20px', fontWeight: 500, color: '#161616' }}>{title}</h3>
+      <div style={{ fontSize: '15px', lineHeight: 1.6, color: '#393939' }}>{children}</div>
+    </div>
+  </div>
+);
+
+export const ChartCard = ({ name, use, avoid, rules }) => (
+  <div style={{
+    border: '1px solid #E5E5E5',
+    padding: '20px 24px',
+    background: '#FFFFFF',
+  }}>
+    <div style={{ fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '6px' }}>
+      Chart type
+    </div>
+    <h4 style={{ margin: '0 0 12px', fontSize: '18px', fontWeight: 500, color: '#161616' }}>{name}</h4>
+    <div style={{ fontSize: '14px', lineHeight: 1.5, color: '#393939', marginBottom: '12px' }}>
+      <strong style={{ color: '#27833A' }}>Use when:</strong> {use}
+    </div>
+    {avoid && (
+      <div style={{ fontSize: '14px', lineHeight: 1.5, color: '#393939', marginBottom: '12px' }}>
+        <strong style={{ color: '#EB0045' }}>Avoid:</strong> {avoid}
+      </div>
+    )}
+    {rules && (
+      <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', lineHeight: 1.6, color: '#525252' }}>
+        {rules.map((r, i) => <li key={i}>{r}</li>)}
+      </ul>
+    )}
+  </div>
+);
+
+export const Swatch = ({ hex, name, sub }) => (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  }}>
+    <div style={{
+      width: '100%',
+      height: '72px',
+      background: hex,
+      border: hex.toUpperCase() === '#FFFFFF' ? '1px solid #E5E5E5' : 'none',
+    }} />
+    <strong style={{ fontSize: '13px', marginTop: '8px', color: '#161616' }}>{name}</strong>
+    <code style={{ fontSize: '11px', color: '#737373' }}>{hex}</code>
+    {sub && <span style={{ fontSize: '11px', color: '#525252', marginTop: '2px' }}>{sub}</span>}
+  </div>
+);
+
+export const Rule = ({ kind, children }) => (
+  <div style={{
+    display: 'flex',
+    gap: '12px',
+    padding: '12px 0',
+    borderBottom: '1px solid #F4F4F4',
+    fontSize: '14px',
+    lineHeight: 1.55,
+    color: '#393939',
+  }}>
+    <span style={{
+      display: 'inline-block',
+      minWidth: '42px',
+      fontSize: '11px',
+      fontWeight: 600,
+      letterSpacing: '0.06em',
+      color: kind === 'do' ? '#27833A' : '#EB0045',
+      textTransform: 'uppercase',
+      paddingTop: '2px',
+    }}>{kind === 'do' ? 'Do' : "Don't"}</span>
+    <span>{children}</span>
+  </div>
+);
+
+# Data visualization
+
+How OCHA turns humanitarian data into clear, accurate, accessible visuals. These rules come from 10+ years of OCHA's **VIZCOM** training (700+ staff trained) and are codified in the [Humanitarian Dataviz Tool](https://brand.unocha.org) used daily by the Brand and Design Unit.
+
+<div style={{ padding: '20px 24px', background: '#F4F4F4', borderLeft: '3px solid #009EDB', margin: '32px 0' }}>
+  <strong style={{ fontSize: '14px', color: '#161616' }}>The rule that underlies every other rule</strong>
+  <p style={{ margin: '6px 0 0', fontSize: '15px', lineHeight: 1.55, color: '#393939' }}>
+    Every chart must carry <strong>Data</strong>, <strong>Story</strong>, and <strong>Design</strong>. Reliable data without a story is noise. A story without reliable data is misleading. Both without design is forgettable.
+  </p>
+</div>
+
+## The three design principles
+
+<Principle num="1" title="Simplification — remove until only the message remains">
+  Strip background fills, chart borders, gridlines, legends, 3D effects, drop shadows, and any decoration that doesn't carry meaning. Round numbers (use <code>k / M / B</code>), use direct labelling instead of legends, and let whitespace do the separating.
+</Principle>
+
+<Principle num="2" title="Visual hierarchy — the most important thing must look the most important">
+  Create hierarchy with **size, contrast, and position**. Big numbers before small numbers. One accent colour against neutral greys. Primary content top-left, support content bottom-right. Readers scan in a Z-path — respect it.
+</Principle>
+
+<Principle num="3" title="Layout — grid, alignment, proximity, consistency">
+  Build on a 12-column grid. Align everything to the grid — no free-floating elements. Group related elements close together, separate unrelated ones with space (or a single hairline). Use the same spacing, the same type styles, the same chart styles across every page of a product. Consistency is not boring — it's what makes a reader trust you.
+</Principle>
+
+## Choosing the right chart
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+  gap: '1px',
+  background: '#E5E5E5',
+  border: '1px solid #E5E5E5',
+  margin: '24px 0',
+}}>
+
+<ChartCard
+  name="Text (key figures)"
+  use="A single number is the headline. The most fundamental — and most under-used — dataviz format."
+  rules={[
+    'Round to k / M / B; avoid decimals unless precision matters.',
+    'Pair with a one-line label and a humanitarian icon.',
+    'Include a dated source line.',
+  ]}
+/>
+
+<ChartCard
+  name="Horizontal bar"
+  use="Comparing values across categories with long labels (countries, sectors, organizations)."
+  rules={[
+    'Sort by value (largest to smallest) unless the order is semantic.',
+    'Always start at a zero baseline.',
+    'Direct-label the bars — no legend, no gridlines.',
+  ]}
+/>
+
+<ChartCard
+  name="Vertical bar"
+  use="Comparing values across short labels, or across time when each increment is discrete (months, years)."
+  avoid="Rotating the X-axis labels. If labels don't fit, switch to horizontal bars."
+  rules={[
+    'Zero baseline — no exceptions.',
+    'Use discreet grey gridlines only when you need them.',
+    'Direct labelling preferred over a Y-axis scale.',
+  ]}
+/>
+
+<ChartCard
+  name="Stacked bar"
+  use="Comparing totals when each total also has a meaningful 2-category breakdown."
+  avoid="More than three categories per bar — becomes unreadable."
+  rules={[
+    'Sort by total.',
+    'Keep the legend visible and consistent.',
+    'Spell out acronyms in a footnote.',
+  ]}
+/>
+
+<ChartCard
+  name="100% stacked bar"
+  use="Showing the composition of each category as a percentage of its whole."
+  rules={[
+    'Totals are always 100%.',
+    'Up to three categories works; more is hard to read.',
+    'Use percentages, not raw values.',
+  ]}
+/>
+
+<ChartCard
+  name="Line"
+  use="Showing a trend across time."
+  rules={[
+    'Scale the Y-axis so the trend is visible — not too flat, not too exaggerated.',
+    'Use natural increments (0,2,4…  0,25,50,75…).',
+    'Zero baseline is not mandatory if it hides the trend.',
+    'No legend when only one series — a clear title is enough.',
+  ]}
+/>
+
+<ChartCard
+  name="Multiple-line"
+  use="Comparing up to four trends that don't over-intersect."
+  avoid="More than four lines. Use small multiples, or switch to a bar chart."
+  rules={[
+    'Label each line directly, next to its endpoint.',
+    'Group the long tail into an “Others” category if needed.',
+  ]}
+/>
+
+<ChartCard
+  name="Small multiples"
+  use="Comparing many series that would otherwise become a 'spaghetti chart.'"
+  rules={[
+    'One small chart per series, same scale, same axis.',
+    'Highlight the series of interest; grey out the rest as a reference.',
+  ]}
+/>
+
+<ChartCard
+  name="Pie"
+  use="Sparingly. Only when there are 2–3 slices and proportion is the only message."
+  avoid="More than 5 slices. 3D. Comparing multiple pies side-by-side. Using a different hue per slice."
+  rules={[
+    'Start the largest slice at 12 o\u2019clock and proceed clockwise.',
+    'Prefer a single-hue ramp over rainbow colours.',
+    'If the reader needs to compare sizes, use a bar chart instead.',
+  ]}
+/>
+
+<ChartCard
+  name="Donut"
+  use="Binary data only — funded vs. unfunded, reached vs. not reached."
+  rules={[
+    'Put the headline number in the hole.',
+    'Two slices maximum.',
+  ]}
+/>
+
+<ChartCard
+  name="Surface area (bubble)"
+  use="Communication pieces where the relative size is the message, not precise comparison."
+  avoid="Analytical work — area is hard for the eye to compare. Use bars instead."
+  rules={[
+    'Area = \u03C0 × r². Scale by area, not by diameter.',
+  ]}
+/>
+
+<ChartCard
+  name="Matrix"
+  use="Three-variable data in a compact space — who, what, where."
+  rules={[
+    'Sort rows and columns so the most important cell lands top-left.',
+    'Use white text-shadow on labels so they read on dark or light cells.',
+    'Pair with small locator maps and humanitarian icons.',
+  ]}
+/>
+
+<ChartCard
+  name="Table"
+  use="When the reader needs precise values. Still a dataviz — design it."
+  rules={[
+    'Round long numbers (e.g. 29,762,793 \u2192 29.8M).',
+    'Right-align numeric columns.',
+    'Use zebra striping only when rows exceed ~8.',
+  ]}
+/>
+
+</div>
+
+## OCHA chart styling
+
+Every OCHA chart uses the same type, the same geometry, and a restricted palette. The defaults below are what the Humanitarian Dataviz Tool ships with.
+
+### Typography
+
+Use **Roboto** for titles, labels, and annotations. Use **Roboto Condensed** inside cramped chart elements (axis tick labels, small-multiple headings). Never use a serif or decorative face inside a chart.
+
+| Element | Font | Weight | Size |
+| --- | --- | --- | --- |
+| Chart title | Roboto | 500 | 16–20px |
+| Axis / tick labels | Roboto Condensed | 400 | 10–12px |
+| Data labels | Roboto | 500 | 11–13px |
+| Source line | Roboto | 400 | 10–11px, colour `#737373` |
+
+### Geometry
+
+- **Sharp corners on bars.** Never round bar ends — rounded corners confuse the eye about where the value actually ends.
+- **Hairline gridlines only when needed**, in `--cd-grey--400` (`#E6E6E6`) at 0.5pt.
+- **No drop shadows, no bevels, no gradients** on chart geometry.
+
+### Colour — humanitarian branding styles
+
+OCHA dataviz uses one of four branding styles depending on the product. Pick one style per product and stay in it.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', margin: '24px 0' }}>
+  <Swatch hex="#009EDB" name="OCHA" sub="Default, corporate" />
+  <Swatch hex="#F58220" name="HNRP" sub="Humanitarian Needs & Response Plan" />
+  <Swatch hex="#ED1847" name="Flash" sub="Flash Appeals, urgent response" />
+  <Swatch hex="#FFC800" name="GHO" sub="Global Humanitarian Overview" />
+</div>
+
+Within a style, use the primary hex for the headline value and neutral greys (`--cd-grey--700` for text, `--cd-grey--400` for rules and backgrounds) for everything else. Introduce accent colours only when the data itself carries a categorical meaning (e.g. severity, sector).
+
+### Colour — categorical data
+
+When you must use more than one chart colour, pick from the OCHA ramp (see [Colours](?path=/docs/foundations-colours--docs)). Keep categorical charts to **five hues or fewer**. If you need more, group the tail into "Others" or switch to small multiples.
+
+## Maps
+
+OCHA maps follow a dedicated style so that countries and boundaries read the same way across every product.
+
+| Element | Colour | Weight |
+| --- | --- | --- |
+| Ocean | `#E1E8F6` | — |
+| Featured country fill | `#FFFFFF` | — |
+| Neighbouring countries fill | `#E6E7E8` | — |
+| Admin 0 boundary | `#737373` | 1.3pt solid |
+| Admin 1 boundary | `#C7C8CA` | 0.8pt dashed |
+| Coastlines | `#64BEEB` | 0.5pt |
+| Capital city marker | `--brand-primary` | 4px circle |
+
+Always cite the boundary source (e.g. "UN OCHA, CODs") and add the standard UN disclaimer on disputed territories in the footer.
+
+## Do's and don'ts
+
+<div style={{ margin: '16px 0 32px' }}>
+  <Rule kind="do">Start bar and column charts at a **zero baseline**. Always.</Rule>
+  <Rule kind="do">Include a **source line** with provider and date on every chart.</Rule>
+  <Rule kind="do">**Direct-label** bars, lines, and slices. A legend is the last resort.</Rule>
+  <Rule kind="do">**Round** numbers for communication. 29,762,793 → 29.8M.</Rule>
+  <Rule kind="do">**Sort** categorical data by value unless the order is semantic (time, severity).</Rule>
+  <Rule kind="do">Write titles that **state the finding**, not just the topic. "Funding gap widens in Horn of Africa" beats "Funding by region, 2024."</Rule>
+  <Rule kind="dont">Use **3D** bars, 3D pies, drop shadows, or bevel effects.</Rule>
+  <Rule kind="dont">Clip a bar-chart axis to exaggerate a difference.</Rule>
+  <Rule kind="dont">Use **rainbow** colour ramps. They are hard to read and not colourblind-safe.</Rule>
+  <Rule kind="dont">Use a **pie chart with more than 5 slices**, or compare multiple pies side by side.</Rule>
+  <Rule kind="dont">Rotate axis labels on a vertical bar chart. Switch to horizontal instead.</Rule>
+  <Rule kind="dont">Obscure a line chart with **too many point markers**. Show points only when space allows it.</Rule>
+  <Rule kind="dont">Put **text over a map** unless there's a white shadow ensuring contrast.</Rule>
+</div>
+
+## Accessibility
+
+- Every chart must have a **text alternative** — either a data table or a prose summary describing the finding.
+- Colour alone never carries meaning. Pair colour with a **label, pattern, or position**.
+- Minimum **4.5:1 contrast** for text, **3:1** for chart geometry against its background. Use the accessible text variants (`--brand-primary--text`, `--cd-red--aa`, etc.) for labels on white.
+- Ensure charts render on **print, dark backgrounds, and screen readers** — test all three.
+
+## Tools
+
+- **[Humanitarian Dataviz Tool](https://brand.unocha.org)** — Adobe Illustrator plugin that generates OCHA-styled charts and maps from pasted data. Covers all 11 chart types above and the four branding styles. Maintained by OCHA BDU.
+- **[Datawrapper](https://www.datawrapper.de/)** — preferred for charts and maps embedded on unocha.org. OCHA has custom themes; contact BDU for access.
+- **MS Power BI** — for internal dashboards. Use the OCHA Power BI theme file from BDU.
+- **Adobe Illustrator + InDesign** — for publication-grade infographics.
+
+## References
+
+- OCHA VIZCOM training materials (fundamentals, visual identity, representing data)
+- [Carbon Design System — Data visualization](https://carbondesignsystem.com/data-visualization/getting-started/) (structural inspiration)
+- [datavizproject.com](https://datavizproject.com) — chart-type reference library
+- [ferdio.com/notebook](https://ferdio.com/notebook) — chart anatomy & selection
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))
