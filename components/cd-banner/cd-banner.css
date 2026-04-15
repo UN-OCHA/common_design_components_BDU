@@ -1,0 +1,43 @@
+/**
+ * CD Banner
+ * Source: common_design/libraries/cd-banner/cd-banner.css
+ * IE11/Edge-legacy hacks removed.
+ */
+
+.cd-banner {
+  position: relative;
+  overflow: hidden;
+  height: 24rem; /* 384px */
+  text-align: center;
+}
+
+.cd-banner__image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 24rem; /* 384px */
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+@media (min-width: 1024px) {
+  .cd-banner__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cd-banner__image {
+    object-fit: none;
+  }
+
+  .cd-bleed .cd-banner__image {
+    object-fit: cover;
+  }
+
+  .cd-bleed--background-only .cd-banner__image {
+    object-fit: none;
+  }
+}

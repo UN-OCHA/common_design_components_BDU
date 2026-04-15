@@ -1,0 +1,22 @@
+/**
+ * CD Caption
+ * Source: common_design/libraries/cd-caption/cd-caption.css
+ */
+
+.cd-caption {
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: right;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+[dir="rtl"] .cd-caption {
+  text-align: left;
+}
+
+/* When used inside a cd-container, drop left/right padding */
+.cd-container .cd-caption {
+  padding: 0;
+}

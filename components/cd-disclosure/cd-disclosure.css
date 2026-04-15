@@ -1,0 +1,12 @@
+/**
+ * CD Disclosure
+ * Source: common_design/libraries/cd-disclosure/cd-disclosure.css
+ *
+ * Show/hide pattern with a trigger button. Pairs a `.cd-disclosure` region
+ * with a toggle button controlling its collapsed state.
+ * @see https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+ */
+
+.js .cd-disclosure--is-collapsed {
+  display: none;
+}

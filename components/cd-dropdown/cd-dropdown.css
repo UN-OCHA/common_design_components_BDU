@@ -1,0 +1,37 @@
+/**
+ * CD Dropdown
+ * Source: common_design/libraries/cd-dropdown/cd-dropdown.css
+ *
+ * Base styles for togglable content; visibility is normally controlled
+ * by the cd-dropdown.js script via data-cd-hidden.
+ */
+
+[data-cd-toggable] {
+  --dropdown: true;
+}
+
+/* Prevent flash of content before JS processes the toggle. */
+.js [data-cd-toggable]:not([data-cd-processed]) {
+  display: none;
+}
+
+[data-cd-hidden="false"] {
+  display: block;
+}
+
+[data-cd-hidden="true"] {
+  display: none;
+}
+
+.cd-dropdown {
+  display: none;
+}
+
+.cd-dropdown[data-cd-hidden="false"] {
+  display: block;
+}
+
+.no-js .cd-dropdown {
+  position: relative;
+  display: block;
+}
