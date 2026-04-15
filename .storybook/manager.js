@@ -32,11 +32,11 @@ const ochaTheme = create({
   textInverseColor: '#FFFFFF',
   textMutedColor: '#737373',
 
-  // Toolbar (above story preview)
-  barBg: '#FFFFFF',
-  barTextColor: '#525252',
-  barSelectedColor: '#0077B8',
-  barHoverColor: '#161616',
+  // Toolbar (above story preview) — OCHA Blue band for brand consistency
+  barBg: '#009EDB',
+  barTextColor: '#FFFFFF',
+  barSelectedColor: '#FFFFFF',
+  barHoverColor: '#FFFFFF',
 
   // Form
   inputBg: '#FFFFFF',
