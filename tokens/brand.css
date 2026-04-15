@@ -232,4 +232,45 @@
   --brand-warning: var(--cd-orange--aa);             /* #CF3F0B */
   --brand-error: var(--cd-red--aa);                  /* #EB0045 */
   --brand-info: var(--cd-ocha-blue--aa);             /* #0077B8 */
+
+  /* =========================================================================
+   * 13. FONT FAMILIES
+   * Source: brand.unocha.org — Fonts (Open-source, Google Fonts)
+   * Loaded via .storybook/preview-head.html
+   * ========================================================================= */
+  --cd-font--roboto:           "Roboto", Arial, sans-serif;
+  --cd-font--roboto-condensed: "Roboto Condensed", "Roboto", Arial, sans-serif;
+  --cd-font--roboto-slab:      "Roboto Slab", "Roboto", Georgia, serif;
+  --cd-font--roboto-mono:      "Roboto Mono", "Courier New", monospace;
+  --cd-font--crimson-pro:      "Crimson Pro", Georgia, "Times New Roman", serif;
+  --cd-font--montserrat:       "Montserrat", "Roboto", Arial, sans-serif;
+  --cd-font--raleway:          "Raleway", "Roboto", Arial, sans-serif;
+
+  /* Semantic aliases */
+  --brand-font:            var(--cd-font--roboto);            /* body, UI */
+  --brand-font-heading:    var(--cd-font--roboto);            /* default heading */
+  --brand-font-display:    var(--cd-font--roboto-slab);       /* optional display */
+  --brand-font-condensed:  var(--cd-font--roboto-condensed);  /* infographics */
+  --brand-font-mono:       var(--cd-font--roboto-mono);       /* code, credits */
+  --brand-font-serif:      var(--cd-font--crimson-pro);       /* long-form print */
+}
+
+/* =========================================================================
+ * Global baseline — apply the brand font to all content
+ * ========================================================================= */
+html,
+body {
+  font-family: var(--brand-font);
+  color: var(--brand-default-text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--brand-font-heading);
+  color: var(--brand-primary--text);
+}
+
+code, kbd, pre, samp {
+  font-family: var(--brand-font-mono);
 }
