@@ -60,12 +60,9 @@
     border-bottom: 1px solid #E5E5E5 !important;
   }
 
-  /* Sidebar right edge — matching 2px OCHA Blue rule.
-     Storybook's sidebar is rendered as a <nav> inside the manager layout. */
-  #storybook-explorer-menu,
-  nav.sidebar-container,
-  [class*="sidebar-container"],
-  nav[aria-label*="Storybook"] {
+  /* Sidebar right edge — single 2px OCHA Blue rule on the OUTERMOST
+     sidebar container only. Inner wrappers keep their default borders. */
+  .sidebar-container {
     border-right: 2px solid #009EDB !important;
   }
 </style>
