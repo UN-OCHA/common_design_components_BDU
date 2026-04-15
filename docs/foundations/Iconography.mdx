@@ -1,0 +1,231 @@
+import { Meta } from '@storybook/blocks';
+import { useEffect, useState, useMemo } from 'react';
+
+<Meta title="Foundations/Iconography" />
+
+export const ICONS_REPO = 'UN-OCHA/humanitarian-icons-2026-BDU';
+export const CDN_BASE = `https://cdn.jsdelivr.net/gh/${ICONS_REPO}@main`;
+export const METADATA_URL = `${CDN_BASE}/metadata.json`;
+export const SVG_URL = (key) => `${CDN_BASE}/svg/${key}.svg`;
+
+export const IconGallery = () => {
+  const [meta, setMeta] = useState(null);
+  const [err, setErr] = useState(null);
+  const [q, setQ] = useState('');
+  const [family, setFamily] = useState('All');
+
+  useEffect(() => {
+    fetch(METADATA_URL)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(setMeta)
+      .catch((e) => setErr(String(e)));
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!meta) return [];
+    const entries = Object.entries(meta.icons);
+    const qlc = q.trim().toLowerCase();
+    return entries.filter(([key, v]) => {
+      if (family !== 'All' && v.family !== family) return false;
+      if (!qlc) return true;
+      return (
+        key.toLowerCase().includes(qlc) ||
+        (v.name || '').toLowerCase().includes(qlc) ||
+        (v.family || '').toLowerCase().includes(qlc)
+      );
+    });
+  }, [meta, q, family]);
+
+  if (err) {
+    return (
+      <div style={{ padding: 16, border: '1px solid #F9C0C5', background: '#FEF2F3', color: '#AB1D37', fontSize: 14 }}>
+        Couldn't load icon metadata from jsDelivr ({err}). The live gallery requires an internet connection. Browse the icons directly at{' '}
+        <a href={`https://github.com/${ICONS_REPO}/tree/main/svg`} style={{ color: '#0077B8' }}>
+          github.com/{ICONS_REPO}
+        </a>.
+      </div>
+    );
+  }
+  if (!meta) {
+    return <div style={{ padding: 16, color: '#737373', fontSize: 14 }}>Loading {389}+ icons from jsDelivr…</div>;
+  }
+
+  const families = ['All', ...meta.families];
+
+  return (
+    <div>
+      <div style={{
+        display: 'flex',
+        gap: 12,
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        marginBottom: 20,
+        padding: '16px 0',
+        borderBottom: '1px solid #E5E5E5',
+      }}>
+        <input
+          type="search"
+          placeholder="Search icons…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          style={{
+            flex: '1 1 240px',
+            padding: '8px 12px',
+            fontFamily: 'Roboto, Arial, sans-serif',
+            fontSize: 14,
+            border: '1px solid #BFBFBF',
+            borderRadius: 0,
+            background: '#FFFFFF',
+            color: '#161616',
+          }}
+        />
+        <select
+          value={family}
+          onChange={(e) => setFamily(e.target.value)}
+          style={{
+            padding: '8px 12px',
+            fontFamily: 'Roboto, Arial, sans-serif',
+            fontSize: 14,
+            border: '1px solid #BFBFBF',
+            background: '#FFFFFF',
+            color: '#161616',
+            borderRadius: 0,
+          }}
+        >
+          {families.map((f) => <option key={f} value={f}>{f}</option>)}
+        </select>
+        <span style={{ fontSize: 13, color: '#737373', fontFamily: 'Roboto Mono, monospace' }}>
+          {filtered.length} / {Object.keys(meta.icons).length}
+        </span>
+      </div>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+        gap: 1,
+        background: '#E5E5E5',
+        border: '1px solid #E5E5E5',
+      }}>
+        {filtered.map(([key, v]) => (
+          <div
+            key={key}
+            title={`${v.name} — ${v.family}`}
+            style={{
+              background: '#FFFFFF',
+              padding: '16px 12px 10px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 8,
+              minHeight: 110,
+            }}
+          >
+            <img
+              src={SVG_URL(key)}
+              alt={v.name}
+              loading="lazy"
+              style={{ width: 40, height: 40, objectFit: 'contain' }}
+            />
+            <div style={{
+              fontSize: 11,
+              lineHeight: 1.3,
+              color: '#525252',
+              fontFamily: 'Roboto, Arial, sans-serif',
+              textAlign: 'center',
+              wordBreak: 'break-word',
+            }}>{v.name}</div>
+          </div>
+        ))}
+      </div>
+
+      {filtered.length === 0 && (
+        <div style={{ padding: 32, textAlign: 'center', color: '#737373', fontSize: 14 }}>
+          No icons match "{q}" in family "{family}".
+        </div>
+      )}
+    </div>
+  );
+};
+
+# Iconography
+
+**Humanitarian Icons 2026** — OCHA's open-source icon library covering humanitarian clusters, sectors, disasters, people, infrastructure, and UI actions. **389 icons** across 19 families, maintained by the OCHA Brand and Design Unit.
+
+<div style={{ padding: '20px 24px', background: '#F4F4F4', borderLeft: '3px solid #009EDB', margin: '32px 0' }}>
+  <strong style={{ fontSize: 14, color: '#161616' }}>Single source of truth</strong>
+  <p style={{ margin: '6px 0 0', fontSize: 15, lineHeight: 1.55, color: '#393939' }}>
+    Icons live in <a href={`https://github.com/${ICONS_REPO}`} style={{ color: '#0077B8' }}>github.com/{ICONS_REPO}</a> and are consumed here via the jsDelivr CDN. Any update to the icon repo appears in this gallery automatically.
+  </p>
+</div>
+
+## Browse
+
+<IconGallery />
+
+## How to use
+
+### Option 1 — Load from CDN (recommended)
+
+Pull any icon directly from jsDelivr. No build step, always in sync with the latest repo release.
+
+```html
+<img
+  src="https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg"
+  alt="Health"
+  width="32" height="32">
+```
+
+For production apps, pin a release tag instead of `@main`:
+
+```html
+<img src="https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@v2.0.0/svg/Health.svg" ...>
+```
+
+### Option 2 — Icon font
+
+For large icon counts on legacy platforms (PowerPoint, Word, some CMSs), use the generated icon font. Download `Humanitarian_icons.ttf` from the repo's [`output/font/`](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU/tree/main/output/font) folder and install. Each icon maps to a Unicode codepoint listed in `metadata.json`.
+
+### Option 3 — Self-host
+
+Clone the repo and serve the `svg/` folder from your own static host. Useful for air-gapped environments or when you need to recolour/re-package the set.
+
+```bash
+git clone https://github.com/UN-OCHA/humanitarian-icons-2026-BDU.git
+# SVGs live in ./humanitarian-icons-2026-BDU/svg/
+```
+
+## Styling rules
+
+- **Single colour.** OCHA humanitarian icons are monochrome. Use `--brand-primary` (`#009EDB`) by default, or the text colour of the surrounding copy for inline use. Never apply more than one hue per icon.
+- **Sharp geometry.** Icons are built to a 24×24 grid. Do not round or soften corners — the grid is intentional.
+- **Minimum size 20×20 px** on screen. Below that, stroke weight fails and meaning is lost.
+- **Clear space** equal to the icon's own height on all sides when standing alone.
+- **Pair with a label** unless the icon's meaning is universal (search, close, menu). Humanitarian concepts — "shelter," "WASH," "IDP" — need an accompanying word the first time they appear in a product.
+- **Recolour via CSS**, not by editing the SVG. Serve the SVG inline or use a CSS mask so the icon inherits `color` or `--brand-primary`.
+
+```css
+/* Recolour via mask — works across the full icon set */
+.icon {
+  width: 24px; height: 24px;
+  background-color: var(--brand-primary);
+  mask: url('https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg') no-repeat center / contain;
+  -webkit-mask: url('https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg') no-repeat center / contain;
+}
+```
+
+## Accessibility
+
+- Provide a meaningful **`alt` text** on `<img>` or an `aria-label` on inline SVG. Decorative icons (e.g. a leading bullet) should use `alt=""` or `aria-hidden="true"`.
+- **Never rely on icon alone** to convey meaning — pair it with text, a label, or a tooltip.
+- Verify the icon's colour against its background meets **3:1 contrast** for graphic elements (WCAG 2.1 SC 1.4.11).
+
+## Contributing
+
+Need a new icon? Missing a variant? The icon set is maintained by BDU — open an issue or PR on [the icons repo](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). All icons are reviewed for consistency with the 24×24 grid and the OCHA visual style before being merged.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

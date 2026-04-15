@@ -23,6 +23,7 @@ const preview = {
             'Typography',
             'Spacing',
             'Logo',
+            'Iconography',
             'Data visualization',
             [
               'Key figures (text)',
