@@ -1,0 +1,186 @@
+/**
+ * CD Select a11y
+ * Source: common_design/libraries/cd-select-a11y/cd-select-a11y.css
+ *
+ * Styling layer for the select-a11y multi-select widget:
+ *   http://pidila.gitlab.io/select-a11y/
+ *
+ * The widget's behaviour ships as its own JS library; this file only
+ * re-skins it with brand colours.
+ *
+ * Changes from CD:
+ *   - Kept the local --cd-select-a11y-gray-* ramp (Sass legacy) so the
+ *     upstream selector structure doesn't drift.
+ *   - Swapped hardcoded focus blues for existing brand tokens where
+ *     possible; a few accent uses remain on --cd-highlight-red (the
+ *     legacy brand highlight token).
+ */
+
+:root {
+  --cd-select-a11y-gray-1: #0D0D0D;
+  --cd-select-a11y-gray-2: var(--cd-grey--700);
+  --cd-select-a11y-gray-3: var(--cd-grey--600);
+  --cd-select-a11y-gray-4: var(--cd-grey--400);
+  --cd-select-a11y-gray-5: var(--cd-grey--300);
+}
+
+.select-a11y {
+  position: relative;
+  background-color: var(--cd-select-a11y-gray-5);
+}
+
+.select-a11y .btn-select-a11y {
+  position: relative;
+  width: 100%;
+  padding: 9px 0.5rem;
+  text-align: left;
+  border: 1px solid var(--cd-select-a11y-gray-4);
+  background-color: var(--cd-white);
+}
+
+.select-a11y .btn-select-a11y .icon-select {
+  position: absolute;
+  top: 50%;
+  right: 0.5em;
+  transform: translateY(-50%);
+  line-height: 0;
+}
+
+.select-a11y .btn-select-a11y .icon-select::before {
+  content: "▼";
+  color: var(--cd-select-a11y-gray-2);
+}
+
+.select-a11y .btn-select-a11y[aria-expanded="true"] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.select-a11y .btn-select-a11y[aria-expanded="true"] .icon-select {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.select-a11y .tag-item {
+  padding: 0.2em 0.1em 0.2em 0.5em;
+  border: 1px solid var(--cd-select-a11y-gray-4);
+  background: var(--cd-white);
+}
+
+.select-a11y .tag-item-supp {
+  margin-left: 0.25rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.select-a11y .tag-item-supp .icon-delete::before {
+  content: "✕";
+  color: var(--brand-highlight);
+  line-height: 1;
+}
+
+.select-a11y .tag-item-supp:focus {
+  color: var(--brand-highlight);
+  outline: 1px solid var(--brand-highlight);
+}
+
+.select-a11y .tag-item-supp:hover {
+  color: var(--brand-highlight);
+  border-color: var(--brand-highlight);
+}
+
+.select-a11y .tag-hidden {
+  display: none;
+}
+
+.select-a11y.is-open .a11y-container {
+  display: block;
+}
+
+.select-a11y .a11y-container {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  left: 0;
+  padding: 0.5em;
+  border: 1px solid var(--cd-select-a11y-gray-4);
+  background: var(--cd-select-a11y-gray-4);
+}
+
+.select-a11y .a11y-container input {
+  width: 100%;
+  outline: 2px solid var(--brand-primary--light);
+}
+
+.select-a11y .a11y-suggestions {
+  overflow-y: auto;
+  max-height: 10em;
+  margin-top: 0.5em;
+  border: 1px solid var(--cd-select-a11y-gray-3);
+  background-color: var(--cd-white);
+}
+
+.select-a11y .a11y-suggestion {
+  padding: 0 0.5em 0 1.625em;
+  cursor: pointer;
+  text-align: left;
+  color: var(--brand-default-text-color);
+}
+
+.select-a11y .a11y-suggestion:focus,
+.select-a11y .a11y-suggestion:hover {
+  color: var(--cd-select-a11y-gray-1);
+  background-color: var(--cd-select-a11y-gray-5);
+}
+
+.select-a11y .a11y-suggestion:focus {
+  outline: 1px dotted var(--cd-select-a11y-gray-1) !important;
+  outline-offset: -1px;
+}
+
+.select-a11y .a11y-suggestion[aria-selected="true"] {
+  position: relative;
+  color: var(--cd-select-a11y-gray-1);
+  background-color: var(--cd-select-a11y-gray-4);
+}
+
+.select-a11y .a11y-suggestion[aria-selected="true"]::before {
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  content: "✓";
+  transform: translateY(-50%);
+}
+
+.select-a11y .a11y-no-suggestion {
+  margin: 0;
+  padding: 0 0.5em;
+  text-align: left;
+  color: var(--brand-default-text-color);
+}
+
+.select-a11y .list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  background: var(--cd-select-a11y-gray-5);
+}
+
+.select-a11y .list-selected {
+  margin: 0;
+  padding: 0.5em;
+}
+
+.select-a11y .list-selected li {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: flex-start;
+  margin: 0 0.3em 0.3em 0;
+}
+
+.select-a11y .list-selected li::before {
+  content: "";
+}
+
+.select-a11y .list-selected li span {
+  display: inline-block;
+}

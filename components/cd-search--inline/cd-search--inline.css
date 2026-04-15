@@ -1,0 +1,78 @@
+/**
+ * CD Search: inline
+ * Source: common_design/libraries/cd/cd-header/cd-search--inline.css
+ *
+ * A compact search field designed to sit inside a header bar. This is the
+ * site-chrome variant of cd-search; the full header composite is out of
+ * scope for this port, so only the field + toggle styles are included
+ * here.
+ *
+ * Changes from CD:
+ *   - IE11 hacks removed
+ *   - Drupal form-item / form-actions wrapper rules removed
+ *   - Simplified to a single responsive variant (no dropdown toggle)
+ */
+
+.cd-search--inline {
+  position: relative;
+  width: 100%;
+}
+
+.cd-search--inline__form {
+  display: flex;
+  align-items: stretch;
+  background: var(--cd-white);
+}
+
+.cd-search--inline__input[type="search"],
+.cd-search--inline__input[type="text"] {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 2.75rem;
+  padding: 0 1rem;
+  color: var(--brand-default-text-color);
+  border: 1px solid var(--brand-grey--border);
+  border-radius: 0;
+  background: var(--cd-white);
+  font-size: 0.9375rem;
+  -webkit-appearance: none;
+}
+
+.cd-search--inline__input:focus {
+  border-color: var(--brand-primary);
+  outline: 0;
+  box-shadow: 0 0 0 2px var(--brand-primary--lighter);
+}
+
+.cd-search--inline__input::placeholder {
+  color: var(--brand-grey--text);
+  font-style: italic;
+}
+
+.cd-search--inline__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: var(--cd-white);
+  border: 0;
+  background: var(--brand-primary);
+}
+
+.cd-search--inline__submit:hover,
+.cd-search--inline__submit:focus {
+  background: var(--brand-primary--dark);
+  outline: 0;
+}
+
+.cd-search--inline__submit svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: var(--cd-white);
+}

@@ -1,0 +1,114 @@
+/**
+ * CD Social Links
+ * Source: common_design/libraries/cd-social-links/cd-social-links.css
+ *
+ * Row of share-to-social icons + a "copy URL" button with a tooltip-style
+ * status announcement.
+ */
+
+.cd-social-links {
+  --cd-social-links-fill: var(--brand-primary--dark);
+  --cd-social-links-z: -1;
+
+  width: 100%;
+}
+
+.cd-social-links__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.cd-social-links__label {
+  position: relative;
+  top: -2px;
+  color: var(--brand-default-text-color);
+  font-size: 0.875rem;
+}
+
+.cd-social-links__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.cd-social-links__item {
+  position: relative;
+  flex: 0 0 1rem;
+  margin: 0;
+}
+
+.cd-social-links__link,
+.cd-social-links__button {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.cd-social-links__link--pdf {
+  width: 1.25rem;
+}
+
+.cd-social-links svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--cd-social-links-fill);
+}
+
+/* Copy-to-clipboard tooltip */
+.cd-social-links__status,
+.cd-social-links__status::after {
+  position: absolute;
+  transition: 0.1666s ease-in-out;
+  transition-property: opacity, transform;
+  opacity: 0;
+}
+
+.cd-social-links__status {
+  z-index: var(--cd-social-links-z);
+  top: -27px;
+  display: inline-block;
+  width: auto;
+  padding: 0.2em 0.4em;
+  white-space: nowrap;
+  color: var(--cd-white);
+  border-radius: 5px;
+  background: var(--cd-black);
+  font-size: 14px;
+}
+
+[dir="ltr"] .cd-social-links__status { right: -8px; }
+[dir="rtl"] .cd-social-links__status { left: -8px; }
+
+.cd-social-links__status::after {
+  top: 24px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: "";
+  border-top: 10px solid var(--cd-black);
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+}
+
+[dir="ltr"] .cd-social-links__status::after { right: 5px; }
+[dir="rtl"] .cd-social-links__status::after { left: 5px; }
+
+.is--showing-message .cd-social-links__status,
+.is--showing-message .cd-social-links__status::after {
+  opacity: 1;
+}
+
+.is--showing-message .cd-social-links__status {
+  transform: translateY(-10px);
+}

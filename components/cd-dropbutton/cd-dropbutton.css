@@ -1,0 +1,85 @@
+/**
+ * CD Dropbutton
+ * Source: common_design/libraries/cd-dropbutton/cd-dropbutton.css
+ *
+ * A split button: default action + toggle that reveals secondary options.
+ *
+ * Changes from CD:
+ *   - Original rules targeted Drupal's `.js .dropbutton-multiple` classes.
+ *     Rewritten with BEM `.cd-dropbutton` selectors.
+ */
+
+.cd-dropbutton {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.cd-dropbutton__primary,
+.cd-dropbutton__toggle {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--cd-white);
+  border: 2px solid transparent;
+  background-color: var(--brand-primary);
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.cd-dropbutton__primary {
+  border-radius: 3px 0 0 3px;
+}
+
+.cd-dropbutton__toggle {
+  padding: 0.5rem 0.75rem;
+  border-left: 1px solid var(--brand-primary--dark);
+  border-radius: 0 3px 3px 0;
+}
+
+.cd-dropbutton__primary:hover,
+.cd-dropbutton__primary:focus,
+.cd-dropbutton__toggle:hover,
+.cd-dropbutton__toggle:focus {
+  background-color: var(--brand-primary--dark);
+}
+
+.cd-dropbutton__menu {
+  position: absolute;
+  z-index: var(--cd-z-dropdown);
+  top: 100%;
+  inset-inline-start: 0;
+  display: none;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  border: 2px solid var(--brand-grey);
+  background: var(--cd-white);
+}
+
+.cd-dropbutton.is-open .cd-dropbutton__menu {
+  display: block;
+}
+
+.cd-dropbutton__menu li {
+  margin: 0;
+}
+
+.cd-dropbutton__menu a,
+.cd-dropbutton__menu button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: start;
+  color: var(--brand-default-text-color);
+  border: 0;
+  background: transparent;
+  font-size: 0.9375rem;
+}
+
+.cd-dropbutton__menu a:hover,
+.cd-dropbutton__menu a:focus,
+.cd-dropbutton__menu button:hover,
+.cd-dropbutton__menu button:focus {
+  background: var(--brand-grey);
+}

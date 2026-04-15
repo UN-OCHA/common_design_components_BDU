@@ -1,0 +1,87 @@
+/**
+ * CD Utilities
+ * Source: common_design/libraries/cd-utilities/cd-utilities.css
+ *
+ * Small helper classes shared across components: alignment, float,
+ * rounded image, nested-title resets, and border removal for last-child.
+ *
+ * The [class*="..."] attribute selectors are intentional: they let
+ * component-scoped variants (e.g. .cd-card__title--align-center) reuse
+ * these rules without re-declaring them.
+ */
+
+/* Alignment */
+.cd-align--center,
+*[class*="--align-center"] {
+  text-align: center;
+}
+
+.cd-align--right,
+*[class*="--align-right"] {
+  text-align: right;
+}
+
+[dir="rtl"] .cd-align--right,
+[dir="rtl"] *[class*="--align-right"] {
+  text-align: left;
+}
+
+/* Floating */
+.cd-float--left,
+*[class*="--float-left"] {
+  float: left;
+}
+
+[dir="rtl"] .cd-float--left,
+[dir="rtl"] *[class*="--float-left"] {
+  float: right;
+}
+
+.cd-float--right,
+*[class*="--float-right"] {
+  float: right;
+}
+
+[dir="rtl"] .cd-float--right,
+[dir="rtl"] *[class*="--float-right"] {
+  float: left;
+}
+
+/* Rounded image (requires a square source image) */
+*[class*="__image--rounded"] {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 50%;
+}
+
+/* Reset nested title / heading styles inside component titles */
+div[class*="__title"],
+div[class*="__title"] > * {
+  margin: 0;
+}
+
+div[class*="__title"] > *:not(a) {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Remove last-child border for stacked lists */
+*[class*="__remove-border"]:last-child {
+  border-bottom: 0 none;
+}
+
+/* Visually-hidden helper used across stories (sr-only) */
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  white-space: nowrap;
+  border: 0;
+  word-wrap: normal;
+}

@@ -1,0 +1,22 @@
+/**
+ * CD Nodes
+ * Source: common_design/libraries/cd-nodes/cd-nodes.css
+ *
+ * Editorial enhancements for CMS-managed content nodes. Currently just a
+ * visual "unpublished" flag for editors.
+ *
+ * Note: the original selector `.node--unpublished` comes from Drupal, but
+ * the style itself is CMS-agnostic — rename the class in consuming markup
+ * if needed.
+ */
+
+.cd-node--unpublished,
+.node--unpublished {
+  margin: -1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  /* Hardcoded: no --brand token for a translucent warning outline. */
+  outline: 3px solid rgba(237, 24, 71, 0.65);
+  /* Hardcoded: no --brand token for a very soft red tint background. */
+  background: #fdd;
+}

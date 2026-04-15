@@ -1,0 +1,20 @@
+/**
+ * CD Event
+ * Source: common_design/libraries/cd-event/cd-event.css
+ *
+ * Adjustments layered on top of cd-card for event-style listings:
+ * emphasis on location / time, centred event date block.
+ *
+ * Changes from CD:
+ *   - IE11 width hack removed
+ *   - Attribute selectors rescoped to cd-card context
+ */
+
+.cd-card__date--event {
+  margin: 1rem auto 0;
+}
+
+.cd-card__location,
+.cd-card__time {
+  font-weight: 700;
+}
