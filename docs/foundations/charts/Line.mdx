@@ -1,0 +1,143 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/Line" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# Line
+
+Shows a trend across time. The default choice for anything with a continuous X axis.
+
+## When to use
+
+- Time series with ≥ 4 points, evenly spaced.
+- One trend (single-line), up to 4 trends (multi-line), or many trends shown as small multiples.
+- Avoid when increments are too coarse (2–3 years) — a bar chart reads clearer.
+- Zero baseline is **not mandatory** on a line chart — scale to show the trend.
+
+## Anatomy — single line
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">People in Need, 2015–2024</text>
+  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Global, millions</text>
+  <g transform="translate(20,42)">
+    <polyline points="5,80 30,75 55,65 80,60 105,50 130,45 155,35 180,25 205,15 220,10" fill="none" stroke="#009EDB" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+    <circle cx="5" cy="80" r="4" fill="#FFFFFF" stroke="#009EDB" strokeWidth="1.6" />
+    <circle cx="220" cy="10" r="4" fill="#FFFFFF" stroke="#009EDB" strokeWidth="1.6" />
+    <text x="5" y="72" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333" textAnchor="start">87M</text>
+    <text x="220" y="4" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fontWeight="700" fill="#333333" textAnchor="end">300M</text>
+    <line x1="0" y1="100" x2="225" y2="100" stroke="#333333" strokeWidth="1" />
+    <text x="5" y="116" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="start">2015</text>
+    <text x="220" y="116" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">2024</text>
+  </g>
+  <text x="10" y="170" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, GHO 2024.</text>
+</svg>
+
+<Part name="Line" rule="#009EDB, strokeWidth 2, linejoin + linecap round." />
+<Part name="Dots" rule="Radius 4px (md), fill #FFFFFF, stroke line color at 0.8 × strokeWidth." />
+<Part name="Value labels" rule="Roboto Condensed 10px #333333. Auto placed above or below by overlap detection — see chart-line.js." />
+<Part name="X labels" rule="First = anchor start, last = anchor end, interior = middle." />
+<Part name="Baseline" rule="Solid 1px #333333 below the plot, 12px gap." />
+
+## Variants
+
+### Multi-line (up to 4)
+
+Use the OCHA ramp in order: `#009EDB`, `#0074B7`, `#64BDEA`, `#004987`. Label each line at its endpoint — never a legend box in the corner when endpoints have room.
+
+### Small multiples
+
+When you have 5+ series, split into a grid. Same scale and X range across every panel. Highlight one series in `#009EDB`; grey the rest to `#E6E6E6` as reference.
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Primary line | `#009EDB` | `--brand-primary` |
+| Line stroke width | `2px` | `rs.strokeWidth` |
+| Dot radius (md) | `4px`; lg `5`, sm `3`, xs `2.5` | — |
+| Dot fill / stroke | `#FFFFFF` fill / line-color stroke @ 0.8 × | — |
+| Area fill (optional) | line color @ `0.1` opacity | — |
+| Baseline | `#333333`, 1px | `baselineColor` |
+| Value label | Roboto Condensed 10px `#333333` | — |
+| X label | Roboto Condensed 11px `#555555` | — |
+| Baseline gap | `12px` below plot | — |
+| Ramp for multi-line | `#009EDB`, `#0074B7`, `#64BDEA`, `#004987` | OCHA style |
+
+Values from `chart-line.js` + `chart-registry.js`.
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Endpoints labelled, one accent line">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(15,20)">
+        <polyline points="5,80 40,70 75,60 110,45 145,35 180,20" fill="none" stroke="#009EDB" strokeWidth="2" strokeLinejoin="round" />
+        <polyline points="5,85 40,82 75,78 110,74 145,70 180,66" fill="none" stroke="#E6E6E6" strokeWidth="2" strokeLinejoin="round" />
+        <text x="180" y="16" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fontWeight="700" fill="#0077B8" textAnchor="end">Needs</text>
+        <text x="180" y="76" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#737373" textAnchor="end">Funding</text>
+      </g>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Spaghetti — six lines, no direct labels">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(15,20)">
+        <polyline points="5,60 40,50 75,70 110,45 145,55 180,40" fill="none" stroke="#F2645A" strokeWidth="1.5" />
+        <polyline points="5,80 40,65 75,50 110,60 145,40 180,55" fill="none" stroke="#1EBFB3" strokeWidth="1.5" />
+        <polyline points="5,70 40,75 75,45 110,80 145,65 180,30" fill="none" stroke="#FFB92A" strokeWidth="1.5" />
+        <polyline points="5,50 40,80 75,60 110,35 145,75 180,50" fill="none" stroke="#7B68EE" strokeWidth="1.5" />
+        <polyline points="5,90 40,55 75,85 110,55 145,45 180,75" fill="none" stroke="#AAC85C" strokeWidth="1.5" />
+        <polyline points="5,40 40,90 75,40 110,70 145,50 180,85" fill="none" stroke="#C77CFF" strokeWidth="1.5" />
+      </g>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- **Format → Lines → Stroke width:** `2`. **Color** `#009EDB`.
+- **Markers:** On, Shape **Circle**, Size `4`, Fill `#FFFFFF`, Border color matches line, Border width `1.6`.
+- **Data labels:** On at first & last point; others off.
+- **Y axis:** allow non-zero baseline to reveal the trend.
+
+### Datawrapper
+- Theme: **OCHA**.
+- Line chart: *Refine → Line thickness* `2`, *Symbols* at endpoints, *Label lines directly*.
+
+### Chart.js / D3
+```js
+new Chart(ctx, {
+  type: 'line',
+  data: { labels, datasets: [{ data, borderColor: '#009EDB', borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#FFFFFF', pointBorderWidth: 1.6, tension: 0 }] },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false } }, y: { grid: { color: '#E6E6E6' }, border: { display: false } } }
+  }
+});
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

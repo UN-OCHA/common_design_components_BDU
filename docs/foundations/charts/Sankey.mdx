@@ -1,0 +1,136 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/Sankey" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# Sankey
+
+Flow diagram showing how quantities move between source and target nodes. Use for funding flows, displacement routes, supply chains.
+
+## When to use
+
+- Flow data: source → target → (optional) next level, with a value on each link.
+- You want the reader to see magnitudes **and** connections at once.
+- 3–30 nodes. Beyond that, splits become illegible.
+- Avoid when the story is a ranking — use a horizontal bar.
+- Avoid when flows cross too many times — re-order nodes to minimise crossings.
+
+## Anatomy
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">CERF allocation flow, 2024</text>
+  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Source → Window → Region, US$ million</text>
+  <g transform="translate(10,46)">
+    <rect x="0" y="10" width="10" height="90" fill="#009EDB" />
+    <text x="-4" y="60" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Donors</text>
+    <path d="M 10 10 C 60 10 60 15 110 15 L 110 45 C 60 45 60 100 10 100 Z" fill="#009EDB" fillOpacity="0.4" />
+    <path d="M 10 100 C 60 100 60 80 110 80 L 110 100 C 60 100 60 100 10 100 Z" fill="#009EDB" fillOpacity="0.4" />
+    <rect x="110" y="15" width="10" height="30" fill="#0074B7" />
+    <text x="125" y="33" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Rapid Response</text>
+    <rect x="110" y="80" width="10" height="20" fill="#0074B7" />
+    <text x="125" y="95" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Underfunded</text>
+    <path d="M 120 15 C 170 15 170 10 220 10 L 220 40 C 170 40 170 45 120 45 Z" fill="#0074B7" fillOpacity="0.4" />
+    <path d="M 120 80 C 170 80 170 70 220 70 L 220 105 C 170 105 170 100 120 100 Z" fill="#0074B7" fillOpacity="0.4" />
+    <rect x="220" y="10" width="10" height="30" fill="#64BDEA" />
+    <text x="232" y="28" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Africa</text>
+    <rect x="220" y="70" width="10" height="35" fill="#64BDEA" />
+    <text x="232" y="90" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Asia</text>
+  </g>
+  <text x="10" y="172" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, CERF, 2024.</text>
+</svg>
+
+<Part name="Node" rule="Rectangle, width 20px (default), thickness proportional to total flow through the node." />
+<Part name="Node padding" rule="15px vertical gap between nodes at the same level." />
+<Part name="Link" rule="Bezier flow. Fill = source-node colour, opacity 0.4." />
+<Part name="Node colour" rule="Step the OCHA ramp by level: #009EDB → #0074B7 → #64BDEA." />
+<Part name="Label" rule="Roboto Condensed, #555555. Right of node on left side; left of node on right side." />
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Default node color | `#009EDB` | `--brand-primary` |
+| Multi-level node ramp | `#009EDB`, `#0074B7`, `#64BDEA` | OCHA ramp |
+| Node width | `20px` | `sankeyNodeWidth` |
+| Node padding | `15px` | `sankeyNodePadding` |
+| Link opacity | `0.4` | `sankeyLinkOpacity` |
+| Link fill | source-node color | — |
+| Label font | Roboto Condensed 11px, `#555555` | — |
+| Label mode | both ends default | `sankeyLabelMode: 'both'` |
+
+Values from `chart-sankey.js`.
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Ordered nodes, minimal crossings">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(20,20)">
+        <rect x="0" y="20" width="8" height="80" fill="#009EDB" />
+        <path d="M 8 20 C 60 20 60 10 120 10 L 120 40 C 60 40 60 100 8 100 Z" fill="#009EDB" fillOpacity="0.4" />
+        <rect x="120" y="10" width="8" height="30" fill="#0074B7" />
+        <rect x="120" y="70" width="8" height="40" fill="#0074B7" />
+        <path d="M 8 100 C 60 100 60 80 120 80 L 120 110 C 60 110 60 105 8 105 Z" fill="#009EDB" fillOpacity="0.4" />
+      </g>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Crossing links, no node order">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(20,20)">
+        <rect x="0" y="10" width="8" height="30" fill="#009EDB" />
+        <rect x="0" y="70" width="8" height="30" fill="#009EDB" />
+        <path d="M 8 10 C 60 10 60 90 120 90 L 120 110 C 60 110 60 30 8 30 Z" fill="#F2645A" fillOpacity="0.4" />
+        <path d="M 8 70 C 60 70 60 20 120 20 L 120 40 C 60 40 60 100 8 100 Z" fill="#1EBFB3" fillOpacity="0.4" />
+        <rect x="120" y="20" width="8" height="20" fill="#FFB92A" />
+        <rect x="120" y="90" width="8" height="20" fill="#7B68EE" />
+      </g>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- Install **Sankey** custom visual (from AppSource).
+- Node colors: OCHA ramp by level. Node width 20px. Link opacity ~40%.
+- Format labels to Roboto Condensed 11pt.
+
+### Datawrapper
+- Chart type: **Sankey diagram** (Datawrapper Plus).
+- Colors: custom, OCHA ramp in source order.
+
+### Chart.js / D3
+```js
+// D3 sankey
+const sankeyLayout = d3.sankey().nodeWidth(20).nodePadding(15).extent([[0,0],[w,h]]);
+const { nodes, links } = sankeyLayout({ nodes: n.map(d=>({...d})), links: l.map(d=>({...d})) });
+svg.selectAll('rect').data(nodes).join('rect')
+  .attr('fill', d => ['#009EDB','#0074B7','#64BDEA'][d.depth] || '#009EDB');
+svg.selectAll('path').data(links).join('path').attr('stroke', d => d.source.color).attr('stroke-opacity', 0.4);
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

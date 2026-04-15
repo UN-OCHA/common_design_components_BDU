@@ -1,0 +1,156 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/Horizontal bar" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# Horizontal bar
+
+Compares values across categories when labels are long (countries, sectors, organizations). The most versatile OCHA chart.
+
+## When to use
+
+- Categorical comparison with 4–15 items and long labels.
+- Ranking (largest to smallest) is the story.
+- Values share a common unit (people, USD, %).
+- Avoid when the X axis is time — use a line or vertical bar instead.
+- Avoid when you need to show part-to-whole with more than two segments — use stacked bar.
+
+## Anatomy
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">People in Need by country, 2024</text>
+  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Top 5 HRP countries, millions</text>
+  <g transform="translate(60,42)">
+    <text x="-6" y="12" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Sudan</text>
+    <rect x="0" y="4" width="170" height="14" fill="#009EDB" />
+    <text x="176" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">24.8M</text>
+    <text x="-6" y="32" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">DRC</text>
+    <rect x="0" y="24" width="174" height="14" fill="#C5DFEF" />
+    <text x="180" y="34" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">25.4M</text>
+    <text x="-6" y="52" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Afghanistan</text>
+    <rect x="0" y="44" width="160" height="14" fill="#C5DFEF" />
+    <text x="166" y="54" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">23.7M</text>
+    <text x="-6" y="72" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Ethiopia</text>
+    <rect x="0" y="64" width="145" height="14" fill="#C5DFEF" />
+    <text x="151" y="74" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">21.4M</text>
+    <text x="-6" y="92" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Yemen</text>
+    <rect x="0" y="84" width="120" height="14" fill="#C5DFEF" />
+    <text x="126" y="94" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">17.8M</text>
+  </g>
+  <text x="10" y="168" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, HRP 2024.</text>
+</svg>
+
+<Part name="Title" rule="Roboto 14px, weight 700, color #1A1A1A. State the finding when possible." />
+<Part name="Bar" rule="Primary fill #009EDB (OCHA style). No rounded corners. No stroke." />
+<Part name="Label (left)" rule="Roboto Condensed 11px, #555555, right-aligned to bar start." />
+<Part name="Value" rule="Roboto Condensed 10px, #333333, positioned 6px outside bar end." />
+<Part name="Source" rule="Roboto 10px, #737373 (--cd-grey--700), bottom-left." />
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Primary bar fill | `#009EDB` | `--brand-primary` |
+| Bar corner radius | `0` (sharp) | — |
+| Bar thickness (md 350–550px) | `24px` | — |
+| Bar gap | `10px` (md) | — |
+| Margin left / right (md) | `50px` / `20px` | — |
+| Title font | Roboto 14px, bold, `#1A1A1A` | `--cd-font--roboto` |
+| Label font | Roboto Condensed 11px, `#555555` | `--cd-font--roboto-condensed` |
+| Value font | Roboto Condensed 10px, `#333333` | `--cd-font--roboto-condensed` |
+| Footer / source | Roboto 10px, `#999999` in-tool; use `#737373` on white for AA contrast | `--cd-grey--700` |
+| Max label chars (md) | `20` (truncate) | — |
+| Value label offset | `6px` outside bar | — |
+
+Values from `chart-hbar.js` + `chart-registry.js` breakpoint `md`.
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Sort by value, zero-baseline">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <text x="8" y="14" fontFamily="Roboto, Arial, sans-serif" fontSize="10" fontWeight="700" fill="#1A1A1A">Funding by sector</text>
+      <g transform="translate(70,28)">
+        <text x="-4" y="12" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Food</text>
+        <rect x="0" y="4" width="130" height="12" fill="#009EDB" />
+        <text x="-4" y="30" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Health</text>
+        <rect x="0" y="22" width="90" height="12" fill="#009EDB" />
+        <text x="-4" y="48" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">WASH</text>
+        <rect x="0" y="40" width="60" height="12" fill="#009EDB" />
+        <text x="-4" y="66" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Shelter</text>
+        <rect x="0" y="58" width="35" height="12" fill="#009EDB" />
+      </g>
+      <text x="8" y="140" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, FTS, 2024.</text>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Unsorted + clipped axis">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <text x="8" y="14" fontFamily="Roboto, Arial, sans-serif" fontSize="10" fontWeight="700" fill="#1A1A1A">Funding by sector</text>
+      <g transform="translate(70,28)">
+        <text x="-4" y="12" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Shelter</text>
+        <rect x="0" y="4" width="40" height="12" fill="#F2645A" />
+        <text x="-4" y="30" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Food</text>
+        <rect x="0" y="22" width="120" height="12" fill="#1EBFB3" />
+        <text x="-4" y="48" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">WASH</text>
+        <rect x="0" y="40" width="55" height="12" fill="#FFB92A" />
+        <text x="-4" y="66" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Health</text>
+        <rect x="0" y="58" width="85" height="12" fill="#7B68EE" />
+      </g>
+      <text x="8" y="140" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Random order, rainbow palette.</text>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- **Format → Bars → Fill:** `#009EDB`. **Corner radius:** `0`.
+- **Data labels:** On, Position **Outside end**, Font **Roboto Condensed 10pt**, Color `#333333`.
+- **Sort axis:** descending by value.
+- **X axis / gridlines:** Off. **Y axis line:** Off.
+
+### Datawrapper
+- Theme: **OCHA** (contact BDU for access).
+- If building manually: *Appearance → Bars → Color* `#009EDB`; *Labels* → outside; *Axis* → hide gridlines and baseline; *Sort* by value.
+
+### Chart.js / D3
+```js
+new Chart(ctx, {
+  type: 'bar',
+  data: { labels, datasets: [{ data, backgroundColor: '#009EDB', borderRadius: 0 }] },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { beginAtZero: true, grid: { display: false }, ticks: { font: { family: 'Roboto Condensed', size: 10 }, color: '#333333' } },
+      y: { grid: { display: false }, ticks: { font: { family: 'Roboto Condensed', size: 11 }, color: '#555555' } }
+    }
+  }
+});
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

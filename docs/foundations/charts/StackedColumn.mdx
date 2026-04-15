@@ -1,0 +1,152 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/100% stacked" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# 100% stacked (stacked column)
+
+Shows composition only — every bar totals 100%. Use when the mix is the message and the absolute value is not.
+
+## When to use
+
+- Comparing composition across time periods or categories.
+- Each bar must sum to 100% — values are normalized.
+- 2–3 sub-categories work best; 4 is the hard ceiling.
+- Avoid when the reader needs the absolute total — use a stacked bar with totals instead.
+- Avoid when one slice dominates so heavily that the others are unreadable.
+
+## Anatomy
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">CERF allocation composition, 2020–2024</text>
+  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Rapid response vs. Underfunded emergencies</text>
+  <g transform="translate(30,42)">
+    <rect x="10" y="0" width="24" height="60" fill="#009EDB" />
+    <rect x="10" y="60" width="24" height="40" fill="#C5DFEF" />
+    <text x="22" y="112" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">2020</text>
+    <rect x="46" y="0" width="24" height="55" fill="#009EDB" />
+    <rect x="46" y="55" width="24" height="45" fill="#C5DFEF" />
+    <text x="58" y="112" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">2021</text>
+    <rect x="82" y="0" width="24" height="50" fill="#009EDB" />
+    <rect x="82" y="50" width="24" height="50" fill="#C5DFEF" />
+    <text x="94" y="112" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">2022</text>
+    <rect x="118" y="0" width="24" height="48" fill="#009EDB" />
+    <rect x="118" y="48" width="24" height="52" fill="#C5DFEF" />
+    <text x="130" y="112" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">2023</text>
+    <rect x="154" y="0" width="24" height="42" fill="#009EDB" />
+    <rect x="154" y="42" width="24" height="58" fill="#C5DFEF" />
+    <text x="166" y="112" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">2024</text>
+    <text x="22" y="36" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="8" fontWeight="700" fill="#FFFFFF" textAnchor="middle">60%</text>
+    <text x="166" y="26" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="8" fontWeight="700" fill="#FFFFFF" textAnchor="middle">42%</text>
+    <text x="166" y="78" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="8" fill="#333333" textAnchor="middle">58%</text>
+  </g>
+  <g transform="translate(30,158)">
+    <rect x="0" y="0" width="10" height="10" fill="#009EDB" />
+    <text x="14" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Rapid response</text>
+    <rect x="100" y="0" width="10" height="10" fill="#C5DFEF" />
+    <text x="114" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Underfunded</text>
+  </g>
+</svg>
+
+<Part name="Bar total" rule="Always 100%. Normalize values before rendering." />
+<Part name="Segment fill" rule="OCHA ramp only: #009EDB → #C5DFEF. Same order across every bar." />
+<Part name="In-segment labels" rule="Percent only (e.g. 60%), Roboto Condensed 9px, contrast-text auto." />
+<Part name="Axis" rule="No Y-axis scale; the 100% ceiling is implicit." />
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Primary segment | `#009EDB` | `--brand-primary` |
+| Secondary segment | `#C5DFEF` | `--cd-blue--brighter` |
+| Segment stroke | `#FFFFFF`, 1px | — |
+| Bar corner radius | `0` | — |
+| Bar bandwidth padding | `0.25` | — |
+| Label | Roboto Condensed 9px; `#FFFFFF` inside dark segment, `#333333` inside light | — |
+| X label font | Roboto Condensed 11px, `#555555` | — |
+
+Values from `chart-stacked-col.js` + `chart-registry.js`.
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Two segments, % labels">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(30,20)">
+        <rect x="10" y="0" width="24" height="55" fill="#009EDB" />
+        <rect x="10" y="55" width="24" height="45" fill="#C5DFEF" />
+        <rect x="50" y="0" width="24" height="50" fill="#009EDB" />
+        <rect x="50" y="50" width="24" height="50" fill="#C5DFEF" />
+        <rect x="90" y="0" width="24" height="45" fill="#009EDB" />
+        <rect x="90" y="45" width="24" height="55" fill="#C5DFEF" />
+      </g>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Five segments, rainbow">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(30,20)">
+        <rect x="10" y="0" width="24" height="20" fill="#F2645A" />
+        <rect x="10" y="20" width="24" height="25" fill="#FFB92A" />
+        <rect x="10" y="45" width="24" height="20" fill="#1EBFB3" />
+        <rect x="10" y="65" width="24" height="15" fill="#7B68EE" />
+        <rect x="10" y="80" width="24" height="20" fill="#AAC85C" />
+        <rect x="50" y="0" width="24" height="15" fill="#F2645A" />
+        <rect x="50" y="15" width="24" height="30" fill="#FFB92A" />
+        <rect x="50" y="45" width="24" height="20" fill="#1EBFB3" />
+        <rect x="50" y="65" width="24" height="15" fill="#7B68EE" />
+        <rect x="50" y="80" width="24" height="20" fill="#AAC85C" />
+      </g>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- Use **100% Stacked column** visual. Corner radius `0`.
+- Normalize data in Power Query (`value / sum(value) over (bar)`) or rely on visual's 100% mode.
+- Series colors from the OCHA ramp in sequence.
+
+### Datawrapper
+- Chart type: **Stacked column**, then toggle **Show as 100%**.
+- Labels: only percentage; hide Y axis.
+
+### Chart.js / D3
+```js
+new Chart(ctx, {
+  type: 'bar',
+  data: { labels, datasets },
+  options: {
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true, max: 100, ticks: { callback: v => v + '%' } }
+    }
+  }
+});
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

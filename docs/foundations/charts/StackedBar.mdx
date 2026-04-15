@@ -1,0 +1,151 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/Stacked bar" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# Stacked bar
+
+Shows totals broken into 2–3 meaningful sub-categories. Reader compares totals *and* composition in one view.
+
+## When to use
+
+- Each total has a clear 2–3 category breakdown (funded/unfunded; reached/unreached; sector mix).
+- The category order is consistent across all bars.
+- Rows are sortable by total.
+- Avoid more than 3 segments per bar — readers can no longer compare sub-segments by length.
+- Avoid when the composition is the *only* message — use a 100% stacked instead.
+
+## Anatomy
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">HRP funding status, 2024</text>
+  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Funded vs. unfunded, US$ billion</text>
+  <g transform="translate(65,42)">
+    <text x="-6" y="12" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Syria</text>
+    <rect x="0" y="4" width="45" height="14" fill="#009EDB" stroke="#FFFFFF" strokeWidth="1" />
+    <rect x="45" y="4" width="95" height="14" fill="#C5DFEF" stroke="#FFFFFF" strokeWidth="1" />
+    <text x="146" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">4.1B</text>
+    <text x="-6" y="32" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Sudan</text>
+    <rect x="0" y="24" width="30" height="14" fill="#009EDB" stroke="#FFFFFF" strokeWidth="1" />
+    <rect x="30" y="24" width="100" height="14" fill="#C5DFEF" stroke="#FFFFFF" strokeWidth="1" />
+    <text x="136" y="34" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">2.7B</text>
+    <text x="-6" y="52" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Ukraine</text>
+    <rect x="0" y="44" width="70" height="14" fill="#009EDB" stroke="#FFFFFF" strokeWidth="1" />
+    <rect x="70" y="44" width="45" height="14" fill="#C5DFEF" stroke="#FFFFFF" strokeWidth="1" />
+    <text x="121" y="54" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">3.1B</text>
+    <text x="-6" y="72" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Yemen</text>
+    <rect x="0" y="64" width="35" height="14" fill="#009EDB" stroke="#FFFFFF" strokeWidth="1" />
+    <rect x="35" y="64" width="55" height="14" fill="#C5DFEF" stroke="#FFFFFF" strokeWidth="1" />
+    <text x="96" y="74" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">2.1B</text>
+  </g>
+  <g transform="translate(65,130)">
+    <rect x="0" y="0" width="10" height="10" fill="#009EDB" />
+    <text x="14" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Funded</text>
+    <rect x="60" y="0" width="10" height="10" fill="#C5DFEF" />
+    <text x="74" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Unfunded</text>
+  </g>
+  <text x="10" y="168" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, FTS, 2024.</text>
+</svg>
+
+<Part name="Segment" rule="First (primary) segment #009EDB; subsequent segments step down the ocha ramp (#C5DFEF, #64BDEA) or step up to darker shades." />
+<Part name="Segment stroke" rule="1px #FFFFFF between segments (stackedStrokeColor default)." />
+<Part name="Total" rule="Rendered outside bar end, Roboto Condensed 10px #333333." />
+<Part name="Legend" rule="Bottom, swatch 10×10px, Roboto Condensed 11px." />
+<Part name="Order" rule="Keep category order identical across all bars. Sort rows by total." />
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Primary segment | `#009EDB` | `--brand-primary` |
+| Secondary segments (OCHA ramp) | `#C5DFEF`, `#64BDEA`, `#0074B7` | `--cd-blue--brighter`, `--cd-blue--bright`, `--cd-blue--darker` |
+| Segment separator stroke | `#FFFFFF`, 1px | — |
+| Bar thickness (md) | `24px` | — |
+| Bar gap | `10px` | — |
+| In-segment value (only if segW > 24px) | Roboto Condensed 9px, contrast-text auto | — |
+| Total label | Roboto Condensed 10px, `#333333`, 6px outside bar | — |
+| Max segments | `3` before legibility drops | — |
+
+Values from `chart-stacked-bar.js` + `chart-registry.js` (OCHA ramp: `#E3EDF6` → `#002E6E`).
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Two segments, sorted by total">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <text x="8" y="14" fontFamily="Roboto, Arial, sans-serif" fontSize="10" fontWeight="700" fill="#1A1A1A">Funded vs. unfunded</text>
+      <g transform="translate(55,28)">
+        <rect x="0" y="4" width="50" height="12" fill="#009EDB" />
+        <rect x="50" y="4" width="90" height="12" fill="#C5DFEF" />
+        <rect x="0" y="22" width="40" height="12" fill="#009EDB" />
+        <rect x="40" y="22" width="80" height="12" fill="#C5DFEF" />
+        <rect x="0" y="40" width="30" height="12" fill="#009EDB" />
+        <rect x="30" y="40" width="60" height="12" fill="#C5DFEF" />
+      </g>
+      <text x="8" y="140" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, FTS.</text>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Six segments — unreadable">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <text x="8" y="14" fontFamily="Roboto, Arial, sans-serif" fontSize="10" fontWeight="700" fill="#1A1A1A">Sector mix</text>
+      <g transform="translate(55,28)">
+        <rect x="0" y="4" width="25" height="12" fill="#009EDB" />
+        <rect x="25" y="4" width="20" height="12" fill="#F2645A" />
+        <rect x="45" y="4" width="30" height="12" fill="#1EBFB3" />
+        <rect x="75" y="4" width="25" height="12" fill="#FFB92A" />
+        <rect x="100" y="4" width="20" height="12" fill="#7B68EE" />
+        <rect x="120" y="4" width="20" height="12" fill="#AAC85C" />
+      </g>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- **Stacked bar chart** visual. Bar corner radius `0`.
+- Series colors: `#009EDB`, `#C5DFEF` (OCHA ramp in descending order).
+- Data labels: inside segment only when segW > ~24px; always show total.
+- Sort by total descending.
+
+### Datawrapper
+- Theme: **OCHA**.
+- Manual: *Appearance → Stacked bars*, custom series colors from OCHA ramp; enable **totals** on.
+
+### Chart.js / D3
+```js
+new Chart(ctx, {
+  type: 'bar',
+  data: { labels, datasets: [
+    { label: 'Funded', data: funded, backgroundColor: '#009EDB' },
+    { label: 'Unfunded', data: gap, backgroundColor: '#C5DFEF' }
+  ]},
+  options: { indexAxis: 'y', scales: { x: { stacked: true, beginAtZero: true }, y: { stacked: true } } }
+});
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

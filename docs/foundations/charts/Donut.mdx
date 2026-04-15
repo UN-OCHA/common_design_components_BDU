@@ -1,0 +1,128 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Data visualization/Donut" />
+
+export const Part = ({ name, rule }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}>{rule}</span>
+  </div>
+);
+
+export const DoDont = ({ children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '16px 0' }}>{children}</div>
+);
+
+export const DDCell = ({ kind, label, children }) => (
+  <div>
+    <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: kind === 'do' ? '#27833A' : '#EB0045', marginBottom: '8px' }}>
+      {kind === 'do' ? '✓ Do' : "✗ Don't"} — {label}
+    </div>
+    {children}
+  </div>
+);
+
+# Donut
+
+Binary data only: funded vs. unfunded, reached vs. not reached, in need vs. targeted. The hole holds the headline number.
+
+## When to use
+
+- Exactly **two** categories — funded/gap, reached/not-reached.
+- The headline number belongs in the hole.
+- Avoid 3+ slices on a donut — use a pie (rarely) or a horizontal bar.
+- Avoid when the comparison is between multiple donuts side-by-side.
+
+## Anatomy
+
+<svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">HRP funding progress, 2024</text>
+  <g transform="translate(125,100)">
+    <circle r="60" fill="#C5DFEF" />
+    <path d="M 0 -60 A 60 60 0 1 1 -57 -18 L -34 -11 A 36 36 0 1 0 0 -36 Z" fill="#009EDB" />
+    <circle r="36" fill="#FFFFFF" />
+    <text x="0" y="-2" fontFamily="Roboto, Arial, sans-serif" fontSize="16" fontWeight="700" fill="#333333" textAnchor="middle">38%</text>
+    <text x="0" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">funded</text>
+  </g>
+  <g transform="translate(10,164)">
+    <rect x="0" y="0" width="10" height="10" fill="#009EDB" />
+    <text x="14" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Funded US$ 18.2B</text>
+    <rect x="130" y="0" width="10" height="10" fill="#C5DFEF" />
+    <text x="144" y="9" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Gap US$ 29.4B</text>
+  </g>
+  <text x="10" y="177" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, FTS, 2024.</text>
+</svg>
+
+<Part name="Donut hole" rule="60% of outer radius (default). Fill #FFFFFF." />
+<Part name="Centre number" rule="Roboto 16px bold (labelSize + 3), #333333. Optional label Roboto Condensed 10px #555555 below." />
+<Part name="Slices" rule="Two slices only. Primary #009EDB, remainder #C5DFEF (OCHA light)." />
+<Part name="Slice stroke" rule="#FFFFFF, 2px, round linejoin." />
+
+## Style values
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Primary slice | `#009EDB` | `--brand-primary` |
+| Secondary slice | `#C5DFEF` | `--cd-blue--brighter` |
+| Hole ratio | `60%` of outer radius | `config.donutHole` |
+| Slice stroke | `#FFFFFF`, 2px | — |
+| Centre number | Roboto, `labelSize + 3` (14px md), bold, `#333333` | `valueColor` |
+| Centre label | Roboto Condensed, `labelSize + 1` (12px md), `#555555` | `labelColor` |
+| Outside label | Roboto Condensed 10px, `#555555` | — |
+
+Values from `chart-donut.js`.
+
+## Do / Don't
+
+<DoDont>
+  <DDCell kind="do" label="Binary split, headline in hole">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(110,75)">
+        <circle r="55" fill="#C5DFEF" />
+        <path d="M 0 -55 A 55 55 0 1 1 -52 -16 L -31 -10 A 33 33 0 1 0 0 -33 Z" fill="#009EDB" />
+        <circle r="33" fill="#FFFFFF" />
+        <text x="0" y="-2" fontFamily="Roboto, Arial, sans-serif" fontSize="16" fontWeight="700" fill="#333333" textAnchor="middle">38%</text>
+        <text x="0" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">funded</text>
+      </g>
+    </svg>
+  </DDCell>
+  <DDCell kind="dont" label="Five slices — should be a pie or bar">
+    <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(110,75)">
+        <path d="M 0 0 L 0 -55 A 55 55 0 0 1 52 -16 Z" fill="#009EDB" stroke="#FFFFFF" strokeWidth="2" />
+        <path d="M 0 0 L 52 -16 A 55 55 0 0 1 32 44 Z" fill="#F2645A" stroke="#FFFFFF" strokeWidth="2" />
+        <path d="M 0 0 L 32 44 A 55 55 0 0 1 -32 44 Z" fill="#1EBFB3" stroke="#FFFFFF" strokeWidth="2" />
+        <path d="M 0 0 L -32 44 A 55 55 0 0 1 -52 -16 Z" fill="#FFB92A" stroke="#FFFFFF" strokeWidth="2" />
+        <path d="M 0 0 L -52 -16 A 55 55 0 0 1 0 -55 Z" fill="#7B68EE" stroke="#FFFFFF" strokeWidth="2" />
+        <circle r="33" fill="#FFFFFF" />
+      </g>
+    </svg>
+  </DDCell>
+</DoDont>
+
+## Apply it in your tool
+
+### Power BI
+- Visual: **Donut chart**. **Inner radius** `60%`.
+- Two categories only. Series colors `#009EDB` + `#C5DFEF`. Outline `#FFFFFF` width `2`.
+- Use a **card** visual overlaid in the centre for the headline number; Roboto 16pt bold.
+
+### Datawrapper
+- Chart type: **Donut**. Inner radius 60%.
+- Add centre annotation via *Annotate → Text* at the chart midpoint.
+
+### Chart.js / D3
+```js
+new Chart(ctx, {
+  type: 'doughnut',
+  data: { labels: ['Funded', 'Gap'], datasets: [{ data: [38, 62], backgroundColor: ['#009EDB', '#C5DFEF'], borderColor: '#FFFFFF', borderWidth: 2 }] },
+  options: { cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+});
+```
+
+### Illustrator
+Use the [Humanitarian Dataviz Tool](https://brand.unocha.org) — it applies all these values automatically.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))
