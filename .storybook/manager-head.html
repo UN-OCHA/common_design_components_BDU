@@ -1,6 +1,60 @@
 <!-- Favicon — UN emblem in OCHA Blue -->
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 
+<!-- Beta banner — sits above the manager, pushes layout down -->
+<style>
+  :root { --ocha-beta-banner-h: 36px; }
+  body { padding-top: var(--ocha-beta-banner-h) !important; box-sizing: border-box; }
+  #ocha-beta-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--ocha-beta-banner-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 16px;
+    background: #161616;
+    color: #FFFFFF;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    z-index: 2147483647;
+    border-bottom: 2px solid #009EDB;
+  }
+  #ocha-beta-banner .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #009EDB;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  #ocha-beta-banner a { color: #64BDEA; text-decoration: underline; }
+</style>
+<script>
+  (function () {
+    function mount() {
+      if (document.getElementById('ocha-beta-banner')) return;
+      var b = document.createElement('div');
+      b.id = 'ocha-beta-banner';
+      b.innerHTML =
+        '<span class="tag">Beta</span>' +
+        '<span>Under active development — contents and structure may change. Feedback to ' +
+        '<a href="mailto:ochavisual@un.org">ochavisual@un.org</a>.</span>';
+      document.body.prepend(b);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', mount);
+    } else {
+      mount();
+    }
+  })();
+</script>
+
 <!-- Google Fonts for Storybook manager UI (sidebar, toolbar) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
