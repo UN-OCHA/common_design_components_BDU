@@ -152,79 +152,66 @@ export const IconGallery = () => {
 
 # Iconography
 
-**Humanitarian Icons 2026** — OCHA's open-source icon library covering humanitarian clusters, sectors, disasters, people, infrastructure, and UI actions. **389 icons** across 19 families, maintained by the OCHA Brand and Design Unit.
+OCHA products draw on two icon libraries, each in a defined role. The decision is governed by **how the user encounters the icon — reading it, or acting on it.**
 
 <div style={{ padding: '20px 24px', background: '#F4F4F4', borderLeft: '3px solid #009EDB', margin: '32px 0' }}>
-  <strong style={{ fontSize: 14, color: '#161616' }}>Single source of truth</strong>
+  <strong style={{ fontSize: 14, color: '#161616' }}>The one-line test</strong>
   <p style={{ margin: '6px 0 0', fontSize: 15, lineHeight: 1.55, color: '#393939' }}>
-    Icons live in <a href={`https://github.com/${ICONS_REPO}`} style={{ color: '#0077B8' }}>github.com/{ICONS_REPO}</a> and are consumed here via the jsDelivr CDN. Any update to the icon repo appears in this gallery automatically.
+    Is the user <strong>reading</strong> this icon, or <strong>acting on</strong> it? Reading → OCHA Humanitarian Icons. Acting → Font Awesome. A reading icon that is also clickable still counts as reading.
   </p>
 </div>
 
-## Browse
+## Three roles
+
+### 1. UI chrome → Font Awesome (free)
+
+Anything that signals action, state, or affordance: buttons, navigation, toolbars, banners, filters, modals, status indicators, close / back / refresh, menus, search. Glanced at and clicked, not studied. Font Awesome is optically tuned for that role and includes a **Humanitarian category** that mirrors the OCHA Humanitarian set — OCHA co-built it.
+
+### 2. Content & pictograms → OCHA Humanitarian Icons
+
+Anything where the icon is what the user is reading: KPI cards, pictogram charts, chart category markers, illustrations in reports and sit-reps, infographic callouts, empty-state illustrations, legends and keys that explain symbology. **A reading icon can still be clickable** — a Health icon inside a KPI card that opens a detail view is still read first. It stays OCHA Humanitarian.
+
+### 3. Maps → OCHA cartographic conventions
+
+Start with OCHA's standard symbology. When an icon sits on top of a map:
+
+- Bigger maps with room → **OCHA Humanitarian Icons**.
+- Small maps (dashboard tiles, sit-rep insets, mini-maps) → **Font Awesome** — OCHA icons become dense at that scale.
+- If Font Awesome lacks the humanitarian concept, fall back to OCHA Humanitarian at the smallest tolerable size, or use a generic pin + label.
+
+### Bonus — partner and social logos → Font Awesome Brands
+
+X, LinkedIn, YouTube, GitHub, Slack, partner-organisation marks. Font Awesome Brands covers these, free.
+
+## Browse OCHA Humanitarian Icons
+
+**389 icons** across 19 families, maintained by BDU. Source of truth: [github.com/UN-OCHA/humanitarian-icons-2026-BDU](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). The gallery below is loaded live from the jsDelivr CDN — any update to the repo appears here automatically.
 
 <IconGallery />
 
-## How to use
+## Implementation
 
-### Option 1 — Load from CDN (recommended)
+### OCHA Humanitarian Icons
 
-Pull any icon directly from jsDelivr. No build step, always in sync with the latest repo release.
+Follow the README in [`UN-OCHA/humanitarian-icons-2026-BDU`](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). Quickest path is to load any icon as an SVG via the jsDelivr CDN and recolour it with `currentColor` or a CSS `mask`. The repo also ships an icon-font build for legacy and PowerPoint use, plus raw SVGs for Illustrator and other design tools.
 
-```html
-<img
-  src="https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg"
-  alt="Health"
-  width="32" height="32">
-```
+### Font Awesome
 
-For production apps, pin a release tag instead of `@main`:
+Follow [fontawesome.com/docs](https://fontawesome.com/docs). Use the free CDN or self-host.
 
-```html
-<img src="https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@v2.0.0/svg/Health.svg" ...>
-```
-
-### Option 2 — Icon font
-
-For large icon counts on legacy platforms (PowerPoint, Word, some CMSs), use the generated icon font. Download `Humanitarian_icons.ttf` from the repo's [`output/font/`](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU/tree/main/output/font) folder and install. Each icon maps to a Unicode codepoint listed in `metadata.json`.
-
-### Option 3 — Self-host
-
-Clone the repo and serve the `svg/` folder from your own static host. Useful for air-gapped environments or when you need to recolour/re-package the set.
-
-```bash
-git clone https://github.com/UN-OCHA/humanitarian-icons-2026-BDU.git
-# SVGs live in ./humanitarian-icons-2026-BDU/svg/
-```
-
-## Styling rules
-
-- **Single colour.** OCHA humanitarian icons are monochrome. Use `--brand-primary` (`#009EDB`) by default, or the text colour of the surrounding copy for inline use. Never apply more than one hue per icon.
-- **Sharp geometry.** Icons are built to a 24×24 grid. Do not round or soften corners — the grid is intentional.
-- **Minimum size 20×20 px** on screen. Below that, stroke weight fails and meaning is lost.
-- **Clear space** equal to the icon's own height on all sides when standing alone.
-- **Pair with a label** unless the icon's meaning is universal (search, close, menu). Humanitarian concepts — "shelter," "WASH," "IDP" — need an accompanying word the first time they appear in a product.
-- **Recolour via CSS**, not by editing the SVG. Serve the SVG inline or use a CSS mask so the icon inherits `color` or `--brand-primary`.
-
-```css
-/* Recolour via mask — works across the full icon set */
-.icon {
-  width: 24px; height: 24px;
-  background-color: var(--brand-primary);
-  mask: url('https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg') no-repeat center / contain;
-  -webkit-mask: url('https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg') no-repeat center / contain;
-}
-```
+- Stay on the **Solid** weight, monochrome, recoloured to the OCHA palette.
+- **Pin a specific Font Awesome version** in your stylesheets so visual drift doesn't sneak in across releases.
+- For partner and social logos use the **Brands** weight.
 
 ## Accessibility
 
-- Provide a meaningful **`alt` text** on `<img>` or an `aria-label` on inline SVG. Decorative icons (e.g. a leading bullet) should use `alt=""` or `aria-hidden="true"`.
-- **Never rely on icon alone** to convey meaning — pair it with text, a label, or a tooltip.
+- Provide meaningful **`alt` text** on `<img>` or an `aria-label` on inline SVG. Decorative icons (e.g. a leading bullet) should use `alt=""` or `aria-hidden="true"`.
+- **Never rely on icon alone** to convey meaning — pair it with text, a label, or a tooltip the first time a humanitarian concept appears in a product.
 - Verify the icon's colour against its background meets **3:1 contrast** for graphic elements (WCAG 2.1 SC 1.4.11).
 
 ## Contributing
 
-Need a new icon? Missing a variant? The icon set is maintained by BDU — open an issue or PR on [the icons repo](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). All icons are reviewed for consistency with the 24×24 grid and the OCHA visual style before being merged.
+Need an OCHA Humanitarian icon that doesn't exist yet? Open an issue or PR on [the icons repo](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). All icons are reviewed for grid and visual-style consistency by BDU before being merged, then redistributed automatically through jsDelivr and the next Font Awesome sync.
 
 ## Maintained by
 
