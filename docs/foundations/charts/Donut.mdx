@@ -39,7 +39,8 @@ Binary data only: funded vs. unfunded, reached vs. not reached, in need vs. targ
   <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">HRP funding progress, 2024</text>
   <g transform="translate(125,100)">
     <circle r="60" fill="#C5DFEF" />
-    <path d="M 0 -60 A 60 60 0 1 1 -57 -18 L -34 -11 A 36 36 0 1 0 0 -36 Z" fill="#009EDB" />
+    {/* 38% funded — clockwise 136.8° from 12 o'clock; outer end (41.0, 43.78), inner end (24.6, 26.27) */}
+    <path d="M 0 -60 A 60 60 0 0 1 41.00 43.78 L 24.60 26.27 A 36 36 0 0 0 0 -36 Z" fill="#009EDB" />
     <circle r="36" fill="#FFFFFF" />
     <text x="0" y="-2" fontFamily="Roboto, Arial, sans-serif" fontSize="16" fontWeight="700" fill="#333333" textAnchor="middle">38%</text>
     <text x="0" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">funded</text>
@@ -79,7 +80,8 @@ Values from `chart-donut.js`.
     <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(110,75)">
         <circle r="55" fill="#C5DFEF" />
-        <path d="M 0 -55 A 55 55 0 1 1 -52 -16 L -31 -10 A 33 33 0 1 0 0 -33 Z" fill="#009EDB" />
+        {/* 38% — outer end (37.58, 40.13), inner end (22.55, 24.08) */}
+        <path d="M 0 -55 A 55 55 0 0 1 37.58 40.13 L 22.55 24.08 A 33 33 0 0 0 0 -33 Z" fill="#009EDB" />
         <circle r="33" fill="#FFFFFF" />
         <text x="0" y="-2" fontFamily="Roboto, Arial, sans-serif" fontSize="16" fontWeight="700" fill="#333333" textAnchor="middle">38%</text>
         <text x="0" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="middle">funded</text>
