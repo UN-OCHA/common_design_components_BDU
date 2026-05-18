@@ -17,13 +17,16 @@ const ICONS = [
 ];
 
 export default {
-  title: 'Components/Icons',
+  title: 'Components/Icons (legacy sprite)',
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          'SVG sprite served from `/cd-icons-sprite.svg`. Reference an icon with `<svg class="cd-icon"><use href="/cd-icons-sprite.svg#cd-icon--NAME"></use></svg>`.',
+        component: [
+          '**Legacy approach.** This is the Drupal `cd-icons-sprite.svg` used by `unocha.org` and other Common Design sites today. It covers a small set of UI marks (about, search, alert, social-media links, OCHA logo) served as a single SVG sprite. Reference an icon with `<svg class="cd-icon"><use href="/cd-icons-sprite.svg#cd-icon--NAME"></use></svg>`.',
+          '',
+          '**For new work, use the icon system documented under [Foundations / Iconography](?path=/docs/foundations-iconography--docs):** Font Awesome for UI chrome, OCHA Humanitarian Icons for content and pictograms. The sprite is kept here for parity with sites still running it.',
+        ].join('\n\n'),
       },
     },
   },

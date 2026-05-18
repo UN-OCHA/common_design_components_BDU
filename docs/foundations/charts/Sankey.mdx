@@ -37,23 +37,22 @@ Flow diagram showing how quantities move between source and target nodes. Use fo
 ## Anatomy
 
 <svg viewBox="0 0 250 180" style={{ width: '100%', maxWidth: '480px', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
-  <text x="10" y="16" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">CERF allocation flow, 2024</text>
-  <text x="10" y="28" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Source → Window → Region, US$ million</text>
-  <g transform="translate(10,46)">
-    <rect x="0" y="10" width="10" height="90" fill="#009EDB" />
-    <text x="-4" y="60" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Donors</text>
-    <path d="M 10 10 C 60 10 60 15 110 15 L 110 45 C 60 45 60 100 10 100 Z" fill="#009EDB" fillOpacity="0.4" />
-    <path d="M 10 100 C 60 100 60 80 110 80 L 110 100 C 60 100 60 100 10 100 Z" fill="#009EDB" fillOpacity="0.4" />
-    <rect x="110" y="15" width="10" height="30" fill="#0074B7" />
-    <text x="125" y="33" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Rapid Response</text>
-    <rect x="110" y="80" width="10" height="20" fill="#0074B7" />
-    <text x="125" y="95" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Underfunded</text>
-    <path d="M 120 15 C 170 15 170 10 220 10 L 220 40 C 170 40 170 45 120 45 Z" fill="#0074B7" fillOpacity="0.4" />
-    <path d="M 120 80 C 170 80 170 70 220 70 L 220 105 C 170 105 170 100 120 100 Z" fill="#0074B7" fillOpacity="0.4" />
-    <rect x="220" y="10" width="10" height="30" fill="#64BDEA" />
-    <text x="232" y="28" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Africa</text>
-    <rect x="220" y="70" width="10" height="35" fill="#64BDEA" />
-    <text x="232" y="90" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Asia</text>
+  <text x="10" y="14" fontFamily="Roboto, Arial, sans-serif" fontSize="11" fontWeight="700" fill="#1A1A1A">CERF allocations, 2024</text>
+  <text x="10" y="26" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#555555">Donors → Funding window, US$ million</text>
+  <g transform="translate(40,38)">
+    {/* Source node: Donors — total 100, height 100 (y=10 to y=110) */}
+    <rect x="0" y="10" width="8" height="100" fill="#009EDB" />
+    <text x="-4" y="64" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555" textAnchor="end">Donors</text>
+    {/* Link 1: 60 units, source y=10-70 → target RR y=10-70 */}
+    <path d="M 8 10 C 90 10, 90 10, 168 10 L 168 70 C 90 70, 90 70, 8 70 Z" fill="#009EDB" fillOpacity="0.4" />
+    {/* Link 2: 40 units, source y=70-110 → target UF y=80-120 */}
+    <path d="M 8 70 C 90 70, 90 80, 168 80 L 168 120 C 90 120, 90 110, 8 110 Z" fill="#009EDB" fillOpacity="0.4" />
+    {/* Target node RR */}
+    <rect x="168" y="10" width="8" height="60" fill="#0074B7" />
+    <text x="180" y="44" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Rapid Response · 60</text>
+    {/* Target node UF */}
+    <rect x="168" y="80" width="8" height="40" fill="#0074B7" />
+    <text x="180" y="104" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#555555">Underfunded · 40</text>
   </g>
   <text x="10" y="172" fontFamily="Roboto, Arial, sans-serif" fontSize="8" fill="#737373">Source: OCHA, CERF, 2024.</text>
 </svg>
@@ -82,26 +81,32 @@ Values from `chart-sankey.js`.
 ## Do / Don't
 
 <DoDont>
-  <DDCell kind="do" label="Ordered nodes, minimal crossings">
+  <DDCell kind="do" label="Ordered nodes, no crossings">
     <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(20,20)">
-        <rect x="0" y="20" width="8" height="80" fill="#009EDB" />
-        <path d="M 8 20 C 60 20 60 10 120 10 L 120 40 C 60 40 60 100 8 100 Z" fill="#009EDB" fillOpacity="0.4" />
-        <rect x="120" y="10" width="8" height="30" fill="#0074B7" />
-        <rect x="120" y="70" width="8" height="40" fill="#0074B7" />
-        <path d="M 8 100 C 60 100 60 80 120 80 L 120 110 C 60 110 60 105 8 105 Z" fill="#009EDB" fillOpacity="0.4" />
+      <g transform="translate(20,15)">
+        {/* Source 100, height 100 */}
+        <rect x="0" y="10" width="8" height="100" fill="#009EDB" />
+        {/* Link 60 to top target */}
+        <path d="M 8 10 C 80 10, 80 10, 152 10 L 152 70 C 80 70, 80 70, 8 70 Z" fill="#009EDB" fillOpacity="0.4" />
+        {/* Link 40 to bottom target */}
+        <path d="M 8 70 C 80 70, 80 80, 152 80 L 152 120 C 80 120, 80 110, 8 110 Z" fill="#009EDB" fillOpacity="0.4" />
+        <rect x="152" y="10" width="8" height="60" fill="#0074B7" />
+        <rect x="152" y="80" width="8" height="40" fill="#0074B7" />
       </g>
     </svg>
   </DDCell>
   <DDCell kind="dont" label="Crossing links, no node order">
     <svg viewBox="0 0 220 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(20,20)">
-        <rect x="0" y="10" width="8" height="30" fill="#009EDB" />
-        <rect x="0" y="70" width="8" height="30" fill="#009EDB" />
-        <path d="M 8 10 C 60 10 60 90 120 90 L 120 110 C 60 110 60 30 8 30 Z" fill="#F2645A" fillOpacity="0.4" />
-        <path d="M 8 70 C 60 70 60 20 120 20 L 120 40 C 60 40 60 100 8 100 Z" fill="#1EBFB3" fillOpacity="0.4" />
-        <rect x="120" y="20" width="8" height="20" fill="#FFB92A" />
-        <rect x="120" y="90" width="8" height="20" fill="#7B68EE" />
+      <g transform="translate(20,15)">
+        {/* Source A (top) and B (bottom) */}
+        <rect x="0" y="10" width="8" height="40" fill="#009EDB" />
+        <rect x="0" y="70" width="8" height="40" fill="#009EDB" />
+        {/* A → bottom target (crosses down) */}
+        <path d="M 8 10 C 80 10, 80 70, 152 70 L 152 110 C 80 110, 80 50, 8 50 Z" fill="#009EDB" fillOpacity="0.4" />
+        {/* B → top target (crosses up) */}
+        <path d="M 8 70 C 80 70, 80 10, 152 10 L 152 50 C 80 50, 80 110, 8 110 Z" fill="#009EDB" fillOpacity="0.4" />
+        <rect x="152" y="10" width="8" height="40" fill="#0074B7" />
+        <rect x="152" y="70" width="8" height="40" fill="#0074B7" />
       </g>
     </svg>
   </DDCell>
