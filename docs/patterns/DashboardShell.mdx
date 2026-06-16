@@ -1,0 +1,202 @@
+import { Meta } from '@storybook/blocks';
+
+export const Region = ({ label, active, children, style }) => (
+  <div style={{
+    background: '#F4F4F4',
+    border: '1px solid #E5E5E5',
+    borderLeft: active ? '3px solid #009EDB' : '1px solid #E5E5E5',
+    padding: '10px 12px',
+    minHeight: '40px',
+    ...style,
+  }}>
+    {label && (
+      <div style={{
+        fontSize: '11px',
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase',
+        color: '#0077B8',
+        fontWeight: 500,
+        marginBottom: children ? '8px' : 0,
+      }}>{label}</div>
+    )}
+    {children}
+  </div>
+);
+
+export const Kpi = () => (
+  <div style={{
+    background: '#FFFFFF',
+    border: '1px solid #E5E5E5',
+    borderTop: '3px solid #009EDB',
+    padding: '12px 14px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  }}>
+    <div style={{ fontSize: '22px', fontWeight: 300, color: '#009EDB', lineHeight: 1 }}>00.0M</div>
+    <div style={{ height: '7px', width: '70%', background: '#E5E5E5' }} />
+  </div>
+);
+
+export const ChartCell = ({ label }) => (
+  <div style={{ background: '#FFFFFF', border: '1px solid #E5E5E5', padding: '12px 14px' }}>
+    <div style={{ fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: '10px' }}>{label}</div>
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '56px' }}>
+      <div style={{ flex: 1, background: '#009EDB', height: '90%' }} />
+      <div style={{ flex: 1, background: '#C5DFEF', height: '60%' }} />
+      <div style={{ flex: 1, background: '#C5DFEF', height: '75%' }} />
+      <div style={{ flex: 1, background: '#C5DFEF', height: '40%' }} />
+      <div style={{ flex: 1, background: '#C5DFEF', height: '55%' }} />
+    </div>
+  </div>
+);
+
+export const Map = ({ name, role, fills }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}><code style={{ fontSize: '12px', color: '#0077B8' }}>{role}</code> — {fills}</span>
+  </div>
+);
+
+<Meta title="Patterns/Dashboard shell" />
+
+# Dashboard shell
+
+A monitoring layout that stacks a header, an optional left filter rail, a row of headline KPIs, and a responsive grid of chart cards above the footer — the standard frame for an OCHA situational dashboard.
+
+## When to use
+
+- A reader needs to **scan many metrics at once** (funding, people in need, severity) rather than read a narrative.
+- The data **updates on a cadence** and the same frame is re-rendered each cycle.
+- You have **3–5 headline figures** that deserve a KPI row, plus 2–8 supporting charts.
+- The reader may want to **slice the view** (by country, sector, date) — that justifies the left filter rail.
+- **Use something else when** the story is a single linear argument with prose and figures in reading order — reach for the [Report page](?path=/docs/patterns-report-page--docs) instead.
+
+## Anatomy
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '24px 0', maxWidth: '720px' }}>
+
+  <Region label="Header — cd-header" active />
+
+  <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '8px' }}>
+
+    <Region label="Filter rail (optional)">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ height: '8px', width: '80%', background: '#E5E5E5' }} />
+        <div style={{ height: '8px', width: '60%', background: '#E5E5E5' }} />
+        <div style={{ height: '8px', width: '70%', background: '#E5E5E5' }} />
+        <div style={{ height: '8px', width: '50%', background: '#E5E5E5' }} />
+      </div>
+    </Region>
+
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+      <Region label="KPI row — cd-figure-list" style={{ background: '#FFFFFF' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+          <Kpi /><Kpi /><Kpi /><Kpi />
+        </div>
+      </Region>
+
+      <Region label="Chart grid — cd-grid of cd-card" style={{ background: '#FFFFFF' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <ChartCell label="Funding by sector" />
+          <ChartCell label="People reached" />
+          <ChartCell label="Trend, 12 months" />
+          <ChartCell label="Severity by area" />
+        </div>
+      </Region>
+
+    </div>
+  </div>
+
+  <Region label="Footer — cd-footer" />
+
+</div>
+
+<Map name="Header" role="cd-header" fills="Global + site header: logo, title, search, main menu." />
+<Map name="Filter rail" role="cd-filter / cd-facets" fills="Vertical cd-filter (date / select / keyword) or cd-facets checkbox + summary chips." />
+<Map name="KPI row" role="cd-figure-list" fills="Headline key figures — label + value pairs; use cd-figure-list--large for the hero row." />
+<Map name="Chart card" role="cd-card" fills="One chart per card: cd-card__container holds the title + chart; cd-card__footer holds the source line." />
+<Map name="Card grid" role="cd-grid" fills="cd-grid--2-col / --3-col / --4-col wraps the cards; default is 4-up at desktop." />
+<Map name="Footer" role="cd-footer" fills="Mandate, legal menu, social, copyright on brand-primary blue." />
+
+## Structure
+
+```html
+<header class="cd-header">
+  <!-- cd-global-header + cd-site-header (see Composites/Header) -->
+</header>
+
+<main class="cd-grid cd-grid--2-col" style="max-width: var(--cd-max-width);">
+
+  <!-- Optional left filter rail -->
+  <aside>
+    <div class="cd-filter cd-filter--horizontal" data-cd-hidden="false">
+      <div class="cd-filter__container">
+        <form class="cd-filter__form" onsubmit="return false">
+          <div class="cd-filter__group">
+            <label for="f-country">Country</label>
+            <select id="f-country"><option>All countries</option></select>
+          </div>
+          <div class="cd-filter__group">
+            <label for="f-kw">Keyword</label>
+            <input class="cd-filter__input" type="text" id="f-kw">
+          </div>
+        </form>
+      </div>
+    </div>
+  </aside>
+
+  <section>
+    <!-- KPI row -->
+    <ul class="cd-figure-list cd-figure-list--large">
+      <li class="cd-figure-list__item">
+        <div class="cd-figure-list__label">People in need</div>
+        <div class="cd-figure-list__value">18.4 million</div>
+      </li>
+      <li class="cd-figure-list__item">
+        <div class="cd-figure-list__label">People targeted</div>
+        <div class="cd-figure-list__value">15.7 million</div>
+      </li>
+      <li class="cd-figure-list__item">
+        <div class="cd-figure-list__label">Requirements <small>(US$)</small></div>
+        <div class="cd-figure-list__value">1.3 billion</div>
+      </li>
+    </ul>
+
+    <!-- Responsive grid of chart cards -->
+    <div class="cd-grid cd-grid--2-col">
+      <div class="cd-card">
+        <div class="cd-card__container">
+          <h3 class="cd-card__title">Funding by sector</h3>
+          <div class="cd-card__description">
+            <!-- chart goes here (see Patterns/Data viz container) -->
+          </div>
+        </div>
+        <div class="cd-card__footer">
+          <div class="cd-card__link">Source: OCHA, FTS, 2026.</div>
+        </div>
+      </div>
+      <!-- repeat .cd-card per chart -->
+    </div>
+  </section>
+
+</main>
+
+<footer class="cd-footer">
+  <!-- see Composites/Footer -->
+</footer>
+```
+
+## Responsive
+
+The shell is driven by the breakpoint tokens in `tokens/brand.css`.
+
+- **Below `--cd-bp--md` (768px)** — single column. The filter rail collapses to the top (toggle it behind a button using `cd-filter`'s `data-cd-hidden` attribute), the KPI row stacks to one or two per line, and every chart card is full width.
+- **`--cd-bp--md` to `--cd-bp--lg` (768–1024px)** — KPI row sits 2-up; `cd-grid--2-col` gives a 2-up chart grid. Keep the filter rail above the content rather than beside it.
+- **`--cd-bp--lg` and up (1024px+)** — the optional filter rail moves to a fixed-width left column beside the content; KPIs run 3–4 across; `cd-grid` returns to its default 4-up (or `cd-grid--3-col`) chart grid.
+- **Cap the whole shell at `--cd-max-width` (1220px)** so charts never stretch past a readable measure on `--cd-bp--xl` (1200px) and wider screens.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

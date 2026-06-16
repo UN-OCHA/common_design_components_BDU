@@ -176,7 +176,7 @@ export const LegacyIcons = ({ ids }) => (
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 1, background: '#E5E5E5', border: '1px solid #E5E5E5', margin: '16px 0' }}>
     {ids.map((id) => (
       <div key={id} style={{ background: '#FFFFFF', padding: '18px 8px 10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, minHeight: 90 }}>
-        <svg style={{ width: 24, height: 24, fill: '#0077B8' }} aria-hidden="true"><use href={`/cd-icons-sprite.svg#cd-icon--${id}`} /></svg>
+        <svg style={{ width: 24, height: 24, fill: '#0077B8' }} aria-hidden="true"><use href={`cd-icons-sprite.svg#cd-icon--${id}`} /></svg>
         <code style={{ fontSize: 10.5, color: '#525252', textAlign: 'center' }}>{id}</code>
       </div>
     ))}
@@ -318,7 +318,7 @@ The previous OCHA Common Design shipped a single SVG **sprite** (`cd-icons-sprit
 
 ```html
 <svg class="cd-icon" aria-hidden="true">
-  <use href="/cd-icons-sprite.svg#cd-icon--search"></use>
+  <use href="/path/to/cd-icons-sprite.svg#cd-icon--search"></use>
 </svg>
 ```
 

@@ -28,8 +28,9 @@
   --cd-ocha-blue--aa: #0077B8;  /* WCAG AA ~4.6:1 */
   --cd-ocha-blue--aaa: #005392; /* WCAG AAA ~8.9:1 */
 
-  /* RGB triplet for rgba() usage */
+  /* RGB triplets for rgba() usage */
   --cd-rgb-ocha-blue: 0, 158, 219;
+  --cd-rgb-red: 237, 24, 71;     /* #ED1847 — for translucent error states */
 
 
   /* =========================================================================

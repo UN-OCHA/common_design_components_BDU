@@ -1,0 +1,193 @@
+import { Meta } from '@storybook/blocks';
+
+export const Region = ({ label, active, children, style }) => (
+  <div style={{
+    background: '#F4F4F4',
+    border: '1px solid #E5E5E5',
+    borderLeft: active ? '3px solid #009EDB' : '1px solid #E5E5E5',
+    padding: '10px 12px',
+    minHeight: '40px',
+    ...style,
+  }}>
+    {label && (
+      <div style={{
+        fontSize: '11px',
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase',
+        color: '#0077B8',
+        fontWeight: 500,
+        marginBottom: children ? '8px' : 0,
+      }}>{label}</div>
+    )}
+    {children}
+  </div>
+);
+
+export const TextLines = ({ rows = 3, last = '60%' }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+    {Array.from({ length: rows }, (_, i) => (
+      <div key={i} style={{ height: '7px', width: i === rows - 1 ? last : '100%', background: '#E5E5E5' }} />
+    ))}
+  </div>
+);
+
+export const Map = ({ name, role, fills }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}><code style={{ fontSize: '12px', color: '#0077B8' }}>{role}</code> — {fills}</span>
+  </div>
+);
+
+<Meta title="Patterns/Report page" />
+
+# Report page
+
+A single-column, long-form frame for situation reports, flash updates, and analytical pieces — header, a hero or page title, a byline and date, then an article body capped at a readable measure, above the footer.
+
+## When to use
+
+- The content is **narrative**: a reader follows it top to bottom rather than scanning a grid.
+- You have **authored, dated** material — a sitrep, a flash update, a press piece, a thematic brief.
+- The body mixes **prose, section headings, figures with captions, and bullet lists**, and benefits from a fixed reading measure.
+- A **table of contents** would help the reader jump between long sections.
+- **Use something else when** the goal is to monitor many metrics side by side — reach for the [Dashboard shell](?path=/docs/patterns-dashboard-shell--docs) instead.
+
+## Anatomy
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '24px 0', maxWidth: '560px' }}>
+
+  <Region label="Header — cd-header" />
+
+  <Region label="Hero / page title — cd-hero or cd-page-title" active style={{ background: '#FFFFFF' }}>
+    <div style={{ height: '14px', width: '85%', background: '#C5DFEF' }} />
+    <div style={{ height: '8px', width: '55%', background: '#E5E5E5', marginTop: '8px' }} />
+  </Region>
+
+  <Region label="Byline + date — cd-byline / cd-date" style={{ background: '#FFFFFF' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ width: '26px', height: '26px', borderRadius: '50%', background: '#E5E5E5', flex: '0 0 auto' }} />
+      <div style={{ height: '7px', width: '40%', background: '#E5E5E5' }} />
+      <div style={{ marginLeft: 'auto', fontSize: '10px', color: '#737373', fontWeight: 500 }}>20 SEP 2026</div>
+    </div>
+  </Region>
+
+  <Region label="Article body — cd-article (max 820px)" style={{ background: '#FFFFFF' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <TextLines rows={3} last="70%" />
+      <div style={{ fontSize: '12px', fontWeight: 700, color: '#0077B8' }}>Section block-title</div>
+      <TextLines rows={2} last="50%" />
+      <div style={{ background: '#F4F4F4', border: '1px solid #E5E5E5', height: '46px' }} />
+      <div style={{ fontSize: '10px', color: '#737373', fontStyle: 'italic' }}>Figure caption — cd-caption</div>
+      <TextLines rows={2} last="65%" />
+    </div>
+  </Region>
+
+  <Region label="Footer — cd-footer" />
+
+</div>
+
+<Map name="Header" role="cd-header" fills="Global + site header with logo, title, search and main menu." />
+<Map name="Hero" role="cd-hero" fills="Optional banner with cd-hero__title, cd-hero__description and an image for feature reports." />
+<Map name="Page title" role="cd-page-title" fills="Plain h1 alternative to the hero for routine sitreps and updates." />
+<Map name="Byline" role="cd-byline" fills="Author photo + cd-byline__name + cd-byline__text (role / organization)." />
+<Map name="Date" role="cd-date" fills="Publication date as cd-date__day / __month / __year." />
+<Map name="Body" role="cd-article" fills="Wraps the prose; constrains paragraphs to --cd-max-content-width (820px)." />
+<Map name="Section heading" role="cd-block-title" fills="In-body section headings; cd-block-title--underline for emphasis." />
+<Map name="Figure caption" role="cd-caption" fills="Photo / chart credit line beneath an image or figure." />
+<Map name="Key figures" role="cd-figure-list" fills="Inline situational figures (people in need, requirements) within a section." />
+<Map name="Bullets" role="cd-bullet-list" fills="Key-point lists; cd-bullet-list--icon for arrowed link lists." />
+<Map name="Contents" role="cd-toc" fills="Optional jump links: cd-toc__title + cd-toc__list for long reports." />
+<Map name="Read more" role="cd-read-more" fills="End-of-section link to the full document or related page." />
+
+## Structure
+
+```html
+<header class="cd-header">
+  <!-- cd-global-header + cd-site-header (see Composites/Header) -->
+</header>
+
+<main>
+  <!-- Feature reports: hero. Routine sitreps: just the page title. -->
+  <section class="cd-hero">
+    <div class="cd-hero__container">
+      <h1 class="cd-hero__title">Sudan situation report</h1>
+      <p class="cd-hero__description">Humanitarian needs and response, September 2026.</p>
+    </div>
+  </section>
+
+  <article class="cd-article">
+
+    <!-- Byline + date -->
+    <div class="cd-byline">
+      <div class="cd-byline__wrapper">
+        <div class="cd-byline__image cd-byline__image--rounded">
+          <img src="author.jpg" alt="Author name">
+        </div>
+        <div class="cd-byline__content">
+          <div class="cd-byline__name">OCHA Sudan</div>
+          <div class="cd-byline__text">Office for the Coordination of Humanitarian Affairs</div>
+        </div>
+      </div>
+    </div>
+    <div class="cd-date">
+      <div class="cd-date__wrapper"><span class="cd-date__day">20</span></div>
+      <div class="cd-date__wrapper">
+        <span class="cd-date__month">Sep</span>
+        <span class="cd-date__year">2026</span>
+      </div>
+    </div>
+
+    <!-- Optional table of contents -->
+    <nav class="cd-toc" aria-label="Table of contents">
+      <h2 class="cd-toc__title">Contents</h2>
+      <ol class="cd-toc__list">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#needs">Humanitarian needs</a></li>
+        <li><a href="#response">Response</a></li>
+      </ol>
+    </nav>
+
+    <!-- Body: prose, section headings, figures, bullets -->
+    <p>An introduction paragraph sets the context for the report.</p>
+
+    <h2 class="cd-block-title cd-block-title--underline" id="needs">Humanitarian needs</h2>
+    <p>Section prose, constrained to a readable measure by cd-article.</p>
+
+    <ul class="cd-figure-list">
+      <li class="cd-figure-list__item">
+        <div class="cd-figure-list__label">People in need</div>
+        <div class="cd-figure-list__value">18.4 million</div>
+      </li>
+    </ul>
+
+    <figure>
+      <img src="chart.svg" alt="Funding by sector, 2026">
+      <figcaption class="cd-caption">Source: OCHA, FTS, 2026.</figcaption>
+    </figure>
+
+    <ul class="cd-bullet-list">
+      <li>Key point one.</li>
+      <li>Key point two.</li>
+    </ul>
+
+    <a href="#" class="cd-read-more">Read the full report</a>
+
+  </article>
+</main>
+
+<footer class="cd-footer">
+  <!-- see Composites/Footer -->
+</footer>
+```
+
+## Responsive
+
+This pattern is single-column at every width, so the work is keeping the reading measure honest — values from `tokens/brand.css`.
+
+- **Below `--cd-bp--sm` (576px)** — full-bleed body with `--cd-container-padding` (12px) gutters. The `cd-byline` and `cd-date` stack; the `cd-toc` runs as a single column.
+- **`--cd-bp--md` (768px)** — gutters widen to `--cd-container-padding-tablet` (24px). `cd-article` paragraphs hold at `--cd-max-content-width` (820px) and stay left-aligned even as the viewport grows.
+- **`--cd-bp--lg` (1024px) and up** — the column stays centred at 820px while the header and footer span the full `--cd-max-width` (1220px). On `--cd-bp--xl` (1200px+) a long `cd-toc` may switch to `cd-toc--with-cols`. Never let body text exceed 820px — long line lengths hurt readability.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

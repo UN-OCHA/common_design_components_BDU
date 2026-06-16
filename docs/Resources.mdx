@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/blocks';
+
+export const RAW = 'https://raw.githubusercontent.com/UN-OCHA/ocha-common-design-system-BDU/main/';
+
+export const LogoTile = ({ file, name, dark = false }) => (
+  <div style={{ border: '1px solid #E5E5E5', background: '#FFFFFF' }}>
+    <div style={{ height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: dark ? '#009EDB' : '#FFFFFF', borderBottom: '1px solid #E5E5E5' }}>
+      <img src={file} alt={name} style={{ maxHeight: '100%', maxWidth: '100%' }} />
+    </div>
+    <div style={{ padding: '12px 16px' }}>
+      <div style={{ fontSize: 14, fontWeight: 500, color: '#161616' }}>{name}</div>
+      <div style={{ fontSize: 12, marginTop: 4 }}>
+        <a href={`${RAW}public/${file}`} download style={{ color: '#0077B8' }}>Download SVG ↓</a>
+      </div>
+    </div>
+  </div>
+);
+
+export const LinkCard = ({ label, eyebrow, desc, href, cta = 'Open →' }) => (
+  <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener" style={{ display: 'block', border: '1px solid #E5E5E5', background: '#FFFFFF', padding: '20px 22px', textDecoration: 'none', borderBottom: '1px solid #E5E5E5' }}>
+    {eyebrow && <div style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0077B8', fontWeight: 500, marginBottom: 6 }}>{eyebrow}</div>}
+    <div style={{ fontSize: 17, fontWeight: 500, color: '#161616', marginBottom: 6 }}>{label}</div>
+    <div style={{ fontSize: 13.5, lineHeight: 1.5, color: '#525252', marginBottom: 10 }}>{desc}</div>
+    <div style={{ fontSize: 13, color: '#0077B8', fontWeight: 500 }}>{cta}</div>
+  </a>
+);
+
+export const Grid = ({ min = 240, children }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))`, gap: 16, margin: '20px 0' }}>{children}</div>
+);
+
+<Meta title="Resources" />
+
+# Resources
+
+Everything you need to build with the OCHA Design System in one place — logos, design tokens, the AI rules file, icon libraries, and tooling.
+
+## Logo
+
+Use the **blue** logo on light backgrounds and the **white** logo on dark or photographic backgrounds. Never recolour, distort, or translate the wordmark. See **Foundations → Logo** for clear-space and minimum-size rules.
+
+<Grid min={200}>
+  <LogoTile file="ocha-logo-horizontal-blue.svg" name="Horizontal · blue" />
+  <LogoTile file="ocha-logo-horizontal-white.svg" name="Horizontal · white" dark />
+  <LogoTile file="ocha-logo-blue.svg" name="Emblem · blue" />
+  <LogoTile file="ocha-logo-white.svg" name="Emblem · white" dark />
+</Grid>
+
+The full logo pack (all languages, lock-ups, EPS/PNG) lives on the [OCHA Brand Portal](https://brand.unocha.org). For "spelled-out" and office lock-ups, contact BDU.
+
+## Design tokens
+
+The entire system — colours, type scale, spacing, breakpoints — is one CSS file. Components consume only the semantic `--brand-*` layer.
+
+<Grid>
+  <LinkCard eyebrow="CSS" label="brand.css" desc="Drop-in token file. Every --brand-* and --cd-* custom property the components use." href="https://raw.githubusercontent.com/UN-OCHA/ocha-common-design-system-BDU/main/tokens/brand.css" cta="Download ↓" />
+  <LinkCard eyebrow="Foundations" label="Colours, type & spacing" desc="Live reference for the palette, type scale, and spacing tokens with accessible variants." href="?path=/docs/foundations-colours--docs" cta="Open foundations →" />
+</Grid>
+
+## Build with AI
+
+Make GitHub Copilot, Claude, or ChatGPT produce OCHA-compliant markup. Download the rules file and add it to your project.
+
+<Grid>
+  <LinkCard eyebrow="Markdown" label="OCHA_DESIGN_SYSTEM_RULES.md" desc="Colours, type, components, accessibility floor, logo and icon rules — written for AI tools." href="https://raw.githubusercontent.com/UN-OCHA/ocha-common-design-system-BDU/main/OCHA_DESIGN_SYSTEM_RULES.md" cta="Download ↓" />
+  <LinkCard eyebrow="Guide" label="Building with AI" desc="Where to put the file for Copilot (.github/copilot-instructions.md), Claude (CLAUDE.md), and ChatGPT." href="?path=/docs/building-with-ai--docs" cta="How to use it →" />
+</Grid>
+
+## Icons
+
+<Grid>
+  <LinkCard eyebrow="Content & pictograms" label="OCHA Humanitarian Icons" desc="389 humanitarian icons across 19 families. Source of truth, free for everyone, also on the jsDelivr CDN." href="https://github.com/UN-OCHA/humanitarian-icons-2026-BDU" cta="GitHub repo →" />
+  <LinkCard eyebrow="UI chrome" label="Font Awesome" desc="The UI-icon library for OCHA apps. Includes the free Humanitarian category OCHA co-built." href="?path=/docs/foundations-iconography--docs" cta="Iconography guidance →" />
+</Grid>
+
+## Brand & tooling
+
+<Grid>
+  <LinkCard eyebrow="Source of truth" label="OCHA Brand Portal" desc="The full visual identity — logo, colours, fonts, templates, photography, icons." href="https://brand.unocha.org" cta="brand.unocha.org →" />
+  <LinkCard eyebrow="Charts & maps" label="Humanitarian Dataviz Tool" desc="Adobe Illustrator plugin that generates OCHA-styled charts and maps. Maintained by BDU." href="?path=/docs/foundations-data-visualization--docs" cta="Data visualization →" />
+  <LinkCard eyebrow="Embeds" label="Datawrapper" desc="Preferred for charts and maps embedded on unocha.org. OCHA themes available — contact BDU." href="https://www.datawrapper.de" cta="datawrapper.de →" />
+  <LinkCard eyebrow="Dashboards" label="Power BI theme" desc="OCHA-styled Power BI theme file for internal dashboards. Request from BDU." href="mailto:ochavisual@un.org?subject=OCHA%20Power%20BI%20theme" cta="Request from BDU →" />
+</Grid>
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org)) · [Brand portal](https://brand.unocha.org)

@@ -1,0 +1,137 @@
+import { Meta } from '@storybook/blocks';
+
+export const Map = ({ name, role, fills }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '12px', padding: '8px 0', borderBottom: '1px solid #F4F4F4', fontSize: '13px', lineHeight: 1.5 }}>
+    <strong style={{ color: '#161616' }}>{name}</strong>
+    <span style={{ color: '#525252' }}><code style={{ fontSize: '12px', color: '#0077B8' }}>{role}</code> — {fills}</span>
+  </div>
+);
+
+export const VizContainer = ({ children }) => (
+  <div style={{
+    border: '1px solid #E5E5E5',
+    background: '#FFFFFF',
+    padding: '20px 24px',
+    maxWidth: '480px',
+    margin: '24px 0',
+  }}>{children}</div>
+);
+
+<Meta title="Patterns/Data viz container" />
+
+# Data viz container
+
+The standard wrapper every OCHA chart sits inside — title, optional subtitle, the chart area, a dated source line, and an optional footnote. It is the connective tissue between the [Data visualization](?path=/docs/foundations-data-visualization--docs) foundation and the products that consume it.
+
+## When to use
+
+- **Always.** Any chart shipped in an OCHA product — dashboard card, report figure, social graphic, or standalone export — sits in this wrapper.
+- You need the chart to **carry its own title and source** so it stays legible when lifted out of context (screenshotted, embedded, reshared).
+- The finding needs a **subtitle** to add the unit or scope, or a **footnote** to spell out acronyms and caveats.
+- **Use something else when** you only have a single headline number — that is the *Key figures (text)* format (still wrapped, but no chart area); see the [Data visualization](?path=/docs/foundations-data-visualization--docs) chart picker.
+
+## Anatomy
+
+The example below is a real, correctly-built container — a horizontal bar chart wrapped with the full set of parts. Copy it as your starting point.
+
+<VizContainer>
+  <div style={{ fontFamily: 'Roboto, Arial, sans-serif', fontSize: '15px', fontWeight: 700, color: '#1A1A1A', lineHeight: 1.3 }}>
+    Funding gap widens across top sectors
+  </div>
+  <div style={{ fontFamily: 'Roboto, Arial, sans-serif', fontSize: '12px', color: '#555555', marginTop: '2px', marginBottom: '14px' }}>
+    Requirements vs. received, 2026 (US$ million)
+  </div>
+
+  <svg viewBox="0 0 250 150" style={{ width: '100%', height: 'auto' }} xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(64,6)">
+      <text x="-6" y="12" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Food</text>
+      <rect x="0" y="3" width="170" height="14" fill="#009EDB" />
+      <text x="176" y="14" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">512</text>
+      <text x="-6" y="34" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Health</text>
+      <rect x="0" y="25" width="120" height="14" fill="#009EDB" />
+      <text x="126" y="36" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">361</text>
+      <text x="-6" y="56" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">WASH</text>
+      <rect x="0" y="47" width="86" height="14" fill="#009EDB" />
+      <text x="92" y="58" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">258</text>
+      <text x="-6" y="78" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Shelter</text>
+      <rect x="0" y="69" width="58" height="14" fill="#009EDB" />
+      <text x="64" y="80" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">174</text>
+      <text x="-6" y="100" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="10" fill="#555555" textAnchor="end">Protection</text>
+      <rect x="0" y="91" width="40" height="14" fill="#009EDB" />
+      <text x="46" y="102" fontFamily="'Roboto Condensed', Arial, sans-serif" fontSize="9" fill="#333333">120</text>
+    </g>
+  </svg>
+
+  <div style={{ borderTop: '1px solid #E5E5E5', marginTop: '12px', paddingTop: '8px' }}>
+    <div style={{ fontFamily: 'Roboto, Arial, sans-serif', fontSize: '10px', color: '#737373' }}>
+      Source: OCHA, FTS, as of 30 Sep 2026.
+    </div>
+    <div style={{ fontFamily: 'Roboto, Arial, sans-serif', fontSize: '10px', color: '#737373', fontStyle: 'italic', marginTop: '2px' }}>
+      WASH: Water, Sanitation and Hygiene. Figures rounded to the nearest million.
+    </div>
+  </div>
+</VizContainer>
+
+<Map name="Title" role="—" fills="Roboto 15px / 700, #1A1A1A. State the finding, not just the topic." />
+<Map name="Subtitle" role="—" fills="Roboto 12px, #555555. Unit and scope (e.g. 'US$ million, 2026'). Optional." />
+<Map name="Chart area" role="—" fills="The chart itself, built to its foundation spec. Sharp bars #009EDB, Roboto / Roboto Condensed labels, no gridlines." />
+<Map name="Source line" role="—" fills="Roboto 10px, #737373. Provider + 'as of' date. Required on every chart." />
+<Map name="Footnote" role="—" fills="Roboto 10px italic, #737373. Acronym expansions and caveats. Optional." />
+
+When this container is dropped into a product, the outer frame is a real component: a `cd-card` on a [Dashboard shell](?path=/docs/patterns-dashboard-shell--docs), or a `<figure>` inside `cd-article` on a [Report page](?path=/docs/patterns-report-page--docs). The five parts above stay the same in both.
+
+## Structure
+
+```html
+<figure class="cd-card">
+  <div class="cd-card__container">
+
+    <!-- Title: state the finding -->
+    <h3 class="cd-card__title">Funding gap widens across top sectors</h3>
+
+    <!-- Optional subtitle: unit + scope -->
+    <p class="cd-caption">Requirements vs. received, 2026 (US$ million)</p>
+
+    <!-- Chart area: build to the chart's foundation spec -->
+    <div class="cd-card__description">
+      <svg viewBox="0 0 250 150" role="img"
+           aria-label="Funding by sector, 2026. Food 512, Health 361, WASH 258, Shelter 174, Protection 120 (US$ million).">
+        <!-- bars: fill #009EDB, sharp corners, sorted by value -->
+      </svg>
+    </div>
+
+  </div>
+
+  <!-- Source line (required) + optional footnote -->
+  <figcaption class="cd-card__footer">
+    <div class="cd-caption">Source: OCHA, FTS, as of 30 Sep 2026.</div>
+    <div class="cd-caption"><em>WASH: Water, Sanitation and Hygiene. Figures rounded.</em></div>
+  </figcaption>
+</figure>
+```
+
+Inside `cd-article` the same parts wrap as a plain figure:
+
+```html
+<figure>
+  <h3 class="cd-block-title">Funding gap widens across top sectors</h3>
+  <p class="cd-caption">Requirements vs. received, 2026 (US$ million)</p>
+  <img src="funding-by-sector.svg"
+       alt="Funding by sector, 2026: Food 512, Health 361, WASH 258, Shelter 174, Protection 120 (US$ million).">
+  <figcaption class="cd-caption">Source: OCHA, FTS, as of 30 Sep 2026.</figcaption>
+</figure>
+```
+
+Every chart **must** carry a text alternative — an `aria-label` / `alt` summarising the finding, or an adjacent data table — per the Data visualization [accessibility rules](?path=/docs/foundations-data-visualization--docs).
+
+## Responsive
+
+The container is fluid; the chart inside it scales with an SVG `viewBox`. Values from `tokens/brand.css`.
+
+- **Below `--cd-bp--sm` (576px)** — full-width container with `--cd-container-padding` (12px). Title may wrap to two lines; keep the subtitle and footnote, they carry context a small chart can't. Let the SVG `viewBox` scale the chart to the column width — never set a fixed pixel width.
+- **`--cd-bp--md` (768px)** — when used as a `cd-card` in a 2-up `cd-grid`, the container takes half the row; design the chart to read at roughly 360–420px wide (the breakpoint the [Horizontal bar](?path=/docs/foundations-data-visualization-horizontal-bar--docs) spec is tuned for).
+- **`--cd-bp--lg` (1024px) and up** — inside `cd-article` the container holds at `--cd-max-content-width` (820px); on a dashboard it sizes to its grid cell. Past `--cd-bp--xl` (1200px), keep charts within their cell rather than stretching — wide bars read as exaggerated.
+
+## Maintained by
+
+**OCHA Brand and Design Unit (BDU)** — [ochavisual@un.org](mailto:ochavisual@un.org) · Focal point: Javier Cueto ([cuetoj@un.org](mailto:cuetoj@un.org))

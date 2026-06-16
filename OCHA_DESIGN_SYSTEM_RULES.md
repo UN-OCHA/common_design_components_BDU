@@ -309,6 +309,25 @@ All components use the `cd-` prefix with BEM naming. When building HTML, use the
 
 ---
 
+## Data visualization
+
+Every chart carries **Data + Story + Design**. Three principles: simplify, visual hierarchy, layout.
+
+- **Zero baseline** on bar/column charts — no exceptions, never clip the axis.
+- **Direct-label** bars, lines, and slices; avoid legends and gridlines where you can.
+- **Round** numbers (`k` / `M` / `B`); avoid decimals unless precision matters.
+- **Sort** categorical data by value unless the order is semantic (time, severity).
+- Titles **state the finding**, not just the topic ("Funding gap widens in the Sahel", not "Funding by region").
+- No 3D, drop shadows, bevels, or rainbow colour ramps. **Sharp corners** on bars (no rounding).
+- Typography: **Roboto** for titles, **Roboto Condensed** for axis / tick / value labels.
+- One **branding style** per product: OCHA `#009EDB` · HNRP `#F58220` · Flash `#ED1847` · GHO `#FFC800`.
+- Chart pick: **bar** (compare), **line** (trend), **100% stacked** (composition), **donut** (binary only), **pie** (2–3 slices, sparingly — never >5), **table** (precise values).
+- Always include a **dated source line**. Provide a **text alternative** (data table or prose) for accessibility — colour alone never carries meaning.
+
+Full chart-by-chart specs: the **Data visualization** section of the design system site.
+
+---
+
 ## Layout rules
 
 ```
@@ -353,6 +372,20 @@ Always use **mobile-first** CSS: base styles for mobile, `@media (min-width: ...
 - Clear space around logo: half the UN globe diameter on all sides
 - Blue logo on light backgrounds, white logo on dark backgrounds
 - **Never** alter, recolour, distort, add office names, or translate "OCHA"
+
+---
+
+## Iconography
+
+Two icon libraries, chosen by role — *is the user **reading** the icon, or **acting on** it?*
+
+- **UI chrome** (buttons, nav, toolbars, filters, search, close / back / refresh) → **Font Awesome**, `fa-solid` weight, monochrome, OCHA palette. Use `fa-brands` for partner / social logos.
+- **Content & pictograms** (KPI cards, charts, report illustrations, legends, empty states) → **OCHA Humanitarian Icons** ([repo](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU)). 48px grid, monochrome, ship in OCHA blue `#009EDB`.
+- A reading icon that is also **clickable still counts as reading** → keep it OCHA Humanitarian.
+- **Maps:** OCHA cartographic symbology; small maps may use Font Awesome where OCHA icons get too dense.
+- **Never rely on an icon alone** — pair it with a label or tooltip the first time a humanitarian concept appears.
+
+OCHA Humanitarian Icons are also distributed (free) as Font Awesome's Humanitarian category.
 
 ---
 
