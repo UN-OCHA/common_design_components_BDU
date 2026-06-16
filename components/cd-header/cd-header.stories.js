@@ -1,6 +1,5 @@
 import './cd-header.css';
 import '../cd-menu/cd-menu.css';
-import '../cd-user-menu/cd-user-menu.css';
 
 export default {
   title: 'Composites/Header',
@@ -10,21 +9,11 @@ export default {
     docs: {
       description: {
         component:
-          'Top-of-page composite combining the dark global header (user menu) and the white site header (logo, title, search, main menu). Includes a mobile hamburger drawer and a slide-down search panel.',
+          'Canonical OCHA header — the single source of truth, synthesized from reliefweb.int (most compliant), unocha.org and humanitarianaction.info. A slim **dark** utility bar carries only secondary links (related sites, help, log in) and no logo; the **white** main header below carries the one OCHA logo (horizontal, blue), the main navigation and search. The bright-blue band and duplicate logo of older implementations are gone, and account/sign-in is demoted to the utility bar.',
       },
     },
   },
 };
-
-const userIcon = `
-  <svg class="cd-user-menu__btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6Z"/>
-  </svg>`;
-
-const arrow = `
-  <svg class="cd-user-menu__btn-arrow" viewBox="0 0 9 9" aria-hidden="true">
-    <polygon points="0,1.5 4.5,7 9,1.5 7.5,0 4.5,3.5 1.5,0"/>
-  </svg>`;
 
 const searchIcon = `
   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -34,13 +23,28 @@ const searchIcon = `
 const menuItems = [
   { label: 'Home', href: '#', active: true },
   { label: 'About', href: '#' },
-  { label: 'News', href: '#' },
-  { label: 'Resources', href: '#' },
-  { label: 'Contact', href: '#' },
+  { label: 'What we do', href: '#' },
+  { label: 'Where we work', href: '#' },
+  { label: 'Latest', href: '#' },
 ];
 
-const renderMenu = () => `
-  <nav aria-label="Main navigation">
+const utilityLinks = [
+  { label: 'Related sites', href: '#' },
+  { label: 'Help', href: '#' },
+  { label: 'Log in', href: '#' },
+];
+
+const renderUtilityBar = () => `
+  <div class="cd-global-header">
+    <div class="cd-global-header__inner">
+      <ul class="cd-global-header__menu">
+        ${utilityLinks.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join('')}
+      </ul>
+    </div>
+  </div>`;
+
+const renderMenu = (navOpen) => `
+  <nav class="cd-site-header__nav" id="cd-header-nav" aria-label="Main navigation" data-cd-hidden="${!navOpen}">
     <ul class="cd-menu">
       ${menuItems.map((i) => `
         <li class="cd-menu__item${i.active ? ' cd-menu__item--active-trail' : ''}">
@@ -49,44 +53,21 @@ const renderMenu = () => `
     </ul>
   </nav>`;
 
-const renderUserMenu = (expanded = false) => `
-  <ul class="cd-user-menu">
-    <li>
-      <button type="button" class="cd-user-menu__btn" aria-expanded="${expanded}" aria-haspopup="true" data-cd-user-toggle>
-        ${userIcon}<span>J. Cueto</span>${arrow}
-      </button>
-      <ul class="cd-user-menu__dropdown">
-        <li><a href="#">My profile</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Sign out</a></li>
-      </ul>
-    </li>
-  </ul>`;
-
 const interactivity = `
   <script>
     (function(){
-      // User menu toggle
-      document.querySelectorAll('[data-cd-user-toggle]').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          var expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-        });
-      });
-      // Search toggle
       document.querySelectorAll('[data-cd-search-toggle]').forEach(function(btn){
         btn.addEventListener('click', function(){
-          var panel = document.querySelector(btn.getAttribute('aria-controls') ? '#' + btn.getAttribute('aria-controls') : '.cd-header__search');
+          var panel = document.getElementById(btn.getAttribute('aria-controls'));
           if (!panel) return;
           var hidden = panel.getAttribute('data-cd-hidden') !== 'false';
           panel.setAttribute('data-cd-hidden', hidden ? 'false' : 'true');
           btn.setAttribute('aria-expanded', String(hidden));
         });
       });
-      // Menu (hamburger) toggle
       document.querySelectorAll('[data-cd-menu-toggle]').forEach(function(btn){
         btn.addEventListener('click', function(){
-          var nav = document.querySelector(btn.getAttribute('aria-controls') ? '#' + btn.getAttribute('aria-controls') : '.cd-header__nav');
+          var nav = document.getElementById(btn.getAttribute('aria-controls'));
           if (!nav) return;
           var hidden = nav.getAttribute('data-cd-hidden') !== 'false';
           nav.setAttribute('data-cd-hidden', hidden ? 'false' : 'true');
@@ -96,25 +77,18 @@ const interactivity = `
     })();
   </script>`;
 
-const buildHeader = ({ navOpen = false, searchOpen = false, title = 'Site title' } = {}) => `
+const buildHeader = ({ navOpen = false, searchOpen = false, utility = true } = {}) => `
   <header class="cd-header">
-    <div class="cd-global-header">
-      <div class="cd-global-header__inner">
-        <a href="https://www.unocha.org" class="cd-global-header__brand" aria-label="OCHA">
-          <img src="ocha-logo-horizontal-white.svg" alt="OCHA" />
-        </a>
-        <div class="cd-global-header__actions">
-          ${renderUserMenu()}
-        </div>
-      </div>
-    </div>
+    ${utility ? renderUtilityBar() : ''}
 
     <div class="cd-site-header">
       <div class="cd-site-header__inner">
         <a href="#" class="cd-site-header__logo" aria-label="OCHA home">
-          <img src="ocha-logo-blue.svg" alt="OCHA" />
+          <img src="ocha-logo-horizontal-blue.svg" alt="OCHA" />
         </a>
-        <h1 class="cd-site-header__title">${title}</h1>
+
+        ${renderMenu(navOpen)}
+
         <div class="cd-site-header__actions">
           <button type="button" class="cd-header__btn"
                   aria-label="Search" aria-controls="cd-header-search"
@@ -136,36 +110,33 @@ const buildHeader = ({ navOpen = false, searchOpen = false, title = 'Site title'
       <form role="search" class="cd-header__search-form" onsubmit="event.preventDefault();">
         <label class="visually-hidden" for="cd-header-search-input">Search</label>
         <input id="cd-header-search-input" class="cd-header__search-input"
-               type="search" placeholder="Search..." />
+               type="search" placeholder="Search OCHA..." />
         <button type="submit" class="cd-header__search-submit">Search</button>
       </form>
-    </div>
-
-    <div id="cd-header-nav" class="cd-header__nav" data-cd-hidden="${!navOpen}">
-      ${renderMenu()}
     </div>
   </header>
   ${interactivity}
 `;
 
-export const Default = () => buildHeader({ navOpen: false, searchOpen: false });
+export const Default = () => buildHeader({});
 
 export const WithSearchOpen = () => buildHeader({ searchOpen: true });
 
+export const WithoutUtilityBar = () => buildHeader({ utility: false });
+WithoutUtilityBar.parameters = {
+  docs: { description: { story: 'The utility bar is optional. Sites with no secondary links (like unocha.org) can omit it and lead with the white main header.' } },
+};
+
 export const MobileCollapsed = () => `
-  <div style="max-width: 480px; border: 1px dashed var(--brand-grey--border);">
+  <div style="max-width: 420px; border: 1px solid var(--brand-grey--border);">
     ${buildHeader({ navOpen: false })}
   </div>
 `;
-MobileCollapsed.parameters = {
-  viewport: { defaultViewport: 'mobile1' },
-};
+MobileCollapsed.parameters = { viewport: { defaultViewport: 'mobile1' } };
 
 export const MobileMenuOpen = () => `
-  <div style="max-width: 480px; border: 1px dashed var(--brand-grey--border); position: relative;">
+  <div style="max-width: 420px; border: 1px solid var(--brand-grey--border);">
     ${buildHeader({ navOpen: true })}
   </div>
 `;
-MobileMenuOpen.parameters = {
-  viewport: { defaultViewport: 'mobile1' },
-};
+MobileMenuOpen.parameters = { viewport: { defaultViewport: 'mobile1' } };

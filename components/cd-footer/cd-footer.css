@@ -1,27 +1,37 @@
 /**
- * CD Footer — composite
- * Source: common_design/libraries/cd/cd-footer/* (cd-footer, cd-footer-menu,
- * cd-footer-social, cd-footer-mandate, cd-footer-copyright)
+ * CD Footer — canonical OCHA footer (single source of truth)
  *
- * Bottom-of-page composite with three logical zones:
- *   - Mandate / branding (left)
- *   - Footer menu of legal links (middle)
- *   - Social links (right)
- *   - Copyright row beneath
+ * The STRUCTURE is fixed (the source of truth); the BACKGROUND is theming.
+ * Synthesized from the reference sites: reliefweb.int (dark), unocha.org
+ * (light), humanitarianaction.info (sub-brand colour).
  *
- * Brand primary blue background, white type. Stacks vertically below 1024px.
+ * Zones:
+ *   1. Top      — legal menu (left) + social links (right)
+ *   2. Services — "Related platforms" link columns
+ *   3. Bottom   — provider mandate ([OCHA logo] + text) left, copyright right
+ *
+ * The OCHA logo appears ONCE (the provider mark). No second logo.
+ *
+ * THEMING — add ONE modifier class to .cd-footer; it overrides four theme
+ * tokens and nothing else. Pair the matching logo file in markup:
+ *   (default)         light  — grey surface, dark text        → blue logo
+ *   .cd-footer--dark  dark   — navy surface, white text        → white logo
+ *   .cd-footer--ocha / --hnrp / --flash / --gho — sub-brand    → white/dark logo
  */
 
 .cd-footer {
+  /* Theme tokens — a modifier class overrides just these four */
+  --cd-footer-bg: var(--cd-grey--300);
+  --cd-footer-fg: var(--brand-default-text-color);
+  --cd-footer-link: var(--brand-primary--text-strong); /* #005392 — AA on the grey surface */
+  --cd-footer-rule: var(--brand-grey--border);
+
   box-sizing: border-box;
-  padding: 3rem 0 0;
-  text-align: center;
+  background: var(--cd-footer-bg);
+  color: var(--cd-footer-fg);
   font-family: var(--brand-font);
-  font-size: var(--cd-font-size--tiny);
-  font-weight: 300;
+  font-size: var(--cd-font-size--small);
   line-height: 1.5;
-  color: var(--cd-white);
-  background: var(--brand-primary);
 }
 
 .cd-footer *,
@@ -30,211 +40,98 @@
   box-sizing: inherit;
 }
 
-.cd-footer a {
-  text-decoration: none;
-  color: var(--cd-white);
+/* ---- Theme variants ---------------------------------------------------- */
+.cd-footer--dark {
+  --cd-footer-bg: #16264f; /* dark navy */
+  --cd-footer-fg: var(--cd-white);
+  --cd-footer-link: var(--cd-white);
+  --cd-footer-rule: rgba(255, 255, 255, 0.22);
+}
+.cd-footer--ocha {
+  --cd-footer-bg: var(--cd-ocha-blue);
+  --cd-footer-fg: var(--cd-white);
+  --cd-footer-link: var(--cd-white);
+  --cd-footer-rule: rgba(255, 255, 255, 0.35);
+}
+.cd-footer--hnrp {
+  --cd-footer-bg: var(--cd-orange);
+  --cd-footer-fg: var(--cd-white);
+  --cd-footer-link: var(--cd-white);
+  --cd-footer-rule: rgba(255, 255, 255, 0.4);
+}
+.cd-footer--flash {
+  --cd-footer-bg: var(--cd-red);
+  --cd-footer-fg: var(--cd-white);
+  --cd-footer-link: var(--cd-white);
+  --cd-footer-rule: rgba(255, 255, 255, 0.4);
+}
+.cd-footer--gho {
+  --cd-footer-bg: var(--cd-yellow);
+  --cd-footer-fg: var(--cd-grey--900);
+  --cd-footer-link: var(--cd-grey--900);
+  --cd-footer-rule: rgba(0, 0, 0, 0.25);
 }
 
+.cd-footer a {
+  color: var(--cd-footer-link);
+  text-decoration: none;
+}
 .cd-footer a:hover,
 .cd-footer a:focus-visible {
   text-decoration: underline;
-  color: var(--cd-white);
 }
-
 .cd-footer a:focus-visible {
-  outline: var(--cd-outline-size) solid var(--brand-primary--light);
-  outline-offset: 4px;
+  outline: var(--cd-outline-size) solid var(--cd-footer-fg);
+  outline-offset: 3px;
 }
 
 .cd-footer__inner {
   max-width: var(--cd-max-width);
   margin: 0 auto;
-  padding: 0 var(--cd-container-padding);
-}
-
-.cd-footer__section {
-  width: 100%;
-  margin: 0 auto;
-  padding-block-end: 3rem;
-}
-
-@media (min-width: 768px) {
-  .cd-footer__inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-
-  .cd-footer__section--menu,
-  .cd-footer__section--social,
-  .cd-footer__section--mandate,
-  .cd-footer__section--copyright {
-    flex: 1 0 100%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cd-footer__section--menu {
-    flex: 1 0 60%;
-    text-align: start;
-  }
-
-  .cd-footer__section--social {
-    flex: 0 1 30%;
-    text-align: end;
-  }
-
-  .cd-footer__section--mandate {
-    flex: 1 0 50%;
-    max-width: 780px;
-    text-align: start;
-  }
-
-  .cd-footer__section--copyright {
-    flex: 0 1 350px;
-    text-align: end;
-  }
+  padding: 2.5rem var(--cd-container-padding) 0;
 }
 
 /* =========================================================================
- * Footer menu — list of legal links
+ * 1. Top — legal menu + social
  * ========================================================================= */
+.cd-footer__top {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .cd-footer-menu {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px 24px;
   margin: 0;
   padding: 0;
   list-style: none;
   text-transform: uppercase;
-}
-
-.cd-footer-menu__item {
-  display: block;
-  margin-bottom: 12px;
-}
-
-@media (min-width: 768px) {
-  .cd-footer-menu__item {
-    display: inline-block;
-    margin: 0 8px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cd-footer-menu__item {
-    margin: 0;
-    margin-inline-end: 32px;
-  }
-}
-
-/* =========================================================================
- * Mandate
- * ========================================================================= */
-.cd-mandate {
-  width: 100%;
-  text-align: center;
-}
-
-.cd-mandate__heading {
-  display: block;
-  margin: 0 0 16px;
-  padding: 0 var(--cd-container-padding);
-  font-family: var(--brand-font-heading);
-  font-size: var(--cd-font-size--small);
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--cd-white);
-  letter-spacing: 0.05em;
-}
-
-.cd-mandate__logo {
-  display: block;
-  width: 149px;
-  height: auto;
-  margin: 0 auto 1rem;
-}
-
-.cd-mandate__text {
-  display: block;
-  max-width: 550px;
-  margin: 0 auto;
-  padding: 0 var(--cd-container-padding);
-}
-
-@media (min-width: 1024px) {
-  .cd-mandate {
-    display: flex;
-    flex-flow: row wrap;
-    column-gap: var(--cd-container-padding);
-    text-align: start;
-  }
-
-  .cd-mandate__heading {
-    flex: 1 0 100%;
-    padding: 0;
-    text-align: initial;
-  }
-
-  .cd-mandate__logo {
-    flex: 0 0 calc(149px + var(--cd-container-padding));
-    margin: 0;
-    padding-inline-end: var(--cd-container-padding);
-    border-inline-end: 1px solid var(--brand-grey);
-  }
-
-  .cd-mandate__text {
-    flex: 1 1 0;
-    margin: 0;
-    padding: 0 var(--cd-container-padding-xlarge) 0 0;
-    text-align: initial;
-  }
-}
-
-/* =========================================================================
- * Social links
- * ========================================================================= */
-.cd-footer-social__heading {
-  margin: 0 0 1rem;
-  font-family: var(--brand-font-heading);
-  font-size: var(--cd-font-size--small);
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--cd-white);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
+  font-size: var(--cd-font-size--tiny);
 }
 
 .cd-footer-social__list {
   display: flex;
-  flex-flow: row nowrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 18px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-@media (min-width: 1024px) {
-  .cd-footer-social__list {
-    justify-content: flex-end;
-  }
-}
-
-.cd-footer-social__item {
-  flex: 0 0 26px;
-}
-
 a.cd-footer-social__link {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  line-height: 0;
+  width: 24px;
+  height: 24px;
 }
 
 a.cd-footer-social__link svg {
-  width: 26px;
-  height: 26px;
-  fill: var(--cd-white);
+  width: 24px;
+  height: 24px;
+  fill: var(--cd-footer-fg);
   transition: opacity 0.2s ease;
 }
 
@@ -244,37 +141,106 @@ a.cd-footer-social__link:focus svg {
 }
 
 /* =========================================================================
- * Copyright
+ * 2. Services — related platforms columns
  * ========================================================================= */
-.cd-footer-copyright {
+.cd-footer__services {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--cd-footer-rule);
+}
+
+.cd-footer__services-heading {
+  margin: 0 0 1rem;
+  font-family: var(--brand-font-heading);
+  font-size: var(--cd-font-size--base);
+  font-weight: 700;
+  /* Override the global h1–h6 brand-blue rule so the heading follows the theme
+     foreground — otherwise it's blue-on-navy (fails contrast) on dark themes. */
+  color: var(--cd-footer-fg);
+}
+
+.cd-footer__services-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 8px 24px;
+}
+
+.cd-footer__services-cols a {
+  display: block;
+  padding: 3px 0;
+  font-size: var(--cd-font-size--small);
+}
+
+/* =========================================================================
+ * 3. Bottom — provider mandate + copyright
+ * ========================================================================= */
+.cd-footer__bottom {
+  margin-top: 2rem;
+  border-top: 1px solid var(--cd-footer-rule);
+}
+
+.cd-footer__bottom-inner {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1.5rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--cd-max-width);
+  margin: 0 auto;
+  padding: 1.5rem var(--cd-container-padding);
+}
+
+.cd-mandate {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  max-width: 390px;
-  margin: 0 auto;
+  gap: 1.25rem;
+  flex: 1 1 460px;
 }
 
-@media (min-width: 1024px) {
-  .cd-footer-copyright {
-    justify-content: flex-end;
-    margin: 0;
-    margin-top: 34px;
-    text-align: end;
-  }
+.cd-mandate__logo {
+  flex: 0 0 auto;
 }
 
-.cd-footer-copyright__link {
-  line-height: 0;
-}
-
-.cd-footer-copyright__logo {
+.cd-mandate__logo img {
   display: block;
-  width: 38px;
-  height: 38px;
+  height: 40px;
+  width: auto;
+}
+
+.cd-mandate__text {
+  margin: 0;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--cd-footer-rule);
+  font-size: var(--cd-font-size--tiny);
+  max-width: 520px;
+}
+
+.cd-footer-copyright {
+  flex: 0 1 auto;
+  text-align: end;
+  font-size: var(--cd-font-size--tiny);
 }
 
 .cd-footer-copyright__text {
   margin: 0;
-  font-size: var(--cd-font-size--tiny);
+}
+
+@media (max-width: 767px) {
+  .cd-footer__top,
+  .cd-footer__bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cd-mandate {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .cd-mandate__text {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .cd-footer-copyright {
+    text-align: start;
+  }
 }
