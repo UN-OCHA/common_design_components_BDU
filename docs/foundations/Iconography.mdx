@@ -198,7 +198,7 @@ OCHA products draw on two icon libraries, each in a defined role. The decision i
 
 ### 1. UI chrome → Font Awesome (free)
 
-Anything that signals action, state, or affordance: buttons, navigation, toolbars, banners, filters, modals, status indicators, close / back / refresh, menus, search. Glanced at and clicked, not studied. Font Awesome is optically tuned for that role and includes a **Humanitarian category** that mirrors the OCHA Humanitarian set — OCHA co-built it.
+Anything that signals action, state, or affordance: buttons, navigation, toolbars, banners, filters, modals, status indicators, close / back / refresh, menus, search. Glanced at and clicked, not studied. Font Awesome is optically tuned for that role and includes a **Humanitarian category** that mirrors the OCHA Humanitarian set.
 
 ### 2. Content & pictograms → OCHA Humanitarian Icons
 
@@ -285,8 +285,8 @@ Partner and social logos use the **Brands** weight:
 **Install in an OCHA app** — drop OCHA's Font Awesome **Pro kit** in your `<head>`, then use any icon:
 
 ```html
-<!-- in <head> -->
-<script src="https://kit.fontawesome.com/f4c1c5435d.js" crossorigin="anonymous"></script>
+<!-- in <head> — OCHA staff: get the real kit URL from the internal setup doc -->
+<script src="https://kit.fontawesome.com/YOUR-OCHA-KIT.js" crossorigin="anonymous"></script>
 
 <!-- anywhere in the page -->
 <i class="fa-solid fa-magnifying-glass"></i>     <!-- UI icon -->
@@ -295,15 +295,17 @@ Partner and social logos use the **Brands** weight:
 
 - Default to the **Solid** weight, monochrome, in the OCHA palette (`--brand-primary--text`).
 - Use **Brands** for partner / social logos.
-- The kit is managed by BDU — it sets the enabled styles and the allowed domains.
 
 <div style={{ padding: '16px 20px', background: '#F4F4F4', borderLeft: '3px solid #009EDB', margin: '24px 0', fontSize: 14, lineHeight: 1.6, color: '#393939' }}>
-  <strong style={{ color: '#161616' }}>OCHA's Font Awesome Pro account</strong>
-  <ul style={{ margin: '8px 0 0', paddingLeft: 18 }}>
-    <li>Font Awesome granted OCHA a <strong>free Pro account</strong> through our partnership — OCHA co-built FA's Humanitarian category — so Pro icons are available across OCHA at no cost. BDU manages the account and the kit.</li>
-    <li>The hosted kit counts <strong>monthly pageviews</strong>. For high-traffic products or many independent sites, <strong>self-host</strong> the Pro package (removes the CDN limit) — check the plan tier with BDU before a large rollout.</li>
-    <li>For SVG files (Figma, Illustrator, UI mocks): download from <em>fontawesome.com → Account → Downloads</em> with the OCHA account, or grab any <strong>free</strong> icon — including the Humanitarian category — without an account.</li>
-  </ul>
+  <strong style={{ color: '#161616' }}>OCHA staff — getting the kit</strong>
+  <p style={{ margin: '8px 0 0' }}>
+    OCHA has a Font Awesome Pro kit, managed by BDU. The kit URL, self-hosting package and SVG-download access live in the internal setup doc (SharePoint, OCHA staff only):{' '}
+    {/* TODO: replace with the OCHA SharePoint link */}
+    <a href="https://REPLACE-WITH-OCHA-SHAREPOINT-LINK">OCHA Font Awesome — setup &amp; kit (internal)</a>.
+  </p>
+  <p style={{ margin: '8px 0 0' }}>
+    No account needed for the free <strong>Humanitarian category</strong> — it covers humanitarian concepts for everyone.
+  </p>
 </div>
 
 ## Legacy — Drupal icon sprite
