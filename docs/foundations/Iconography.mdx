@@ -150,6 +150,39 @@ export const IconGallery = () => {
   );
 };
 
+export const FaGrid = ({ brand = false, items }) => {
+  // Loads the FREE Font Awesome CDN so the public docs need no Pro kit / allowlist.
+  useEffect(() => {
+    if (document.querySelector('link[data-fa-free]')) return;
+    const l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css';
+    l.setAttribute('data-fa-free', 'true');
+    document.head.appendChild(l);
+  }, []);
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 1, background: '#E5E5E5', border: '1px solid #E5E5E5', margin: '16px 0' }}>
+      {items.map(([icon, label]) => (
+        <div key={icon} style={{ background: '#FFFFFF', padding: '18px 8px 10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, minHeight: 90 }}>
+          <i className={`${brand ? 'fa-brands' : 'fa-solid'} ${icon}`} style={{ fontSize: 22, color: '#0077B8', lineHeight: 1 }} aria-hidden="true" />
+          <code style={{ fontSize: 10, color: '#525252', textAlign: 'center', overflowWrap: 'anywhere', maxWidth: '100%' }}>{icon}</code>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const LegacyIcons = ({ ids }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 1, background: '#E5E5E5', border: '1px solid #E5E5E5', margin: '16px 0' }}>
+    {ids.map((id) => (
+      <div key={id} style={{ background: '#FFFFFF', padding: '18px 8px 10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, minHeight: 90 }}>
+        <svg style={{ width: 24, height: 24, fill: '#0077B8' }} aria-hidden="true"><use href={`/cd-icons-sprite.svg#cd-icon--${id}`} /></svg>
+        <code style={{ fontSize: 10.5, color: '#525252', textAlign: 'center' }}>{id}</code>
+      </div>
+    ))}
+  </div>
+);
+
 # Iconography
 
 OCHA products draw on two icon libraries, each in a defined role. The decision is governed by **how the user encounters the icon — reading it, or acting on it.**
@@ -193,15 +226,103 @@ X, LinkedIn, YouTube, GitHub, Slack, partner-organisation marks. Font Awesome Br
 
 ### OCHA Humanitarian Icons
 
-Follow the README in [`UN-OCHA/humanitarian-icons-2026-BDU`](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU). Quickest path is to load any icon as an SVG via the jsDelivr CDN and recolour it with `currentColor` or a CSS `mask`. The repo also ships an icon-font build for legacy and PowerPoint use, plus raw SVGs for Illustrator and other design tools.
+Built on a **48 px grid** (48 px tall, optically-sized width), monochrome in OCHA UN Blue (`#009EDB`). Follow the README in [`UN-OCHA/humanitarian-icons-2026-BDU`](https://github.com/UN-OCHA/humanitarian-icons-2026-BDU).
+
+**Load from the CDN** — every icon is a single SVG on jsDelivr:
+
+```html
+<img src="https://cdn.jsdelivr.net/gh/UN-OCHA/humanitarian-icons-2026-BDU@main/svg/Health.svg"
+     alt="Health" width="48" height="48">
+```
+
+The SVGs **ship in OCHA blue** (the fill is baked in), so an `<img>` renders correctly with no styling. To render them in **another colour**, you can't override an `<img>` — either inline the SVG and set the path `fill`, or drive it as a CSS mask:
+
+```css
+.icon-health {
+  width: 48px; height: 48px;
+  background: var(--brand-primary);   /* any colour */
+  -webkit-mask: url(".../svg/Health.svg") center / contain no-repeat;
+          mask: url(".../svg/Health.svg") center / contain no-repeat;
+}
+```
+
+The repo also ships an **icon-font** build (PowerPoint, Word, legacy CMSs) and **raw SVGs** for Illustrator and other design tools.
 
 ### Font Awesome
 
-Follow [fontawesome.com/docs](https://fontawesome.com/docs). Use the free CDN or self-host.
+The UI-chrome library for OCHA apps. Live examples below render from the **free** Font Awesome CDN:
 
-- Stay on the **Solid** weight, monochrome, recoloured to the OCHA palette.
-- **Pin a specific Font Awesome version** in your stylesheets so visual drift doesn't sneak in across releases.
-- For partner and social logos use the **Brands** weight.
+<FaGrid items={[
+  ['fa-magnifying-glass', 'search'],
+  ['fa-bars', 'menu'],
+  ['fa-xmark', 'close'],
+  ['fa-arrow-left', 'back'],
+  ['fa-arrows-rotate', 'refresh'],
+  ['fa-gear', 'settings'],
+  ['fa-circle-info', 'info'],
+  ['fa-bell', 'alert'],
+  ['fa-download', 'download'],
+  ['fa-filter', 'filter'],
+  ['fa-chevron-down', 'expand'],
+  ['fa-plus', 'add'],
+  ['fa-pen', 'edit'],
+  ['fa-trash', 'delete'],
+  ['fa-check', 'confirm'],
+  ['fa-calendar', 'date'],
+]} />
+
+Partner and social logos use the **Brands** weight:
+
+<FaGrid brand items={[
+  ['fa-x-twitter', 'X'],
+  ['fa-linkedin', 'LinkedIn'],
+  ['fa-youtube', 'YouTube'],
+  ['fa-facebook', 'Facebook'],
+  ['fa-instagram', 'Instagram'],
+  ['fa-github', 'GitHub'],
+]} />
+
+**Install in an OCHA app** — drop OCHA's Font Awesome **Pro kit** in your `<head>`, then use any icon:
+
+```html
+<!-- in <head> -->
+<script src="https://kit.fontawesome.com/f4c1c5435d.js" crossorigin="anonymous"></script>
+
+<!-- anywhere in the page -->
+<i class="fa-solid fa-magnifying-glass"></i>     <!-- UI icon -->
+<i class="fa-brands fa-linkedin"></i>            <!-- brand logo -->
+```
+
+- Default to the **Solid** weight, monochrome, in the OCHA palette (`--brand-primary--text`).
+- Use **Brands** for partner / social logos.
+- The kit is managed by BDU — it sets the enabled styles and the allowed domains.
+
+<div style={{ padding: '16px 20px', background: '#FFF6E9', borderLeft: '3px solid #F58220', margin: '24px 0', fontSize: 14, lineHeight: 1.6, color: '#393939' }}>
+  <strong style={{ color: '#161616' }}>Using the kit across OCHA — read before you scale</strong>
+  <ul style={{ margin: '8px 0 0', paddingLeft: 18 }}>
+    <li>The hosted kit counts <strong>monthly pageviews</strong> against OCHA's plan. For high-traffic or many products, <strong>self-host</strong> the Pro package instead (removes the CDN limit).</li>
+    <li>For SVG files (Figma, Illustrator, UI mocks): the account holder downloads them from <em>fontawesome.com → Account → Downloads</em>. Staff without account access can still download any <strong>free</strong> icon — including the <strong>Humanitarian category</strong>, which OCHA co-built.</li>
+    <li>Whether one account legally covers all of OCHA is a question for <strong>Font Awesome support</strong> — confirm before org-wide rollout. The free Humanitarian set carries no such restriction.</li>
+  </ul>
+</div>
+
+## Legacy — Drupal icon sprite
+
+The previous OCHA Common Design shipped a single SVG **sprite** (`cd-icons-sprite.svg`) of UI marks. It is still in production on `unocha.org` and other Drupal Common Design sites, so it's documented here for reference — **but new work should use Font Awesome (UI) and OCHA Humanitarian Icons (content) above, not this sprite.**
+
+<LegacyIcons ids={[
+  'about', 'add', 'admin', 'alert', 'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up',
+  'copyurl', 'creative-commons', 'external-link', 'form-error', 'form-required',
+  'help', 'pdf', 'search', 'selected', 'user',
+]} />
+
+```html
+<svg class="cd-icon" aria-hidden="true">
+  <use href="/cd-icons-sprite.svg#cd-icon--search"></use>
+</svg>
+```
+
+The sprite inherits `currentColor`, so `color` on a parent sets the icon colour. Sizing utilities: `.cd-icon` (1rem), `.cd-icon--lg` (2rem), `.cd-icon--xl` (3rem).
 
 ## Accessibility
 
