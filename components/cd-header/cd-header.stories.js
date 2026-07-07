@@ -9,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          'Canonical OCHA header — the single source of truth, synthesized from reliefweb.int (most compliant), unocha.org and humanitarianaction.info. A slim **dark** utility bar carries only secondary links (related sites, help, log in) and no logo; the **white** main header below carries the one OCHA logo (horizontal, blue), the main navigation and search. The bright-blue band and duplicate logo of older implementations are gone, and account/sign-in is demoted to the utility bar.',
+          'Canonical OCHA header — the single source of truth, synthesized from reliefweb.int (most compliant), unocha.org and humanitarianaction.info. A slim **dark** utility bar carries only secondary links (related sites, help, log in) and no logo; the **white** main header below carries the one OCHA logo (horizontal, blue), the main navigation and search. The bright-blue band and duplicate logo of older implementations are gone, and account/sign-in is demoted to the utility bar. This is the header for **websites** — OCHA **web apps & tools** use the App header instead (see Composites → App header).',
       },
     },
   },

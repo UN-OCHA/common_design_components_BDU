@@ -1,0 +1,19 @@
+{
+  "_comment": "Registry of OCHA apps that consume the kit. Add an entry per app; run sync.py to push the kit to all of them. 'file' = copy the whole kit to a served CSS file. 'inline' = replace the CSS between the markers inside a self-contained HTML (scope 'tokens' inlines only the :root token block).",
+  "kit": "ocha-app-kit.css",
+  "apps": [
+    {
+      "name": "OCHA QuickVid",
+      "type": "file",
+      "target": "/Users/javiercuetoocha/OCHA DMU Dropbox/Javier Cueto/Design/Resources/ocha_quick_vid/app/web/vendor/ocha-app-kit.css"
+    },
+    {
+      "name": "OCHA Photo Metadata",
+      "type": "inline",
+      "scope": "tokens",
+      "target": "/Users/javiercuetoocha/OCHA DMU Dropbox/Javier Cueto/Photos/ocha_photo_metadata_tool/app/index.html",
+      "marker_start": "/* OCHA-KIT:START */",
+      "marker_end": "/* OCHA-KIT:END */"
+    }
+  ]
+}

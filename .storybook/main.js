@@ -5,6 +5,9 @@ const config = {
   stories: [
     '../docs/**/*.mdx',
     '../components/**/*.stories.@(js|mdx)',
+    // App Kit stories (the app/tool layer of the design system) live beside their
+    // source CSS in app-kit/, so the story and its single source of truth stay together.
+    '../app-kit/**/*.stories.@(js|mdx)',
   ],
   addons: [
     // Use essentials but defer its bundled docs addon so we can register
