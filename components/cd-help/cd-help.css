@@ -1,0 +1,60 @@
+/**
+ * CD Help — step-help "?" button + explainer panel
+ * Source: app-kit/ocha-app-kit.css (kit v0.1.1) — mirrored for the DS. Prompted by
+ * OCHA QuickVid user-testing (every wizard step needs a plain-language explainer).
+ *
+ * Markup:
+ *   <button class="cd-help__btn" aria-expanded="false" aria-controls="help-x"
+ *           aria-label="Help for this step"><i class="fa-solid fa-question"></i></button>
+ *   <div class="cd-help__panel" id="help-x" hidden>…</div>
+ * The "?" is a UI-chrome icon → Font Awesome (fa-question). Toggle is a 3-line
+ * delegated click in each app: flip aria-expanded and the panel's [hidden].
+ */
+.cd-help__btn {
+  inline-size: 1.3rem;
+  block-size: 1.3rem;
+  padding: 0;
+  margin-inline-start: 0.45rem;
+  display: inline-grid;
+  place-items: center;
+  vertical-align: text-bottom;
+  border: 1.5px solid var(--brand-primary);
+  border-radius: 50%;
+  background: var(--cd-white);
+  color: var(--brand-primary--dark);
+  font-size: 0.68rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cd-help__btn:hover,
+.cd-help__btn[aria-expanded="true"] {
+  background: var(--brand-primary);
+  color: #fff;
+}
+
+.cd-help__btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand-primary) 45%, transparent);
+  outline-offset: 1px;
+}
+
+.cd-help__panel {
+  padding: 0.75rem 0.95rem;
+  background: color-mix(in srgb, var(--brand-primary) 7%, var(--cd-white));
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 35%, var(--cd-grey--400));
+  border-radius: var(--brand-radius--sm);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-default-text-color);
+  text-transform: none;   /* survives inside uppercase block titles' flow */
+  letter-spacing: normal;
+}
+
+.cd-help__panel p,
+.cd-help__panel ul { margin: 0 0 0.5rem; }
+.cd-help__panel p:last-child,
+.cd-help__panel ul:last-child { margin-bottom: 0; }
+.cd-help__panel ul { padding-inline-start: 1.15rem; }
+.cd-help__panel li { margin-bottom: 0.3rem; }
+.cd-help__panel strong { color: var(--brand-primary--dark); }

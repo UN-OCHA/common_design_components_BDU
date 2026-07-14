@@ -8,6 +8,14 @@
   margin-top: var(--cd-flow-space, 1rem);
 }
 
+/* A component's own `margin: 0` reset (e.g. .cd-block-title) otherwise wins this tie
+   by source order, silently cancelling flow spacing wherever that component follows a
+   sibling — the exact bug that put a heading flush against an alert above it. Two
+   classes beat one, so this always wins regardless of rule order. Mirrors App Kit v0.1.4. */
+.cd-flow > * + .cd-block-title {
+  margin-top: var(--cd-flow-space, 1rem);
+}
+
 .cd-flow > .visually-hidden:first-child + * {
   margin-top: 0;
 }

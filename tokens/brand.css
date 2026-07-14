@@ -152,6 +152,12 @@
   --cd-container-padding-tablet: 1.5rem;  /* 24px */
   --cd-container-padding-xlarge: 2.5rem;  /* 40px */
 
+  /* Radius — corner-rounding scale (adopted from the App Kit; OCHA apps/tools
+     use soft corners on cards, buttons and panels) */
+  --cd-radius:       10px;  /* cards, panels, modals */
+  --cd-radius--sm:   7px;   /* buttons, inputs */
+  --cd-radius--pill: 16px;  /* chips, progress track */
+
 
   /* =========================================================================
    * 7. Breakpoints (unchanged — documented as tokens, used directly in MQs)
@@ -233,6 +239,11 @@
   --brand-warning: var(--cd-orange--aa);             /* #CF3F0B */
   --brand-error: var(--cd-red--aa);                  /* #EB0045 */
   --brand-info: var(--cd-ocha-blue--aa);             /* #0077B8 */
+
+  /* Radius */
+  --brand-radius:       var(--cd-radius);       /* cards, panels, modals */
+  --brand-radius--sm:   var(--cd-radius--sm);   /* buttons, inputs */
+  --brand-radius--pill: var(--cd-radius--pill); /* chips, progress */
 
   /* =========================================================================
    * 13. FONT FAMILIES

@@ -1,0 +1,57 @@
+/**
+ * CD Modal — overlay dialog
+ * Source: app-kit/ocha-app-kit.css (kit v0.1.2) — mirrored for the DS. Prompted by
+ * OCHA QuickVid ("Use AI" sentence-selection dialog).
+ *
+ * Markup:
+ *   <div class="cd-modal" hidden>
+ *     <div class="cd-modal__panel cd-flow">
+ *       <button class="cd-modal__close" aria-label="Close">&times;</button>
+ *       …content…
+ *     </div>
+ *   </div>
+ * Show/hide by toggling the [hidden] attribute. The app wires close + backdrop
+ * clicks (3 lines): close when the click target is the overlay or the close button.
+ */
+.cd-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--cd-grey--800) 45%, transparent);
+}
+
+.cd-modal[hidden] {
+  display: none;
+}
+
+.cd-modal__panel {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 1.25rem 1.4rem 1.4rem;
+  background: var(--cd-white);
+  border-radius: var(--brand-radius);
+  border-top: 6px solid var(--brand-primary);
+}
+
+.cd-modal__close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.7rem;
+  padding: 0.2rem;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--brand-grey--text);
+  cursor: pointer;
+}
+
+.cd-modal__close:hover {
+  color: var(--brand-default-text-color);
+}

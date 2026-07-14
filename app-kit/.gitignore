@@ -1,0 +1,3 @@
+# Python cache from the app-kit tooling (sync.py / handoffs.py)
+__pycache__/
+*.pyc

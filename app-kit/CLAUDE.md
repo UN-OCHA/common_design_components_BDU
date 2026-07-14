@@ -28,10 +28,13 @@ style guide. So:
 or **token-only apps** (e.g. Photo Metadata) — those are separate Claude sessions with
 no shared memory. So when a kit change needs one of them:
 
-1. Add a `- [ ]` line to **`HANDOFFS.md`** (which session · what to do).
+1. `python3 handoffs.py add "**Design System (Storybook):** …"` — `handoffs.py` is the
+   ONLY writer of `HANDOFFS.md`, so the ledger format never drifts (reading it directly
+   is always fine).
 2. `sync.py` prints the open handoffs on every run — **relay them to Javier**, and
    **remind him to prompt his Design System session** to mirror the change in Storybook.
-3. When a session finishes its item, it checks it `- [x]` and moves it to **Done**.
+3. When a session finishes its item: `python3 handoffs.py done h<N>` (ticks it, stamps
+   the date, moves it to **Done**). Also `handoffs.py list [--all]` · `reopen` · `drop`.
 
 The cross-session bridge is: shared repo (`HANDOFFS.md` + `CHANGELOG.md` + `apps.json`)
 + the human prompting the right session. There is no automatic sync between sessions.

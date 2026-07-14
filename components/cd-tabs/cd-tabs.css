@@ -76,3 +76,50 @@
     border-bottom: 0;
   }
 }
+
+/* =========================================================================
+ * App tabs (mode-tabs) — the button-based segmented tab used by OCHA web
+ * apps & tools. Source: app-kit/ocha-app-kit.css (kit v0.1.0). Unlike the
+ * website `.cd-tabs` above (ul / li / a), these are <button>s, and each can
+ * carry a leading UI icon via `.mode-tab__icon` — Font Awesome, per
+ * Foundations → Iconography (UI chrome = Font Awesome; content = OCHA
+ * Humanitarian Icons). The icon is inlined as SVG with fill:currentColor so
+ * it follows the tab's text colour.
+ * ========================================================================= */
+.mode-tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--cd-grey--400);
+}
+
+.mode-tab {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: -1px;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--brand-grey--text);
+  cursor: pointer;
+}
+
+.mode-tab.is-active {
+  color: var(--brand-primary--text);
+  border-bottom-color: var(--brand-primary);
+}
+
+.mode-tab:hover {
+  color: var(--brand-primary--dark);
+}
+
+.mode-tab__icon {
+  flex: none;
+  width: 0.95em;
+  height: 0.95em;
+}

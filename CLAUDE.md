@@ -4,10 +4,11 @@ This repo is the OCHA Common Design System (`cd-*` components + Storybook) **and
 app-facing layer, the **App Kit** (`app-kit/`), which real OCHA web apps & tools consume.
 
 ## ▶ If asked "what's pending?" / about handoffs / DS updates — check this first
-Read **`app-kit/HANDOFFS.md`** — the ledger of kit changes waiting on a Claude session
-(this Design System session, or a token-only app's session). Open items are `- [ ]`;
-report those. When you finish one here (e.g. document a component in Storybook), tick it
-`- [x]` and move it to **Done**. `app-kit/sync.py` also prints the open items on every run.
+Run **`python3 app-kit/handoffs.py list`** (or read **`app-kit/HANDOFFS.md`**) — the
+ledger of kit changes waiting on a Claude session (this Design System session, or a
+token-only app's session). Report the open items. When you finish one here (e.g. document
+a component in Storybook), run **`python3 app-kit/handoffs.py done h<N>`** to close it.
+`app-kit/sync.py` also prints the open items on every run.
 
 ## The App Kit (`app-kit/`)
 `app-kit/ocha-app-kit.css` is the practical, app-facing layer of this design system —

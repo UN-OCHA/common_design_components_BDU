@@ -19,6 +19,8 @@ import os
 import re
 import sys
 
+import handoffs                                   # shared ledger parser (single source of truth)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -74,19 +76,6 @@ def sync_inline(app, data, check):
     return f"{'would write' if check else 'WROTE'} {app['name']}: {target} (between markers)"
 
 
-def open_handoffs():
-    """Open '- [ ]' items in HANDOFFS.md — kit changes still owed to another session."""
-    path = os.path.join(HERE, "HANDOFFS.md")
-    if not os.path.exists(path):
-        return []
-    items = []
-    for ln in open(path, encoding="utf-8"):
-        s = ln.strip()
-        if s.startswith("- [ ]"):
-            items.append(s.split("]", 1)[1].strip())
-    return items
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--app", help="only sync apps whose name contains this")
@@ -109,7 +98,7 @@ def main():
             print(f"  ERROR {app['name']}: {exc}")
     print("\nDone. (Edit the kit, re-run this, and every app updates.)")
 
-    pending = open_handoffs()
+    pending = handoffs.open_summary()
     if pending:
         print("\n⚠  OPEN HANDOFFS — these need another Claude session (see app-kit/HANDOFFS.md):")
         for p in pending:
